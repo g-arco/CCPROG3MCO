@@ -58,8 +58,8 @@ public class Driver
         Menu menu = new Menu(r, m);
 
         //GUIMain main = new GUIMain();
-        //MoneyFrame moneyF = new MoneyFrame();
-        MaintenanceFrame maitenanceF = new MaintenanceFrame();
+        MoneyFrame moneyF = new MoneyFrame();
+        //MaintenanceFrame maitenanceF = new MaintenanceFrame();
 
         /*
         do
