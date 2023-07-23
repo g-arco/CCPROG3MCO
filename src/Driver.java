@@ -57,7 +57,7 @@ public class Driver
 
         Menu menu = new Menu(r, m);
 
-        //GUIMain main = new GUIMain();
+        RVMFrame main = new RVMFrame();
         MoneyFrame moneyF = new MoneyFrame();
         //MaintenanceFrame maitenanceF = new MaintenanceFrame();
 
