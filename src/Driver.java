@@ -59,7 +59,7 @@ public class Driver
 
         //GUIMain main = new GUIMain();
         //MoneyFrame moneyF = new MoneyFrame();
-        //MaintenanceFrame maitenanceF = new MaintenanceFrame();
+        MaintenanceFrame maitenanceF = new MaintenanceFrame();
 
         /*
         do
