@@ -11,7 +11,7 @@ public class Driver
 
     public static void main (String args[])
     {
-        Item Ice = new Item(0, 30, "Ice");
+        /*Item Ice = new Item(0, 30, "Ice");
         Item Milk = new Item(80, 25, "Evaporated milk");
         Item VanillaIC = new Item(111, 25, "Vanilla ice cream");
         Item RiceKrispie = new Item(7, 10, "Rice krispie");
@@ -53,7 +53,26 @@ public class Driver
         slots.add(YamSlots);
         Money money[] = {money1000, money500, money200, money100, money50, money20, money10, money5, money1};
         RVM r = new RVM(slots, money);
-        Maintenance m = new Maintenance(slots, money);
+        Maintenance m = new Maintenance(slots, money);*/
+
+
+        /* Some crazy polymorphism: */
+
+
+        // these are for testing only:
+        Item ice = new Ice(5, 0, "Ice", false);
+        Item evapMilk = new EvapMilk(0, 80, "Evaporated Milk", false);
+        Item vanIceCream = new IceCream(25, 111, "Vanilla Ice Cream", true, "Vanilla");
+        Item riKi = new RiceKrispie(10, 10, "Rice Krispie", false);
+        Item banana = new Banana(10, 8, "Banana", true);
+        Item coco = new Coconut(15, 17, "Coconut", true);
+        Item mung = new MungBeans(15, 12, "Mung Beans", true);
+        Item yam = new Yam(15, 15, "Yam", false);
+
+        Maintenance m = new Maintenance();
+
+        ItemSlot iceSlot = new ItemSlot(ice);
+
 
         Menu menu = new Menu(r, m);
 
