@@ -12,6 +12,6 @@ public class VendingMachine
 
     public void testDisplayItems()
     {
-        
+        System.out.println("Hello world!");
     }
 }
