@@ -5,27 +5,22 @@
  */
 public class Item
 {
-    /**
-     * calories = int value of the number of calories of an item
-     * price = the int value of the price of an item
-     * name = the name of the item
-     */
-    private int calories;
-    private int price;
-    private String name;
+    protected int price;
+    protected int calories;
+    protected String name;
+    protected boolean soldAlone;
 
-    /**
-     * Constructor method for class Item
-     *
-     * @param calories the amount of calories of an item
-     * @param price the price of an item
-     * @param name the name of an item
-     */
-    public Item(int calories, int price, String name)
+    public Item (int price, int calories, String name, boolean soldAlone)
     {
-        this.calories = calories;
         this.price = price;
+        this.calories = calories;
         this.name = name;
+        this.soldAlone = soldAlone;
+    }
+
+    public void ItemPreparation()
+    {
+        System.out.println(name+" is being prepared...");
     }
 
     /**
@@ -33,7 +28,7 @@ public class Item
      *
      * @param price the new price of the Item
      */
-    public void changePrice(int price)
+    public void setPrice(int price)
     {
         this.price = price;
     }
@@ -45,7 +40,7 @@ public class Item
      */
     public int getCalories()
     {
-        return calories;
+        return this.calories;
     }
     /**
      * Getter to return the value of price of Item class
@@ -55,7 +50,7 @@ public class Item
 
     public int getPrice()
     {
-        return price;
+        return this.price;
     }
     /**
      * Getter to return the name of the object of Item class
@@ -64,6 +59,11 @@ public class Item
      */
     public String getName()
     {
-        return name;
+        return this.name;
+    }
+
+    public boolean getSoldAlone()
+    {
+        return this.soldAlone;
     }
 }
