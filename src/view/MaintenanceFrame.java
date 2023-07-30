@@ -1,3 +1,5 @@
+package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -32,11 +34,6 @@ public class MaintenanceFrame extends JFrame{
         showDesc.setForeground(Color.black);
         showDesc.setBounds(0,26,612,50);
 
-        JButton btnCLick = new JButton();
-        btnCLick.setBounds(410,218,42,55);
-        btnCLick.setMargin(new Insets(0, 0, 0, 0));
-        btnCLick.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
-        btnCLick.setText("Purchase");
 
         RVMbg = new ImageIcon(getClass().getResource("/resources/RVM_bg.jpg"));
         Image img = RVMbg.getImage();
@@ -107,24 +104,24 @@ public class MaintenanceFrame extends JFrame{
         availVanillaIClb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
 
 //=====================================================================================================
-        ImageIcon rcImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
-        JLabel pixelRC = new JLabel(rcImg);
-        pixelRC.setBounds(303, 157, 50, 40); //+72 down
-        pixelRC.addMouseListener(new MouseAdapter() {
+        ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
+        JLabel pixelRK = new JLabel(rkImg);
+        pixelRK.setBounds(303, 157, 50, 40); //+72 down
+        pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Rice Krispie (PHP 10 || 10 Calories)", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rcImg);
+                JOptionPane.showMessageDialog(maintenance, "Rice Krispie (PHP 10 || 10 Calories)", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
             }
         });
 
-        JLabel rcStocklb = new JLabel("In-Stock: ");
-        rcStocklb.setBounds(304, 192, 40, 27); //+102 to the right
-        rcStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
-        rcStocklb.setForeground(Color.white);
-        JLabel availRClb = new JLabel("0");
-        availRClb.setForeground(Color.white);
-        availRClb.setBounds(342, 192, 40, 27);
-        availRClb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
+        JLabel rkStocklb = new JLabel("In-Stock: ");
+        rkStocklb.setBounds(304, 192, 40, 27); //+102 to the right
+        rkStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
+        rkStocklb.setForeground(Color.white);
+        JLabel availRKlb = new JLabel("0");
+        availRKlb.setForeground(Color.white);
+        availRKlb.setBounds(342, 192, 40, 27);
+        availRKlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
 
         //===============================================================================================
 
@@ -215,29 +212,41 @@ public class MaintenanceFrame extends JFrame{
         //=======================================================================================================================
 
         JButton btnRestock = new JButton();
-        btnRestock.setBounds(488, 100,74,80);
+        btnRestock.setBounds(488, 50,74,80);
         btnRestock.setMargin(new Insets(0,0,0,0));
         btnRestock.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnRestock.setText("<html><center> Restock <br/> an Item</center></html>");
 
         JButton btnSetPHP = new JButton("Set Price of an Item");
-        btnSetPHP.setBounds(488, 200,74,80);//+100 down
+        btnSetPHP.setBounds(488, 150,74,80);//+100 down
         btnSetPHP.setMargin(new Insets(0,0,0,0));
         btnSetPHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnSetPHP.setText("<html><center>Set <br/> Price <br/> of an Item</center> </html>");
 
         JButton btnCollectPHP = new JButton("Collect ALL Money");
-        btnCollectPHP.setBounds(488, 300,74,80);
+        btnCollectPHP.setBounds(488, 250,74,80);
         btnCollectPHP.setMargin(new Insets(0,0,0,0));
         btnCollectPHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnCollectPHP.setText("<html><center>Collect <br/> ALL Money </center> </html>");
+        ImageIcon moneyImg = new ImageIcon(getClass().getResource("/resources/pixel_1000.png"));
+        btnCollectPHP.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(maintenance, "Money Collected! [Vending Machine Total Money: 0]", "Money Collected", JOptionPane.INFORMATION_MESSAGE, moneyImg);
+            }
+        });
+
+        JButton btnStockMoney = new JButton("Stock Money");
+        btnStockMoney.setBounds(488, 350,74,80);
+        btnStockMoney.setMargin(new Insets(0,0,0,0));
+        btnStockMoney.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        btnStockMoney.setText("<html><center>Stock<br/>Money </center> </html>");
 
         JButton btnPrint = new JButton("Print Summary of Transactions");
-        btnPrint.setBounds(488, 400,74,80);
+        btnPrint.setBounds(488, 450,74,80);
         btnPrint.setMargin(new Insets(0,0,0,0));
         btnPrint.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnPrint.setText("<html><center>Print <br/> Summary of <br/> Transactions </center> </html>");
-
 
 
         JButton btnMain = new JButton(" Back to RVM Mode");
@@ -259,9 +268,9 @@ public class MaintenanceFrame extends JFrame{
         imgBg.add(vanillaICStocklb);
         imgBg.add(availVanillaIClb);
 
-        imgBg.add(pixelRC);
-        imgBg.add(rcStocklb);
-        imgBg.add(availRClb);
+        imgBg.add(pixelRK);
+        imgBg.add(rkStocklb);
+        imgBg.add(availRKlb);
 
         imgBg.add(pixelBanana);
         imgBg.add(bananaStocklb);
@@ -280,9 +289,9 @@ public class MaintenanceFrame extends JFrame{
         imgBg.add(ubeStocklb);
         imgBg.add(availUbelb);
 
-        imgBg.add(btnCLick);
         imgBg.add(btnRestock);
         imgBg.add(btnSetPHP);
+        imgBg.add(btnStockMoney);
         imgBg.add(btnCollectPHP);
         imgBg.add(btnPrint);
 

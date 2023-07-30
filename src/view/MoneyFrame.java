@@ -1,8 +1,9 @@
+package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class MoneyFrame extends JFrame{
 
@@ -29,6 +30,7 @@ public class MoneyFrame extends JFrame{
         moneyFrame.setSize(612, 612);
         moneyFrame.setLayout(null);
         moneyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         AmttoPaylb.setBounds(5,30, 190, 100);
         AmttoPaylb.setForeground(Color.black);

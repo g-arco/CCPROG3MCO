@@ -1,3 +1,5 @@
+package view;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -48,11 +50,12 @@ public class RVMFrame extends JFrame{
 
         ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
         JLabel pixelIce = new JLabel(iceImg);
+        int iceStock =0;
         pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Shaved Ice (PHP 5 || 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                JOptionPane.showMessageDialog(main, "Shaved Ice (PHP 5 || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
             }
         });
 
@@ -71,11 +74,12 @@ public class RVMFrame extends JFrame{
         //====================================================================================
         ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
         JLabel pixelEvaMilk = new JLabel(evamilkImg);
+        int evamilkStock = 0;
         pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
         pixelEvaMilk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Evaporated Milk (PHP 25 || 80 Calories)", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
+                JOptionPane.showMessageDialog(main, "Evaporated Milk (PHP 25 || 80 Calories || In Stock: "+evamilkStock+")", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
             }
         });
 
@@ -95,11 +99,12 @@ public class RVMFrame extends JFrame{
 
         ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
         JLabel pixelVanillaIC = new JLabel(vanillaICImg);
+        int vanillaICStock = 0;
         pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Vanilla Ice Cream (PHP 25 || 111 Calories)", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                JOptionPane.showMessageDialog(main, "Vanilla Ice Cream (PHP 25 || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
             }
         });
 
@@ -115,37 +120,39 @@ public class RVMFrame extends JFrame{
         String vanillaICAmtStr = getVanillaICAmt.getText();
         //vanillaICAmtStr = Integer.parseInt(iceAmtStr);
 //=====================================================================================================
-        ImageIcon rcImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
-        JLabel pixelRC = new JLabel(rcImg);
-        pixelRC.setBounds(303, 157, 50, 40); //+72 down
-        pixelRC.addMouseListener(new MouseAdapter() {
+        ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
+        JLabel pixelRK = new JLabel(rkImg);
+        int rkStock =0;
+        pixelRK.setBounds(303, 157, 50, 40); //+72 down
+        pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Rice Krispie (PHP 10 || 10 Calories)", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rcImg);
+                JOptionPane.showMessageDialog(main, "Rice Krispie (PHP 10 || 10 Calories || In Stock: "+rkStock+")", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
             }
         });
 
-        JLabel rcAmtlb = new JLabel("Amount: ");
-        rcAmtlb.setBounds(290, 192, 40, 27); //to the right +100
-        rcAmtlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
-        rcAmtlb.setForeground(Color.white);
-        JTextField getRCAmt = new JTextField("0",1);
-        getRCAmt.setBackground(Color.white);
-        getRCAmt.setForeground(Color.black);
-        getRCAmt.setBounds(318, 197, 40, 13);
-        getRCAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String rcAmtStr = getEvaMilkAmt.getText();
-        //rcAmtStr = Integer.parseInt(iceAmtStr);
+        JLabel rkAmtlb = new JLabel("Amount: ");
+        rkAmtlb.setBounds(290, 192, 40, 27); //to the right +100
+        rkAmtlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
+        rkAmtlb.setForeground(Color.white);
+        JTextField getRKAmt = new JTextField("0",1);
+        getRKAmt.setBackground(Color.white);
+        getRKAmt.setForeground(Color.black);
+        getRKAmt.setBounds(318, 197, 40, 13);
+        getRKAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
+        String rkAmtStr = getEvaMilkAmt.getText();
+        //rkAmtStr = Integer.parseInt(iceAmtStr);
 
         //===============================================================================================
 
         ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
         JLabel pixelBanana = new JLabel(bananaImg);
+        int bananaStock = 0;
         pixelBanana.setBounds(203, 232, 40, 40); //+75 down
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Banana (PHP 10 || 8 Calories)", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                JOptionPane.showMessageDialog(main, "Banana (PHP 10 || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
             }
         });
 
@@ -166,11 +173,12 @@ public class RVMFrame extends JFrame{
 
         ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
         JLabel pixelCoconut = new JLabel(coconutImg);
+        int coconutStock = 0;
         pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Coconut (PHP 15 || 17 Calories)", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                JOptionPane.showMessageDialog(main, "Coconut (PHP 15 || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
             }
         });
 
@@ -190,11 +198,12 @@ public class RVMFrame extends JFrame{
 
         ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
         JLabel pixelMonggo = new JLabel(monggoImg);
+        int monggoStock = 0;
         pixelMonggo.setBounds(203, 310, 40, 40); //+78 down
         pixelMonggo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Mung Beans (PHP 15 || 12 Calories)", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
+                JOptionPane.showMessageDialog(main, "Mung Beans (PHP 15 || 12 Calories || In Stock: "+monggoStock+")", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
             }
         });
 
@@ -214,11 +223,12 @@ public class RVMFrame extends JFrame{
 
         ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
         JLabel pixelUbe = new JLabel(ubeImg);
+        int ubeStock = 0;
         pixelUbe.setBounds(303, 310, 40, 40); //+72 down
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(main, "Purple Yam (PHP 15 || 15 Calories)", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                JOptionPane.showMessageDialog(main, "Purple Yam (PHP 15 || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
             }
         });
 
@@ -255,9 +265,9 @@ public class RVMFrame extends JFrame{
         imgBg.add(vanillaICAmtlb);
         imgBg.add(getVanillaICAmt);
 
-        imgBg.add(pixelRC);
-        imgBg.add(rcAmtlb);
-        imgBg.add(getRCAmt);
+        imgBg.add(pixelRK);
+        imgBg.add(rkAmtlb);
+        imgBg.add(getRKAmt);
 
         imgBg.add(pixelBanana);
         imgBg.add(bananaAmtlb);
