@@ -54,8 +54,8 @@ public class RVMFrame extends JFrame{
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, iceImg, options,options[1]);
+                String options[] ={"Get model.Item", "Go back"};
+                JOptionPane.showOptionDialog(main, "Shaved model.Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved model.Ice",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, iceImg, options,options[1]);
 
             }
         });
@@ -78,7 +78,7 @@ public class RVMFrame extends JFrame{
         pixelEvaMilk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
+                String options[] ={"Get model.Item", "Go back"};
                 JOptionPane.showOptionDialog(main, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, evamilkImg, options,options[1]);
 
             }
@@ -103,8 +103,8 @@ public class RVMFrame extends JFrame{
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Vanilla Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
+                String options[] ={"Get model.Item", "Go back"};
+                JOptionPane.showOptionDialog(main, "Vanilla model.Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla model.Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
             }
         });
 
@@ -125,7 +125,7 @@ public class RVMFrame extends JFrame{
         pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
+                String options[] ={"Get model.Item", "Go back"};
                 JOptionPane.showOptionDialog(main, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie" , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, rkImg, options,options[1]);
 
             }
@@ -149,8 +149,8 @@ public class RVMFrame extends JFrame{
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Banana (PHP "+bananaPrice+"  || 8 Calories)", "Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
+                String options[] ={"Get model.Item", "Go back"};
+                JOptionPane.showOptionDialog(main, "model.Banana (PHP "+bananaPrice+"  || 8 Calories)", "model.Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
 
             }
         });
@@ -173,8 +173,8 @@ public class RVMFrame extends JFrame{
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Coconut (PHP "+coconutPrice+" || 17 Calories)", "Coconut", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, coconutImg, options,options[1]);
+                String options[] ={"Get model.Item", "Go back"};
+                JOptionPane.showOptionDialog(main, "model.Coconut (PHP "+coconutPrice+" || 17 Calories)", "model.Coconut", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, coconutImg, options,options[1]);
 
             }
         });
@@ -198,7 +198,7 @@ public class RVMFrame extends JFrame{
         pixelMonggo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
+                String options[] ={"Get model.Item", "Go back"};
                 JOptionPane.showOptionDialog(main, "Mung Beans (PHP "+monggoPrice+" || 12 Calories)", "Mung Beans", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, monggoImg, options,options[1]);
             }
         });
@@ -221,8 +221,8 @@ public class RVMFrame extends JFrame{
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Purple Yam (PHP "+ubePrice+" || 15 Calories)", "Purple Yam", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, ubeImg, options,options[1]);
+                String options[] ={"Get model.Item", "Go back"};
+                JOptionPane.showOptionDialog(main, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories)", "Purple model.Yam", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, ubeImg, options,options[1]);
             }
         });
 
@@ -238,7 +238,7 @@ public class RVMFrame extends JFrame{
 
         //=======================================================================================================================
 
-        JButton btnMaintenance = new JButton("Maintenance Mode");
+        JButton btnMaintenance = new JButton("model.Maintenance Mode");
         btnMaintenance.setBounds(250, 550,120,20);
         btnMaintenance.setMargin(new Insets(0,0,0,0));
         btnMaintenance.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));

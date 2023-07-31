@@ -1,3 +1,7 @@
+package model;
+
+import model.Item;
+
 public class IceCream extends Item
 {
     private String flavor;

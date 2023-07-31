@@ -16,8 +16,8 @@ public class MaintenanceFrame extends JFrame{
         int iceAmt;
 
         //https://youtu.be/QXVyg7lY9r8
-        JFrame maintenance = new JFrame("Maintenance Menu");
-        JLabel showWelcome = new JLabel("Maintenance Mode");
+        JFrame maintenance = new JFrame("model.Maintenance Menu");
+        JLabel showWelcome = new JLabel("model.Maintenance Mode");
 
         maintenance.setSize(612, 612);
         maintenance.setLayout(null);
@@ -49,7 +49,7 @@ public class MaintenanceFrame extends JFrame{
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, " Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                JOptionPane.showMessageDialog(maintenance, " Shaved model.Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
             }
         });
 
@@ -94,7 +94,7 @@ public class MaintenanceFrame extends JFrame{
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                JOptionPane.showMessageDialog(maintenance, "Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories)", "Vanilla model.Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
             }
         });
 
@@ -137,7 +137,7 @@ public class MaintenanceFrame extends JFrame{
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Banana (PHP "+bananaPrice+" || 8 Calories)", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                JOptionPane.showMessageDialog(maintenance, "model.Banana (PHP "+bananaPrice+" || 8 Calories)", "model.Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
             }
         });
 
@@ -159,7 +159,7 @@ public class MaintenanceFrame extends JFrame{
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Coconut (PHP "+coconutPrice+" || 17 Calories)", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                JOptionPane.showMessageDialog(maintenance, "model.Coconut (PHP "+coconutPrice+" || 17 Calories)", "model.Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
             }
         });
 
@@ -204,7 +204,7 @@ public class MaintenanceFrame extends JFrame{
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Purple Yam (PHP "+ubePrice+" || 15 Calories)", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                JOptionPane.showMessageDialog(maintenance, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories)", "Purple model.Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
             }
         });
 
@@ -224,32 +224,32 @@ public class MaintenanceFrame extends JFrame{
         btnRestock.setBounds(488, 50,74,80);
         btnRestock.setMargin(new Insets(0,0,0,0));
         btnRestock.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-        btnRestock.setText("<html><center> Restock <br/> an Item</center></html>");
+        btnRestock.setText("<html><center> Restock <br/> an model.Item</center></html>");
 
-        JButton btnSetPHP = new JButton("Set Price of an Item");
+        JButton btnSetPHP = new JButton("Set Price of an model.Item");
         btnSetPHP.setBounds(488, 150,74,80);//+100 down
         btnSetPHP.setMargin(new Insets(0,0,0,0));
         btnSetPHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-        btnSetPHP.setText("<html><center>Set <br/> Price <br/> of an Item</center> </html>");
+        btnSetPHP.setText("<html><center>Set <br/> Price <br/> of an model.Item</center> </html>");
 
-        JButton btnCollectPHP = new JButton("Collect ALL Money");
+        JButton btnCollectPHP = new JButton("Collect ALL model.Money");
         btnCollectPHP.setBounds(488, 250,74,80);
         btnCollectPHP.setMargin(new Insets(0,0,0,0));
         btnCollectPHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-        btnCollectPHP.setText("<html><center>Collect <br/> ALL Money </center> </html>");
+        btnCollectPHP.setText("<html><center>Collect <br/> ALL model.Money </center> </html>");
         ImageIcon moneyImg = new ImageIcon(getClass().getResource("/resources/pixel_1000.png"));
         btnCollectPHP.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Money Collected! [Vending Machine Total Money: 0]", "Money Collected", JOptionPane.INFORMATION_MESSAGE, moneyImg);
+                JOptionPane.showMessageDialog(maintenance, "model.Money Collected! [Vending Machine Total model.Money: 0]", "model.Money Collected", JOptionPane.INFORMATION_MESSAGE, moneyImg);
             }
         });
 
-        JButton btnStockMoney = new JButton("Stock Money");
+        JButton btnStockMoney = new JButton("Stock model.Money");
         btnStockMoney.setBounds(488, 350,74,80);
         btnStockMoney.setMargin(new Insets(0,0,0,0));
         btnStockMoney.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-        btnStockMoney.setText("<html><center>Stock<br/>Money </center> </html>");
+        btnStockMoney.setText("<html><center>Stock<br/>model.Money </center> </html>");
 
         JButton btnPrint = new JButton("Print Summary of Transactions");
         btnPrint.setBounds(488, 450,74,80);

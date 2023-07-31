@@ -7,9 +7,9 @@ public class MoneyMaintenanceFrame extends JFrame{
 
     public MoneyMaintenanceFrame() {
 
-        JFrame moneyMFrame = new JFrame("Stock Money");
+        JFrame moneyMFrame = new JFrame("Stock model.Money");
         JButton btnDone = new JButton("Done Stocking");
-        JLabel showTitle = new JLabel("Stock Money");
+        JLabel showTitle = new JLabel("Stock model.Money");
         JLabel userDesc = new JLabel("<html><center>Input the AMOUNT YOU WANT TO ADD on the text fields<br/>for each bill/coin respectively!<center><html>");
         Font pesoFont = new Font("Comic Sans MS",Font.PLAIN,10);
         Font lbFont = new Font("Comic Sans MS", Font.PLAIN, 15);

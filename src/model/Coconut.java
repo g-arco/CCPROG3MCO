@@ -1,6 +1,10 @@
-public class Yam extends Item
+package model;
+
+import model.Item;
+
+public class Coconut extends Item
 {
-    public Yam(int price, int calories, String name, boolean soldAlone)
+    public Coconut(int price, int calories, String name, boolean soldAlone)
     {
         super(price, calories, name, soldAlone);
     }

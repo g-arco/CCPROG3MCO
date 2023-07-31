@@ -50,7 +50,7 @@ public class RestockItemFrame extends JFrame{
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(restockItem, "Shaved model.Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
 
@@ -101,7 +101,7 @@ public class RestockItemFrame extends JFrame{
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                    JOptionPane.showMessageDialog(restockItem, "Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla model.Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
                 }
             });
 
@@ -151,7 +151,7 @@ public class RestockItemFrame extends JFrame{
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Banana (PHP "+bananaPrice+" || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                    JOptionPane.showMessageDialog(restockItem, "model.Banana (PHP "+bananaPrice+" || 8 Calories || In Stock: "+bananaStock+")", "model.Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
                 }
             });
 
@@ -178,7 +178,7 @@ public class RestockItemFrame extends JFrame{
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                    JOptionPane.showMessageDialog(restockItem, "model.Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "model.Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
                 }
             });
 
@@ -230,7 +230,7 @@ public class RestockItemFrame extends JFrame{
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                    JOptionPane.showMessageDialog(restockItem, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple model.Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
                 }
             });
 

@@ -1,5 +1,7 @@
+package model;
+
 /**
- * This is the Item class and it provides the value, calories, and price of the given item to be stored in ItemSlots and sold by RVM.
+ * This is the model.Item class and it provides the value, calories, and price of the given item to be stored in ItemSlots and sold by RVM.
  *
  *
  */
@@ -24,9 +26,9 @@ public class Item
     }
 
     /**
-     * Setter to change price attribute of Item class
+     * Setter to change price attribute of model.Item class
      *
-     * @param price the new price of the Item
+     * @param price the new price of the model.Item
      */
     public void setPrice(int price)
     {
@@ -34,18 +36,18 @@ public class Item
     }
 
     /**
-     * Getter to return the value of calories of Item class
+     * Getter to return the value of calories of model.Item class
      *
-     * @return the value of price of Item class
+     * @return the value of price of model.Item class
      */
     public int getCalories()
     {
         return this.calories;
     }
     /**
-     * Getter to return the value of price of Item class
+     * Getter to return the value of price of model.Item class
      *
-     * @return the value of price of Item class
+     * @return the value of price of model.Item class
      */
 
     public int getPrice()
@@ -53,9 +55,9 @@ public class Item
         return this.price;
     }
     /**
-     * Getter to return the name of the object of Item class
+     * Getter to return the name of the object of model.Item class
      *
-     * @return the name of the object of Item class
+     * @return the name of the object of model.Item class
      */
     public String getName()
     {

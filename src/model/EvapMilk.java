@@ -1,3 +1,7 @@
+package model;
+
+import model.Item;
+
 public class EvapMilk extends Item
 {
     public EvapMilk(int price, int calories, String name, boolean soldAlone)

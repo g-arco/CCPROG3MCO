@@ -65,7 +65,7 @@ public class SpecialVMFrame extends JFrame {
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(main2, "Shaved model.Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
 
@@ -139,7 +139,7 @@ public class SpecialVMFrame extends JFrame {
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                    JOptionPane.showMessageDialog(main2, "Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla model.Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
                 }
             });
 
@@ -189,7 +189,7 @@ public class SpecialVMFrame extends JFrame {
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Banana (PHP "+bananaPrice+"  || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                    JOptionPane.showMessageDialog(main2, "model.Banana (PHP "+bananaPrice+"  || 8 Calories || In Stock: "+bananaStock+")", "model.Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
                 }
             });
 
@@ -216,7 +216,7 @@ public class SpecialVMFrame extends JFrame {
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                    JOptionPane.showMessageDialog(main2, "model.Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "model.Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
                 }
             });
 
@@ -268,7 +268,7 @@ public class SpecialVMFrame extends JFrame {
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                    JOptionPane.showMessageDialog(main2, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple model.Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
                 }
             });
 
@@ -286,7 +286,7 @@ public class SpecialVMFrame extends JFrame {
 
             //=======================================================================================================================
 
-            JButton btnMaintenance = new JButton("Maintenance Mode");
+            JButton btnMaintenance = new JButton("model.Maintenance Mode");
             btnMaintenance.setBounds(250, 550,120,20);
             btnMaintenance.setMargin(new Insets(0,0,0,0));
             btnMaintenance.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));

@@ -1,8 +1,12 @@
+package model;
+
+import model.ItemSlot;
+
 import java.util.ArrayList;
 
 public class VendingMachine
 {
-    private ArrayList<ItemSlots> itemSlots;
+    private ArrayList<ItemSlot> itemSlots;
 
     public VendingMachine()
     {
@@ -14,4 +18,5 @@ public class VendingMachine
     {
         System.out.println("Hello world!");
     }
+
 }

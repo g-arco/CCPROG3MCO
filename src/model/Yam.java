@@ -1,6 +1,10 @@
-public class MungBeans extends Item
+package model;
+
+import model.Item;
+
+public class Yam extends Item
 {
-    public MungBeans(int price, int calories, String name, boolean soldAlone)
+    public Yam(int price, int calories, String name, boolean soldAlone)
     {
         super(price, calories, name, soldAlone);
     }

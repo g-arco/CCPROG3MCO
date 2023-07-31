@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Scanner;
 
 public class Maintenance
@@ -34,7 +36,7 @@ public class Maintenance
 
         /*
          * Notes:
-         *  1. Add an instance of Money to MoneySlot n times.
+         *  1. Add an instance of model.Money to MoneySlot n times.
          */
     }
 }
