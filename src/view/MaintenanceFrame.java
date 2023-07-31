@@ -1,5 +1,7 @@
 package view;
 
+import controllers.MaintenanceController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,14 +11,17 @@ public class MaintenanceFrame extends JFrame{
 
     JLabel imgBg;
     ImageIcon RVMbg;
+    MaintenanceController controller;
+    JFrame maintenance;
 
 
 
     public MaintenanceFrame(){
         int iceAmt;
+        this.controller = new MaintenanceController(this);
 
         //https://youtu.be/QXVyg7lY9r8
-        JFrame maintenance = new JFrame("Maintenance Menu");
+        maintenance = new JFrame("Maintenance Menu");
         JLabel showWelcome = new JLabel("Maintenance Mode");
 
         maintenance.setSize(612, 612);
@@ -28,7 +33,7 @@ public class MaintenanceFrame extends JFrame{
         showWelcome.setHorizontalAlignment(JLabel.CENTER);
         showWelcome.setForeground(Color.red);
 
-        JLabel showDesc = new JLabel("<html> <center> Choose a maintenance action. <br/> Hover on items to see item details. <center> </html>", SwingConstants.CENTER);
+        JLabel showDesc = new JLabel("<html> <center> Choose a maintenance action. <br/> Hover on items to see item details.<center></html>", SwingConstants.CENTER);
         showDesc.setFont(new Font("Comic Sans MS",Font.PLAIN,8));
         showDesc.setVerticalAlignment(JLabel.TOP);
         showDesc.setHorizontalAlignment(JLabel.CENTER);
@@ -225,12 +230,24 @@ public class MaintenanceFrame extends JFrame{
         btnRestock.setMargin(new Insets(0,0,0,0));
         btnRestock.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnRestock.setText("<html><center> Restock <br/> an Item</center></html>");
+        btnRestock.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedStockItemBtn();
+            }
+        });
 
         JButton btnSetPHP = new JButton("Set Price of an Item");
         btnSetPHP.setBounds(488, 150,74,80);//+100 down
         btnSetPHP.setMargin(new Insets(0,0,0,0));
         btnSetPHP.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnSetPHP.setText("<html><center>Set <br/> Price <br/> of an Item</center> </html>");
+        btnSetPHP.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedPriceBtn();
+            }
+        });
 
         JButton btnCollectPHP = new JButton("Collect ALL Money");
         btnCollectPHP.setBounds(488, 250,74,80);
@@ -250,6 +267,12 @@ public class MaintenanceFrame extends JFrame{
         btnStockMoney.setMargin(new Insets(0,0,0,0));
         btnStockMoney.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnStockMoney.setText("<html><center>Stock<br/>Money </center> </html>");
+        btnStockMoney.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedMoneyStockBtn();
+            }
+        });
 
         JButton btnPrint = new JButton("Print Summary of Transactions");
         btnPrint.setBounds(488, 450,74,80);
@@ -312,18 +335,10 @@ public class MaintenanceFrame extends JFrame{
 
         maintenance.setVisible(true);
 
-
     }
 
-    public static void main(String args[])
+    public void setFrame(boolean bool)
     {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MaintenanceFrame().setVisible(true);
-            }
-        });
-
+        maintenance.setVisible(bool);
     }
-    
 }

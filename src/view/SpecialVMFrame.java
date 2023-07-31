@@ -65,7 +65,7 @@ public class SpecialVMFrame extends JFrame {
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Shaved model.Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(main2, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
 
@@ -79,7 +79,8 @@ public class SpecialVMFrame extends JFrame {
             getIceAmt.setForeground(Color.black);
             getIceAmt.setBounds(218, 125, 40, 13);
             getIceAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            getIceAmt.addActionListener(new ActionListener() {
+            /*
+              getIceAmt.addActionListener(new ActionListener() {
 
                 //something like
                 int newTotal = totalAmt;
@@ -100,8 +101,8 @@ public class SpecialVMFrame extends JFrame {
                 }
             });
 
-            /**
-            totalAmt = actionlistener.getNewTotal();**/
+
+            totalAmt = actionlistener.getNewTotal();*/
 
 
             //====================================================================================

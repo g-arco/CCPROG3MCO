@@ -1,5 +1,7 @@
 package view;
 
+import controllers.MaintenanceController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,13 +11,18 @@ public class SetPriceFrame extends JFrame{
 
         JLabel imgBg;
         ImageIcon RVMbg;
+        MaintenanceController controller;
+        MaintenanceFrame sourceFrame;
 
 
-        public SetPriceFrame(){
+        public SetPriceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
+
+            this.controller = controller;
+            this.sourceFrame = sourceFrame;
 
             //https://youtu.be/QXVyg7lY9r8
-            JFrame setPrice = new JFrame("Set model.Item Price");
-            JLabel showWelcome = new JLabel("Set model.Item Price");
+            JFrame setPrice = new JFrame("Set Item Price");
+            JLabel showWelcome = new JLabel("Set Item Price");
 
             setPrice.setSize(612, 612);
             setPrice.setLayout(null);
@@ -48,7 +55,7 @@ public class SetPriceFrame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Object iceNewPrice;
-                    iceNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Shaved model.Ice (PHP "+icePrice+" || 0 Calories)<br/>Enter new price: </html>", "Shaved model.Ice", JOptionPane.PLAIN_MESSAGE, iceImg, null, icePrice);
+                    iceNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Shaved Ice (PHP "+icePrice+" || 0 Calories)<br/>Enter new price: </html>", "Shaved Ice", JOptionPane.PLAIN_MESSAGE, iceImg, null, icePrice);
                     /* ********************** controller should have something like *******************************************
                     if(iceNewPrice!=null & Integer.parseInt(iceNewPrice.toString())!=icePrice)
                        icePrice = Integer.parseInt(iceNewPrice.toString());*/
@@ -91,7 +98,7 @@ public class SetPriceFrame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Object vanillaICNewPrice;
-                    vanillaICNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories))<br/>Enter new price: </html>", "Vanilla model.Ice Cream", JOptionPane.PLAIN_MESSAGE, vanillaICImg, null, vanillaICPrice);
+                    vanillaICNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories))<br/>Enter new price: </html>", "Vanilla Ice Cream", JOptionPane.PLAIN_MESSAGE, vanillaICImg, null, vanillaICPrice);
 
                 }
             });
@@ -130,7 +137,7 @@ public class SetPriceFrame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Object bananaNewPrice;
-                    bananaNewPrice=JOptionPane.showInputDialog(setPrice, "<html>model.Banana (PHP "+bananaPrice+" || 8 Calories)<br/>Enter new price: </html>", "model.Banana", JOptionPane.PLAIN_MESSAGE, bananaImg, null, bananaPrice);
+                    bananaNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Banana (PHP "+bananaPrice+" || 8 Calories)<br/>Enter new price: </html>", "Banana", JOptionPane.PLAIN_MESSAGE, bananaImg, null, bananaPrice);
 
                 }
             });
@@ -150,7 +157,7 @@ public class SetPriceFrame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Object coconutNewPrice;
-                    coconutNewPrice=JOptionPane.showInputDialog(setPrice, "<html>model.Coconut (PHP "+coconutPrice+" || 17 Calories)<br/>Enter new price: </html>", "model.Coconut", JOptionPane.PLAIN_MESSAGE, coconutImg, null, coconutPrice);
+                    coconutNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Coconut (PHP "+coconutPrice+" || 17 Calories)<br/>Enter new price: </html>", "Coconut", JOptionPane.PLAIN_MESSAGE, coconutImg, null, coconutPrice);
                 }
             });
 
@@ -188,7 +195,7 @@ public class SetPriceFrame extends JFrame{
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     Object ubeNewPrice;
-                    ubeNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Purple model.Yam (PHP "+ubePrice+" || 15 Calories)<br/>Enter new price: </html>", "Purple model.Yam", JOptionPane.PLAIN_MESSAGE, ubeImg, null, ubePrice);
+                    ubeNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Purple Yam (PHP "+ubePrice+" || 15 Calories)<br/>Enter new price: </html>", "Purple Yam", JOptionPane.PLAIN_MESSAGE, ubeImg, null, ubePrice);
 
                 }
             });
@@ -204,6 +211,12 @@ public class SetPriceFrame extends JFrame{
             btnDone.setBounds(250, 550,120,20);
             btnDone.setMargin(new Insets(0,0,0,0));
             btnDone.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            btnDone.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.pushedDone(setPrice, "setPriceFrame");
+                }
+            });
 
 
 
@@ -244,16 +257,15 @@ public class SetPriceFrame extends JFrame{
 
         }
 
-        public static void main(String args[])
-        {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new view.SetPriceFrame().setVisible(true);
-                }
-            });
+    public void setFrame(boolean bool)
+    {
+        this.setVisible(bool);
+    }
 
-        }
+    public JFrame getFrame(){
+        return this;
+    }
+
 
 
 }

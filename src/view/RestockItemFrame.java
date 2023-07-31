@@ -1,5 +1,7 @@
 package view;
 
+import controllers.MaintenanceController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,10 +11,14 @@ public class RestockItemFrame extends JFrame{
 
         JLabel imgBg;
         ImageIcon RVMbg;
+        MaintenanceController controller;
+        MaintenanceFrame sourceFrame;
 
 
-        public RestockItemFrame(){
+        public RestockItemFrame(MaintenanceFrame sourceFrame,MaintenanceController controller){
             int iceAmt;
+            this.controller = controller;
+            this.sourceFrame = sourceFrame;
 
             //https://youtu.be/QXVyg7lY9r8
             JFrame restockItem = new JFrame("Restock Items");
@@ -252,6 +258,12 @@ public class RestockItemFrame extends JFrame{
             btnDone.setBounds(250, 550,120,20);
             btnDone.setMargin(new Insets(0,0,0,0));
             btnDone.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            btnDone.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.pushedDone(restockItem, "restockItemFrame");
+                }
+            });
 
 
 
@@ -298,15 +310,15 @@ public class RestockItemFrame extends JFrame{
 
         }
 
-        public static void main(String args[])
-        {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new RestockItemFrame().setVisible(true);
-                }
-            });
+        public void setFrame(boolean bool)
+    {
+        this.setVisible(bool);
+    }
 
+        public JFrame getFrame(){
+            return this;
         }
+
 
 
 }

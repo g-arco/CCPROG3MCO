@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import controllers.MaintenanceController;
 import model.*;
 import view.*;
+import controllers.*;
 
 
 public class Driver
@@ -77,11 +80,14 @@ public class Driver
         ItemSlot iceSlot = new ItemSlot(ice);
 
 
-        Menu menu = new Menu(r, m);
+        //Menu menu = new Menu(r, m);
 
-        RVMFrame main = new RVMFrame();
-        MoneyFrame moneyF = new MoneyFrame();
-        //MaintenanceFrame maitenanceF = new MaintenanceFrame();
+        //RVMFrame main = new RVMFrame();
+        //MoneyFrame moneyF = new MoneyFrame();
+        MaintenanceFrame maintenanceF= new MaintenanceFrame();
+
+
+        //MaintenanceController maintenanceC= new MaintenanceController(m, maintenanceF);
 
         /*
         do

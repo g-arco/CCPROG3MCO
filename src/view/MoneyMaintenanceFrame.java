@@ -1,15 +1,26 @@
 package view;
 
+import controllers.MaintenanceController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MoneyMaintenanceFrame extends JFrame{
 
-    public MoneyMaintenanceFrame() {
+    MaintenanceController controller;
+    MaintenanceFrame sourceFrame;
 
-        JFrame moneyMFrame = new JFrame("Stock model.Money");
+
+    public MoneyMaintenanceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller) {
+
+        this.controller = controller;
+        this.sourceFrame = sourceFrame;
+
+        JFrame moneyMFrame = new JFrame("Stock Money");
         JButton btnDone = new JButton("Done Stocking");
-        JLabel showTitle = new JLabel("Stock model.Money");
+        JLabel showTitle = new JLabel("Stock Money");
         JLabel userDesc = new JLabel("<html><center>Input the AMOUNT YOU WANT TO ADD on the text fields<br/>for each bill/coin respectively!<center><html>");
         Font pesoFont = new Font("Comic Sans MS",Font.PLAIN,10);
         Font lbFont = new Font("Comic Sans MS", Font.PLAIN, 15);
@@ -31,6 +42,13 @@ public class MoneyMaintenanceFrame extends JFrame{
         btnDone.setBounds(240, 420,120,20);
         btnDone.setMargin(new Insets(0,0,0,0));
         btnDone.setFont(lbFont);
+        btnDone.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedDone(moneyMFrame, "moneyMaintenanceFrame");
+            }
+        });
+
 
         //========================
 
@@ -246,14 +264,13 @@ public class MoneyMaintenanceFrame extends JFrame{
         moneyMFrame.setVisible(true);
     }
 
-    public static void main(String args[])
+    public void setFrame(boolean bool)
     {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new MoneyMaintenanceFrame().setVisible(true);}
-        });
+        this.setVisible(bool);
+    }
 
+    public JFrame getFrame(){
+        return this;
     }
 
 
