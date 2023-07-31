@@ -37,7 +37,7 @@ public class Maintenance
 
     public void collectMoney(MoneySlot m) // update parameters if needed.
     {
-        ArrayList<Money> n = m.getSlot;
+        ArrayList<Money> n = m.getSlot();
         n.clear();
     }
 

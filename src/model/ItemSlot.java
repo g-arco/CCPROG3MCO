@@ -8,21 +8,35 @@ public class ItemSlot
 {
     private ArrayList<Item> items;
     private int quantity;
+    private String name;
+    private boolean canSell;
+    private Item item;
 
     public ItemSlot(Item i)
     {
         this.items = new ArrayList<Item>();
-        this.items.add(i);
-        this.quantity = 10;
+        this.quantity = 5;
+        name = i.getName();
+        canSell = i.getSoldAlone();
+
+        for(int counter = 0; counter < 5; counter++)
+        {
+            this.items.add(i);
+        }
     }
 
-    // or alternatively, create a new instance of an item of the same type when this is called.
-    public boolean addItem(Item item)
+    // use polymorphism.
+    public boolean addItem(int amount)
     {
-        if (quantity < 10)
+        if (quantity + amount <= 10)
         {
-            items.add(item);
-            quantity++;
+            do
+            {
+                items.add(item);
+                quantity++;
+                amount--;
+            } while(amount != 0);
+
             return true;
         }
 
@@ -34,7 +48,7 @@ public class ItemSlot
     {
         if (items.isEmpty() == false)
         {
-            // ITEM IS BEING DISPENSED (AKA IT IS BEING "DELETED")
+            items.remove(quantity);
             return true;
         }
 
@@ -45,5 +59,25 @@ public class ItemSlot
     public int getQuantity()
     {
         return this.quantity;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public boolean getCanSell()
+    {
+        return this.canSell;
+    }
+
+    public ArrayList<Item> getArrayList()
+    {
+        return this.items;
+    }
+
+    public Item getItem()
+    {
+        return this.item;
     }
 }
