@@ -11,6 +11,7 @@ public class MaintenanceFrame extends JFrame{
     ImageIcon RVMbg;
 
 
+
     public MaintenanceFrame(){
         int iceAmt;
 
@@ -43,11 +44,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
         JLabel pixelIce = new JLabel(iceImg);
+        int icePrice = 5;//can be changed
         pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Shaved Ice (PHP 5 || 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                JOptionPane.showMessageDialog(maintenance, " Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
             }
         });
 
@@ -64,11 +66,12 @@ public class MaintenanceFrame extends JFrame{
         //====================================================================================
         ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
         JLabel pixelEvaMilk = new JLabel(evamilkImg);
+        int evamilkPrice = 25;
         pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
         pixelEvaMilk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Evaporated Milk (PHP 25 || 80 Calories)", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
+                JOptionPane.showMessageDialog(maintenance, ">Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
             }
         });
 
@@ -86,11 +89,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
         JLabel pixelVanillaIC = new JLabel(vanillaICImg);
+        int vanillaICPrice = 25;
         pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Vanilla Ice Cream (PHP 25 || 111 Calories)", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                JOptionPane.showMessageDialog(maintenance, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
             }
         });
 
@@ -106,11 +110,12 @@ public class MaintenanceFrame extends JFrame{
 //=====================================================================================================
         ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
         JLabel pixelRK = new JLabel(rkImg);
+        int rkPrice = 10;
         pixelRK.setBounds(303, 157, 50, 40); //+72 down
         pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Rice Krispie (PHP 10 || 10 Calories)", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
+                JOptionPane.showMessageDialog(maintenance, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
             }
         });
 
@@ -127,11 +132,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
         JLabel pixelBanana = new JLabel(bananaImg);
+        int bananaPrice = 10;
         pixelBanana.setBounds(203, 232, 40, 40); //+75 down
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Banana (PHP 10 || 8 Calories)", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                JOptionPane.showMessageDialog(maintenance, "Banana (PHP "+bananaPrice+" || 8 Calories)", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
             }
         });
 
@@ -148,11 +154,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
         JLabel pixelCoconut = new JLabel(coconutImg);
+        int coconutPrice = 15;
         pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Coconut (PHP 15 || 17 Calories)", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                JOptionPane.showMessageDialog(maintenance, "Coconut (PHP "+coconutPrice+" || 17 Calories)", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
             }
         });
 
@@ -170,11 +177,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
         JLabel pixelMonggo = new JLabel(monggoImg);
+        int monggoPrice = 15;
         pixelMonggo.setBounds(203, 311, 40, 40); //+79 down
         pixelMonggo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Mung Beans (PHP 15 || 12 Calories)", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
+                JOptionPane.showMessageDialog(maintenance, "Mung Beans (PHP "+monggoPrice+"  || 12 Calories)", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
             }
         });
 
@@ -191,11 +199,12 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
         JLabel pixelUbe = new JLabel(ubeImg);
+        int ubePrice = 15;
         pixelUbe.setBounds(303, 311, 40, 40); //+79 down
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, "Purple Yam (PHP 15 || 15 Calories)", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                JOptionPane.showMessageDialog(maintenance, "Purple Yam (PHP "+ubePrice+" || 15 Calories)", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
             }
         });
 

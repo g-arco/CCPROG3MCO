@@ -2,45 +2,60 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class RestockItemFrame extends JFrame{
+public class SpecialVMFrame extends JFrame {
 
         JLabel imgBg;
-        ImageIcon RVMbg;
+        ImageIcon SVMbg;
 
 
-        public RestockItemFrame(){
-            int iceAmt;
+
+        public SpecialVMFrame(){
+
+            int totalAmt=0;
 
             //https://youtu.be/QXVyg7lY9r8
-            JFrame restockItem = new JFrame("Restock Items");
-            JLabel showWelcome = new JLabel("Restock Items");
-            //JButton bthClick = new JButton();
+            JFrame main2 = new JFrame("Special Main Menu");
+            JLabel showWelcome = new JLabel("Welcome to Halo-Halo Zone");
+            JButton bthClick = new JButton();
 
-            restockItem.setSize(612, 612);
-            restockItem.setLayout(null);
-            restockItem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            main2.setSize(612, 612);
+            main2.setLayout(null);
+            main2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             showWelcome.setBounds(0,0,612,30);
             showWelcome.setFont(new Font("Comic Sans MS", Font.PLAIN, 25));
             showWelcome.setHorizontalAlignment(JLabel.CENTER);
             showWelcome.setForeground(Color.red);
 
-            JLabel showDesc = new JLabel("<html> <center> Input the AMOUNT OF STOCK YOU WAN TO ADD! <br/> Hover on items to see item details. </center> </html>", SwingConstants.CENTER);
+            JLabel showDesc = new JLabel("<html> <center> You may customize your Halo-Halo by selecting items. <br/> Hover on items to see which are available " +
+                    "to purchase on their own and their respective name, price, and calorie count.</center> </html>", SwingConstants.CENTER);
             showDesc.setFont(new Font("Comic Sans MS",Font.PLAIN,8));
             showDesc.setVerticalAlignment(JLabel.TOP);
             showDesc.setHorizontalAlignment(JLabel.CENTER);
             showDesc.setForeground(Color.black);
             showDesc.setBounds(0,26,612,50);
 
+            JButton btnCLick = new JButton();
+            btnCLick.setBounds(410,218,42,55);
+            btnCLick.setMargin(new Insets(0, 0, 0, 0));
+            btnCLick.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
+            btnCLick.setText("Purchase");
 
-            RVMbg = new ImageIcon(getClass().getResource("/resources/RVM_bg.jpg"));
-            Image img = RVMbg.getImage();
+            JLabel AmttoPaylb = new JLabel("<html>Total Amount: "+totalAmt+" PHP </html>");
+            AmttoPaylb.setBounds(488, 170,74,80);
+            AmttoPaylb.setForeground(Color.black);
+            AmttoPaylb.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
+
+            SVMbg = new ImageIcon(getClass().getResource("/resources/RVM_bg.jpg"));
+            Image img = SVMbg.getImage();
             Image temp_img = img.getScaledInstance(612,612,Image.SCALE_SMOOTH);
-            RVMbg = new ImageIcon(temp_img);
-            imgBg = new JLabel("",RVMbg,JLabel.CENTER);
+            SVMbg = new ImageIcon(temp_img);
+            imgBg = new JLabel("",SVMbg,JLabel.CENTER);
 
             ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
             JLabel pixelIce = new JLabel(iceImg);
@@ -50,9 +65,10 @@ public class RestockItemFrame extends JFrame{
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(main2, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
+
 
             JLabel iceAmtlb = new JLabel("Amount: ");
             iceAmtlb.setBounds(190, 120, 40, 27); //paint coordinates; 208 (-23), 120(-18)
@@ -63,8 +79,30 @@ public class RestockItemFrame extends JFrame{
             getIceAmt.setForeground(Color.black);
             getIceAmt.setBounds(218, 125, 40, 13);
             getIceAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String iceAmtStr = getIceAmt.getText();
-            //iceAmt = Integer.parseInt(iceAmtStr);
+            getIceAmt.addActionListener(new ActionListener() {
+
+                //something like
+                int newTotal = totalAmt;
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String iceAmtStr = getIceAmt.getText();
+                    int newTotal = totalAmt;
+                    int iceAmt = Integer.parseInt(iceAmtStr);
+                    if (iceAmt > 0) {
+                        newTotal = totalAmt + icePrice * iceAmt;
+                    }
+                    AmttoPaylb.setText("<html>Total Amount: "+newTotal+" PHP </html>");
+                }
+
+                public int getNewTotal()
+                {
+                    return newTotal;
+                }
+            });
+
+            /**
+            totalAmt = actionlistener.getNewTotal();**/
+
 
             //====================================================================================
             ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
@@ -75,7 +113,7 @@ public class RestockItemFrame extends JFrame{
             pixelEvaMilk.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories || In Stock: "+evamilkStock+")", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
+                    JOptionPane.showMessageDialog(main2, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories || In Stock: "+evamilkStock+")", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
                 }
             });
 
@@ -101,7 +139,7 @@ public class RestockItemFrame extends JFrame{
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                    JOptionPane.showMessageDialog(main2, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
                 }
             });
 
@@ -125,7 +163,7 @@ public class RestockItemFrame extends JFrame{
             pixelRK.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Rice Krispie (PHP "+rkPrice+" || 10 Calories || In Stock: "+rkStock+")", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
+                    JOptionPane.showMessageDialog(main2, "Rice Krispie (PHP "+rkPrice+"  || 10 Calories || In Stock: "+rkStock+")", "Rice Krispie", JOptionPane.INFORMATION_MESSAGE, rkImg);
                 }
             });
 
@@ -151,7 +189,7 @@ public class RestockItemFrame extends JFrame{
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Banana (PHP "+bananaPrice+" || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                    JOptionPane.showMessageDialog(main2, "Banana (PHP "+bananaPrice+"  || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
                 }
             });
 
@@ -178,7 +216,7 @@ public class RestockItemFrame extends JFrame{
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                    JOptionPane.showMessageDialog(main2, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
                 }
             });
 
@@ -204,7 +242,7 @@ public class RestockItemFrame extends JFrame{
             pixelMonggo.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Mung Beans (PHP "+monggoPrice+" || 12 Calories || In Stock: "+monggoStock+")", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
+                    JOptionPane.showMessageDialog(main2, "Mung Beans (PHP "+monggoPrice+" || 12 Calories || In Stock: "+monggoStock+")", "Mung Beans", JOptionPane.INFORMATION_MESSAGE, monggoImg);
                 }
             });
 
@@ -230,7 +268,7 @@ public class RestockItemFrame extends JFrame{
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                    JOptionPane.showMessageDialog(main2, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
                 }
             });
 
@@ -248,10 +286,16 @@ public class RestockItemFrame extends JFrame{
 
             //=======================================================================================================================
 
-            JButton btnDone = new JButton("Done Stocking");
-            btnDone.setBounds(250, 550,120,20);
-            btnDone.setMargin(new Insets(0,0,0,0));
-            btnDone.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            JButton btnMaintenance = new JButton("Maintenance Mode");
+            btnMaintenance.setBounds(250, 550,120,20);
+            btnMaintenance.setMargin(new Insets(0,0,0,0));
+            btnMaintenance.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+
+            JButton btnSwitch = new JButton("Switch to Regular Vending Machine");
+            btnSwitch.setBounds(488, 250,74,80);
+            btnSwitch.setMargin(new Insets(0,0,0,0));
+            btnSwitch.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            btnSwitch.setText("<html><center>Switch to Regular<br/> Vending Machine </center> </html>");
 
 
 
@@ -287,13 +331,16 @@ public class RestockItemFrame extends JFrame{
             imgBg.add(ubeAmtlb);
             imgBg.add(getUbeAmt);
 
-            imgBg.add(btnDone);
+            imgBg.add(btnCLick);
+            imgBg.add(btnSwitch);
+            imgBg.add(AmttoPaylb);
+            imgBg.add(btnMaintenance);
             imgBg.add(showWelcome);
             imgBg.add(showDesc);
             imgBg.setBounds(0,0,600,600);
-            restockItem.add(imgBg);
+            main2.add(imgBg);
 
-            restockItem.setVisible(true);
+            main2.setVisible(true);
 
 
         }
@@ -302,13 +349,10 @@ public class RestockItemFrame extends JFrame{
         {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new RestockItemFrame().setVisible(true);
+                    new view.SpecialVMFrame().setVisible(true);
                 }
             });
 
         }
 
-
 }
-
-
