@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Maintenance
@@ -18,25 +19,36 @@ public class Maintenance
 
     public void restockItem(ItemSlot i)
     {
-        // some stuff
-        /*
-         * Notes:
-         *  1. Actually add an instance of an item to itemslot n times.
-         */
+        Scanner s = new Scanner(System.in);
+        int dAmount;
+        boolean result;
+
+        System.out.println("Insert amount to restock");
+        dAmount = s.nextInt();
+
+        result = i.addItem(dAmount);
+
+        if(result)
+            System.out.println("Success!");
+        else
+            System.out.println("Item slot is full!");
+
     }
 
-    public void collectMoney() // update parameters if needed.
+    public void collectMoney(MoneySlot m) // update parameters if needed.
     {
-        // nullify or "delete" n instances of the object.
+        ArrayList<Money> n = m.getSlot;
+        n.clear();
     }
 
-    public void replenishMoney() // update parameters if needed
+    public void replenishMoney(MoneySlot ms) // update parameters if needed
     {
-        // some stuff
+        Scanner s = new Scanner(System.in);
+        int dAmount;
 
-        /*
-         * Notes:
-         *  1. Add an instance of model.Money to MoneySlot n times.
-         */
+        System.out.println("Insert amount to replenish");
+        dAmount = s.nextInt();
+
+        ms.getReplenished(dAmount);
     }
 }
