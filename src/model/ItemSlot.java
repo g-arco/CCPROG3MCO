@@ -11,6 +11,7 @@ public class ItemSlot
     private String name;
     private boolean canSell;
     private Item item;
+    private int toSell;
 
     public ItemSlot(Item i)
     {
@@ -18,6 +19,7 @@ public class ItemSlot
         this.quantity = 5;
         name = i.getName();
         canSell = i.getSoldAlone();
+        this.item = i;
 
         for(int counter = 0; counter < 5; counter++)
         {
@@ -28,7 +30,10 @@ public class ItemSlot
     // use polymorphism.
     public boolean addItem(int amount)
     {
-        if (quantity + amount <= 10)
+        if(amount <= 0)
+            return false;
+
+        else if (quantity + amount <= 10)
         {
             do
             {
@@ -36,6 +41,8 @@ public class ItemSlot
                 quantity++;
                 amount--;
             } while(amount != 0);
+
+            this.toSell = 0;
 
             return true;
         }
@@ -48,12 +55,30 @@ public class ItemSlot
     {
         if (items.isEmpty() == false)
         {
-            items.remove(quantity);
+            items.remove(quantity-1);
+            quantity--;
+            setToSell(this.toSell-1);
             return true;
         }
 
         else
             return false;
+    }
+
+    public void setToSell(int i)
+    {
+        this.toSell = i;
+    }
+
+    public void cancelOrder()
+    {
+        this.toSell = 0;
+        this.quantity = items.size();
+    }
+
+    public int getToSell()
+    {
+        return this.toSell;
     }
 
     public int getQuantity()

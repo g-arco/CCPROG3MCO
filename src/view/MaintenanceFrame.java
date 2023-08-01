@@ -1,11 +1,13 @@
 package view;
 
-import controllers.MaintenanceController;
+import controllers.*;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class MaintenanceFrame extends JFrame{
 
@@ -13,12 +15,17 @@ public class MaintenanceFrame extends JFrame{
     ImageIcon RVMbg;
     MaintenanceController controller;
     JFrame maintenance;
+    ArrayList<MoneySlot> moneyCurr;
+    ArrayList<ItemSlot> itemsCurr;
+    JLabel availIcelb, availEvaMilklb, availVanillaIClb, availRKlb, availBananalb, availCoconutlb, availMonggolb, availUbelb;
 
 
 
-    public MaintenanceFrame(){
+    public MaintenanceFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, MaintenanceController controller){
         int iceAmt;
-        this.controller = new MaintenanceController(this);
+        this.controller = controller;
+        this.moneyCurr = moneyCurr;
+        this.itemsCurr = itemsCurr;
 
         //https://youtu.be/QXVyg7lY9r8
         maintenance = new JFrame("Maintenance Menu");
@@ -49,12 +56,13 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
         JLabel pixelIce = new JLabel(iceImg);
-        int icePrice = 5;//can be changed
+        int icePrice = this.itemsCurr.get(0).getItem().getPrice();
+
         pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, " Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                JOptionPane.showMessageDialog(maintenance, "Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
             }
         });
 
@@ -63,7 +71,7 @@ public class MaintenanceFrame extends JFrame{
         iceStocklb.setBounds(205, 120, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         iceStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         iceStocklb.setForeground(Color.white);
-        JLabel availIcelb = new JLabel("0");
+        availIcelb = new JLabel(this.itemsCurr.get(0).getQuantity()+"");
         availIcelb.setForeground(Color.white);
         availIcelb.setBounds(243, 120, 40, 27);
         availIcelb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -71,12 +79,13 @@ public class MaintenanceFrame extends JFrame{
         //====================================================================================
         ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
         JLabel pixelEvaMilk = new JLabel(evamilkImg);
-        int evamilkPrice = 25;
+        int evamilkPrice = this.itemsCurr.get(1).getItem().getPrice();
+
         pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
         pixelEvaMilk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                JOptionPane.showMessageDialog(maintenance, ">Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
+                JOptionPane.showMessageDialog(maintenance, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.INFORMATION_MESSAGE, evamilkImg);
             }
         });
 
@@ -84,7 +93,7 @@ public class MaintenanceFrame extends JFrame{
         evamilkStocklb.setBounds(304, 120, 40, 27); //+102 to the right
         evamilkStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         evamilkStocklb.setForeground(Color.white);
-        JLabel availEvaMilklb = new JLabel("0");
+        availEvaMilklb = new JLabel(this.itemsCurr.get(1).getQuantity()+"");
         availEvaMilklb.setForeground(Color.white);
         availEvaMilklb.setBounds(342, 120, 40, 27);
         availEvaMilklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -94,7 +103,8 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
         JLabel pixelVanillaIC = new JLabel(vanillaICImg);
-        int vanillaICPrice = 25;
+        int vanillaICPrice = this.itemsCurr.get(2).getItem().getPrice();
+
         pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
@@ -107,7 +117,7 @@ public class MaintenanceFrame extends JFrame{
         vanillaICStocklb.setBounds(205, 192, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         vanillaICStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         vanillaICStocklb.setForeground(Color.white);
-        JLabel availVanillaIClb = new JLabel("0");
+        availVanillaIClb = new JLabel(this.itemsCurr.get(2).getQuantity()+"");
         availVanillaIClb.setForeground(Color.white);
         availVanillaIClb.setBounds(243, 192, 40, 27);
         availVanillaIClb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -115,7 +125,8 @@ public class MaintenanceFrame extends JFrame{
 //=====================================================================================================
         ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
         JLabel pixelRK = new JLabel(rkImg);
-        int rkPrice = 10;
+        int rkPrice = this.itemsCurr.get(3).getItem().getPrice();
+
         pixelRK.setBounds(303, 157, 50, 40); //+72 down
         pixelRK.addMouseListener(new MouseAdapter() {
             @Override
@@ -128,7 +139,7 @@ public class MaintenanceFrame extends JFrame{
         rkStocklb.setBounds(304, 192, 40, 27); //+102 to the right
         rkStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         rkStocklb.setForeground(Color.white);
-        JLabel availRKlb = new JLabel("0");
+        availRKlb = new JLabel(this.itemsCurr.get(3).getQuantity()+"");
         availRKlb.setForeground(Color.white);
         availRKlb.setBounds(342, 192, 40, 27);
         availRKlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -137,7 +148,8 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
         JLabel pixelBanana = new JLabel(bananaImg);
-        int bananaPrice = 10;
+        int bananaPrice = this.itemsCurr.get(4).getItem().getPrice();
+
         pixelBanana.setBounds(203, 232, 40, 40); //+75 down
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
@@ -150,7 +162,7 @@ public class MaintenanceFrame extends JFrame{
         bananaStocklb.setBounds(205, 267, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         bananaStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         bananaStocklb.setForeground(Color.white);
-        JLabel availBananalb = new JLabel("0");
+        availBananalb = new JLabel(this.itemsCurr.get(4).getQuantity()+"");
         availBananalb.setForeground(Color.white);
         availBananalb.setBounds(243, 267, 40, 27);
         availBananalb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -159,7 +171,8 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
         JLabel pixelCoconut = new JLabel(coconutImg);
-        int coconutPrice = 15;
+        int coconutPrice = this.itemsCurr.get(5).getItem().getPrice();
+
         pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
@@ -172,7 +185,7 @@ public class MaintenanceFrame extends JFrame{
         coconutStocklb.setBounds(304, 267, 40, 27); //+102 to the right
         coconutStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         coconutStocklb.setForeground(Color.white);
-        JLabel availCoconutlb = new JLabel("0");
+        availCoconutlb = new JLabel(this.itemsCurr.get(5).getQuantity()+"");
         availCoconutlb.setForeground(Color.white);
         availCoconutlb.setBounds(342, 267, 40, 27);
         availCoconutlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -182,7 +195,8 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
         JLabel pixelMonggo = new JLabel(monggoImg);
-        int monggoPrice = 15;
+        int monggoPrice = this.itemsCurr.get(6).getItem().getPrice();
+
         pixelMonggo.setBounds(203, 311, 40, 40); //+79 down
         pixelMonggo.addMouseListener(new MouseAdapter() {
             @Override
@@ -195,7 +209,7 @@ public class MaintenanceFrame extends JFrame{
         monggoStocklb.setBounds(205, 346, 40, 27); //+102 to the right
         monggoStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         monggoStocklb.setForeground(Color.white);
-        JLabel availMonggolb = new JLabel("0");
+        availMonggolb = new JLabel(this.itemsCurr.get(6).getQuantity()+"");
         availMonggolb.setForeground(Color.white);
         availMonggolb.setBounds(243, 346, 40, 27);
         availMonggolb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -204,7 +218,8 @@ public class MaintenanceFrame extends JFrame{
 
         ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
         JLabel pixelUbe = new JLabel(ubeImg);
-        int ubePrice = 15;
+        int ubePrice = this.itemsCurr.get(7).getItem().getPrice();
+
         pixelUbe.setBounds(303, 311, 40, 40); //+79 down
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
@@ -217,7 +232,7 @@ public class MaintenanceFrame extends JFrame{
         ubeStocklb.setBounds(304, 346, 40, 27); //+102 to the right
         ubeStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         ubeStocklb.setForeground(Color.white);
-        JLabel availUbelb = new JLabel("0");
+        availUbelb = new JLabel(this.itemsCurr.get(7).getQuantity()+"");
         availUbelb.setForeground(Color.white);
         availUbelb.setBounds(342, 346, 40, 27);
         availUbelb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -259,6 +274,7 @@ public class MaintenanceFrame extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(maintenance, "Money Collected! [Vending Machine Total Money: 0]", "Money Collected", JOptionPane.INFORMATION_MESSAGE, moneyImg);
+                controller.collectMoney();
             }
         });
 
@@ -279,12 +295,24 @@ public class MaintenanceFrame extends JFrame{
         btnPrint.setMargin(new Insets(0,0,0,0));
         btnPrint.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnPrint.setText("<html><center>Print <br/> Summary of <br/> Transactions </center> </html>");
+        btnPrint.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedSummaryBtn();
+            }
+        });
 
 
         JButton btnMain = new JButton(" Back to RVM Mode");
         btnMain.setBounds(250, 550,120,20);
         btnMain.setMargin(new Insets(0,0,0,0));
         btnMain.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        btnMain.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedtoRVM();
+            }
+        });
 
 
 
@@ -341,4 +369,11 @@ public class MaintenanceFrame extends JFrame{
     {
         maintenance.setVisible(bool);
     }
+
+    public JFrame getFrame() {
+        return maintenance;
+    }
+
+
+
 }

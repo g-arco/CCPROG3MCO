@@ -35,8 +35,31 @@ public class MoneySlot
 
         quantity = slot.size();
 
-        System.out.println("Successfully replenished! Quantity is now "+quantity+".");
+        System.out.println("Successfully replenished! Quantity is now "+quantity+": "+this.money.getValue());
     }
+
+    public void clearSlots()
+    {
+        slot.clear();
+
+        quantity = slot.size();
+
+        System.out.println("Successfully cleared! Quantity is now "+quantity+": "+this.money.getValue());
+    }
+
+    public boolean dispense()
+    {
+        if(!slot.isEmpty())
+        {
+            slot.remove(quantity);
+            quantity--;
+            return true;
+        }
+
+        else
+            return false;
+    }
+
 
     public int getValue()
     {

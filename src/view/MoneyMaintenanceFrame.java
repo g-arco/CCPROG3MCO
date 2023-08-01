@@ -4,6 +4,8 @@ import controllers.MaintenanceController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -65,8 +67,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP1000Amt.setForeground(Color.black);
         getP1000Amt.setBounds(175, 231, 40, 13);
         getP1000Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p1000AmtStr = getP1000Amt.getText();
-        //convert to int
+        getP1000Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p1000AmtStr = getP1000Amt.getText();
+                int p1000AmtInt = Integer.parseInt(p1000AmtStr);
+                controller.stockMoney(p1000AmtInt, 0);
+
+            }
+        });
 
         //=============================================
         ImageIcon imgPeso500 = new ImageIcon(getClass().getResource("/resources/pixel_500.png"));
@@ -82,8 +91,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP500Amt.setForeground(Color.black);
         getP500Amt.setBounds(303, 231, 40, 13);//x = +66, y=+7
         getP500Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p500AmtStr = getP500Amt.getText();
-        //convert to int
+        getP500Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p500AmtStr = getP500Amt.getText();
+                int p500AmtInt = Integer.parseInt(p500AmtStr);
+                controller.stockMoney(p500AmtInt, 1);
+
+            }
+        });
 
         //================================================
 
@@ -101,8 +117,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP200Amt.setForeground(Color.black);
         getP200Amt.setBounds(433, 231, 40, 13);//x = +66, y=+7
         getP200Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p200AmtStr = getP200Amt.getText();
-        //convert to int
+        getP200Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p200AmtStr = getP200Amt.getText();
+                int p200AmtInt = Integer.parseInt(p200AmtStr);
+                controller.stockMoney(p200AmtInt, 2);
+
+            }
+        });
 
         //===============================================
 
@@ -121,8 +144,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP100Amt.setForeground(Color.black);
         getP100Amt.setBounds(172, 301, 40, 13);//x = +64, y=+7
         getP100Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p100AmtStr = getP100Amt.getText();
-        //convert to int
+        getP100Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p100AmtStr = getP100Amt.getText();
+                int p100AmtInt = Integer.parseInt(p100AmtStr);
+                controller.stockMoney(p100AmtInt, 3);
+
+            }
+        });
 
         //=============================================
         ImageIcon imgPeso50 = new ImageIcon(getClass().getResource("/resources/pixel_50.png"));
@@ -139,8 +169,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP50Amt.setForeground(Color.black);
         getP50Amt.setBounds(300, 301, 40, 13);//x = +60, y=+7
         getP50Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p50AmtStr = getP50Amt.getText();
-        //convert to int
+        getP50Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p50AmtStr = getP50Amt.getText();
+                int p50AmtInt = Integer.parseInt(p50AmtStr);
+                controller.stockMoney(p50AmtInt, 4);
+
+            }
+        });
 
         //================================================
 
@@ -160,6 +197,16 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP20Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
         String p20AmtStr = getP20Amt.getText();
         //convert to int
+        getP20Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p20AmtStr = getP20Amt.getText();
+                int p20AmtInt = Integer.parseInt(p20AmtStr);
+                controller.stockMoney(p20AmtInt, 5);
+
+            }
+        });
+
 
         //============================================
 
@@ -177,8 +224,16 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP10Amt.setForeground(Color.black);
         getP10Amt.setBounds(169, 373, 40, 13);//x = +58, y=+7
         getP10Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p10AmtStr = getP10Amt.getText();
-        //convert to int
+        getP10Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p10AmtStr = getP10Amt.getText();
+                int p10AmtInt = Integer.parseInt(p10AmtStr);
+                controller.stockMoney(p10AmtInt, 6);
+
+            }
+        });
+
 
         //=============================================
         ImageIcon imgPeso5 = new ImageIcon(getClass().getResource("/resources/pixel_5.png"));
@@ -195,8 +250,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP5Amt.setForeground(Color.black);
         getP5Amt.setBounds(297, 373, 40, 13);//x = +54, y=+7
         getP5Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p5AmtStr = getP5Amt.getText();
-        //convert to int
+        getP5Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p5AmtStr = getP5Amt.getText();
+                int p5AmtInt = Integer.parseInt(p5AmtStr);
+                controller.stockMoney(p5AmtInt, 7);
+
+            }
+        });
 
         //================================================
 
@@ -214,8 +276,15 @@ public class MoneyMaintenanceFrame extends JFrame{
         getP1Amt.setForeground(Color.black);
         getP1Amt.setBounds(426, 373, 40, 13);//x = +52, y=+7
         getP1Amt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-        String p1AmtStr = getP1Amt.getText();
-        //convert to int
+        getP1Amt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String p1AmtStr = getP1Amt.getText();
+                int p1AmtInt = Integer.parseInt(p1AmtStr);
+                controller.stockMoney(p1AmtInt, 8);
+
+            }
+        });
 
         //============================================
 

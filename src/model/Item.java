@@ -20,9 +20,10 @@ public class Item
         this.soldAlone = soldAlone;
     }
 
-    public void ItemPreparation()
+    public String ItemPreparation()
     {
         System.out.println(name+" is being prepared...");
+        return name+" is being prepared...";
     }
 
     /**

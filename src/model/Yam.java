@@ -9,8 +9,9 @@ public class Yam extends Item
         super(price, calories, name, soldAlone);
     }
 
-    public void ItemPreparation()
+    public String ItemPreparation()
     {
         System.out.println(name+" is being placed...");
+        return name+" is being placed...";
     }
 }

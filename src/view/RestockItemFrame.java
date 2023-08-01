@@ -1,11 +1,12 @@
 package view;
 
 import controllers.MaintenanceController;
+import model.ItemSlot;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 public class RestockItemFrame extends JFrame{
 
@@ -14,11 +15,14 @@ public class RestockItemFrame extends JFrame{
         MaintenanceController controller;
         MaintenanceFrame sourceFrame;
 
+        ArrayList<ItemSlot> itemsCurr;
+        int iceStock, evamilkStock,vanillaICStock,rkStock,bananaStock, coconutStock,monggoStock,ubeStock;
 
-        public RestockItemFrame(MaintenanceFrame sourceFrame,MaintenanceController controller){
+        public RestockItemFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<ItemSlot> itemsCCurr){
             int iceAmt;
             this.controller = controller;
             this.sourceFrame = sourceFrame;
+            this.itemsCurr = itemsCCurr;
 
             //https://youtu.be/QXVyg7lY9r8
             JFrame restockItem = new JFrame("Restock Items");
@@ -50,13 +54,13 @@ public class RestockItemFrame extends JFrame{
 
             ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
             JLabel pixelIce = new JLabel(iceImg);
-            int iceStock =0;
-            int icePrice = 5;
+            iceStock =this.itemsCurr.get(0).getQuantity();
+            int icePrice = this.itemsCurr.get(0).getItem().getPrice();
             pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Shaved model.Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(restockItem, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
 
@@ -69,14 +73,22 @@ public class RestockItemFrame extends JFrame{
             getIceAmt.setForeground(Color.black);
             getIceAmt.setBounds(218, 125, 40, 13);
             getIceAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String iceAmtStr = getIceAmt.getText();
-            //iceAmt = Integer.parseInt(iceAmtStr);
+            getIceAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String iceAmtStr = getIceAmt.getText();
+                    int iceAmtInt = Integer.parseInt(iceAmtStr);
+                    controller.restockItems(iceAmtInt, 0);
+                    iceStock = controller.getItemsCurr().get(0).getQuantity();
+
+                }
+            });
 
             //====================================================================================
             ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
             JLabel pixelEvaMilk = new JLabel(evamilkImg);
-            int evamilkStock = 0;
-            int evamilkPrice = 25;
+            evamilkStock = this.itemsCurr.get(1).getQuantity();
+            int evamilkPrice = this.itemsCurr.get(1).getItem().getPrice();
             pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
             pixelEvaMilk.addMouseListener(new MouseAdapter() {
                 @Override
@@ -94,20 +106,28 @@ public class RestockItemFrame extends JFrame{
             getEvaMilkAmt.setForeground(Color.black);
             getEvaMilkAmt.setBounds(318, 125, 40, 13);
             getEvaMilkAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String evamilkAmtStr = getEvaMilkAmt.getText();
-            //evamilkAmt = Integer.parseInt(iceAmtStr);
+            getEvaMilkAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String evamilkAmtStr = getEvaMilkAmt.getText();
+                    int evamilkAmtInt = Integer.parseInt(evamilkAmtStr);
+                    controller.restockItems(evamilkAmtInt, 1);
+                    evamilkStock = controller.getItemsCurr().get(1).getQuantity();
+
+                }
+            });
 
             //===============================================================================
 
             ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
             JLabel pixelVanillaIC = new JLabel(vanillaICImg);
-            int vanillaICStock = 0;
-            int vanillaICPrice = 25;
+            vanillaICStock = this.itemsCurr.get(2).getQuantity();
+            int vanillaICPrice = this.itemsCurr.get(2).getItem().getPrice();
             pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla model.Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                    JOptionPane.showMessageDialog(restockItem, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
                 }
             });
 
@@ -120,13 +140,22 @@ public class RestockItemFrame extends JFrame{
             getVanillaICAmt.setForeground(Color.black);
             getVanillaICAmt.setBounds(218, 197, 40, 13);
             getVanillaICAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String vanillaICAmtStr = getVanillaICAmt.getText();
-            //vanillaICAmtStr = Integer.parseInt(iceAmtStr);
+            getVanillaICAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String vanillaICAmtStr = getVanillaICAmt.getText();
+                    int vanillaICAmtInt = Integer.parseInt(vanillaICAmtStr);
+                    controller.restockItems(vanillaICAmtInt, 2);
+                    vanillaICStock = controller.getItemsCurr().get(2).getQuantity();
+
+                }
+            });
+
 //=====================================================================================================
             ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
             JLabel pixelRK = new JLabel(rkImg);
-            int rkStock =0;
-            int rkPrice = 10;
+            rkStock =this.itemsCurr.get(3).getQuantity();
+            int rkPrice = this.itemsCurr.get(3).getItem().getPrice();
             pixelRK.setBounds(303, 157, 50, 40); //+72 down
             pixelRK.addMouseListener(new MouseAdapter() {
                 @Override
@@ -144,20 +173,28 @@ public class RestockItemFrame extends JFrame{
             getRKAmt.setForeground(Color.black);
             getRKAmt.setBounds(318, 197, 40, 13);
             getRKAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String rkAmtStr = getEvaMilkAmt.getText();
-            //rkAmtStr = Integer.parseInt(iceAmtStr);
+            getRKAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String rkAmtStr = getRKAmt.getText();
+                    int rkAmtInt = Integer.parseInt(rkAmtStr);
+                    controller.restockItems(rkAmtInt, 3);
+                    rkStock = controller.getItemsCurr().get(3).getQuantity();
+
+                }
+            });
 
             //===============================================================================================
 
             ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
             JLabel pixelBanana = new JLabel(bananaImg);
-            int bananaStock = 0;
-            int bananaPrice = 10;
+            bananaStock = this.itemsCurr.get(4).getQuantity();
+            int bananaPrice = this.itemsCurr.get(4).getItem().getPrice();
             pixelBanana.setBounds(203, 232, 40, 40); //+75 down
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "model.Banana (PHP "+bananaPrice+" || 8 Calories || In Stock: "+bananaStock+")", "model.Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                    JOptionPane.showMessageDialog(restockItem, "Banana (PHP "+bananaPrice+" || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
                 }
             });
 
@@ -170,21 +207,29 @@ public class RestockItemFrame extends JFrame{
             getBananaAmt.setForeground(Color.black);
             getBananaAmt.setBounds(218, 272, 40, 13);
             getBananaAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String bananaAmtStr = getBananaAmt.getText();
-            //bananaAmt = Integer.parseInt(iceAmtStr);
+            getBananaAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String bananaAmtStr = getBananaAmt.getText();
+                    int bananaAmtInt = Integer.parseInt(bananaAmtStr);
+                    controller.restockItems(bananaAmtInt, 4);
+                    bananaStock = controller.getItemsCurr().get(4).getQuantity();
+
+                }
+            });
 
 
 //=====================================================================================================
 
             ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
             JLabel pixelCoconut = new JLabel(coconutImg);
-            int coconutStock = 0;
-            int coconutPrice = 15;
+            coconutStock = this.itemsCurr.get(5).getQuantity();
+            int coconutPrice = this.itemsCurr.get(5).getItem().getPrice();
             pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "model.Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "model.Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                    JOptionPane.showMessageDialog(restockItem, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
                 }
             });
 
@@ -199,13 +244,23 @@ public class RestockItemFrame extends JFrame{
             getCoconutAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
             String coconutAmtStr = getEvaMilkAmt.getText();
             //rcAmtStr = Integer.parseInt(iceAmtStr);
+            getCoconutAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String coconutAmtStr = getCoconutAmt.getText();
+                    int coconutAmtInt = Integer.parseInt(coconutAmtStr);
+                    controller.restockItems(coconutAmtInt, 5);
+                    coconutStock = controller.getItemsCurr().get(5).getQuantity();
+
+                }
+            });
 
             //=====================================================================================================================
 
             ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
             JLabel pixelMonggo = new JLabel(monggoImg);
-            int monggoStock = 0;
-            int monggoPrice = 15;
+            monggoStock = this.itemsCurr.get(6).getQuantity();
+            int monggoPrice = this.itemsCurr.get(6).getItem().getPrice();
             pixelMonggo.setBounds(203, 310, 40, 40); //+78 down
             pixelMonggo.addMouseListener(new MouseAdapter() {
                 @Override
@@ -223,20 +278,28 @@ public class RestockItemFrame extends JFrame{
             getMonggoAmt.setForeground(Color.black);
             getMonggoAmt.setBounds(218, 350, 40, 13);
             getMonggoAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String monggoAmtStr = getMonggoAmt.getText();
-            //monggoAmt = Integer.parseInt(iceAmtStr);
+            getMonggoAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String monggoAmtStr = getMonggoAmt.getText();
+                    int monggoAmtInt = Integer.parseInt(monggoAmtStr);
+                    controller.restockItems(monggoAmtInt, 6);
+                    monggoStock = controller.getItemsCurr().get(6).getQuantity();
+
+                }
+            });
 
             //=======================================================================================================================
 
             ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
             JLabel pixelUbe = new JLabel(ubeImg);
-            int ubeStock = 0;
-            int ubePrice = 15;
+            ubeStock = this.itemsCurr.get(7).getQuantity();
+            int ubePrice = this.itemsCurr.get(7).getItem().getPrice();
             pixelUbe.setBounds(303, 310, 40, 40); //+72 down
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(restockItem, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple model.Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                    JOptionPane.showMessageDialog(restockItem, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
                 }
             });
 
@@ -249,8 +312,16 @@ public class RestockItemFrame extends JFrame{
             getUbeAmt.setForeground(Color.black);
             getUbeAmt.setBounds(318, 350, 40, 13);
             getUbeAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String ubeAmtStr = getEvaMilkAmt.getText();
-            //rcAmtStr = Integer.parseInt(iceAmtStr);
+            getUbeAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String ubeAmtStr = getUbeAmt.getText();
+                    int ubeAmtInt = Integer.parseInt(ubeAmtStr);
+                    controller.restockItems(ubeAmtInt, 7);
+                    monggoStock = controller.getItemsCurr().get(7).getQuantity();
+
+                }
+            });
 
             //=======================================================================================================================
 
@@ -316,8 +387,7 @@ public class RestockItemFrame extends JFrame{
     }
 
         public JFrame getFrame(){
-            return this;
-        }
+            return this;}
 
 
 

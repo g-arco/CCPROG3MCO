@@ -65,29 +65,11 @@ public class Driver
         /* Some crazy polymorphism: */
 
 
-        // these are for testing only:
-        Item ice = new Ice(5, 0, "Ice", false);
-        Item evapMilk = new EvapMilk(0, 80, "Evaporated Milk", false);
-        Item vanIceCream = new IceCream(25, 111, "Vanilla Ice Cream", true, "Vanilla");
-        Item riKi = new RiceKrispie(10, 10, "Rice Krispie", false);
-        Item banana = new Banana(10, 8, "Banana", true);
-        Item coco = new Coconut(15, 17, "Coconut", true);
-        Item mung = new MungBeans(15, 12, "Mung Beans", true);
-        Item yam = new Yam(15, 15, "Yam", false);
-
-        Maintenance m = new Maintenance();
-
-        ItemSlot iceSlot = new ItemSlot(ice);
 
 
         //Menu menu = new Menu(r, m);
 
-        //RVMFrame main = new RVMFrame();
-        //MoneyFrame moneyF = new MoneyFrame();
-        MaintenanceFrame maintenanceF= new MaintenanceFrame();
-
-
-        //MaintenanceController maintenanceC= new MaintenanceController(m, maintenanceF);
+        MainController mainController= new MainController();
 
         /*
         do

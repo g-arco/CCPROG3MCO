@@ -1,9 +1,14 @@
 package view;
 
+import controllers.RVMController;
+import model.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class MoneyFrame extends JFrame{
 
@@ -11,16 +16,25 @@ public class MoneyFrame extends JFrame{
     JLabel AmtUserPaidlb;
     JLabel AmttoPayInt;
     JTextField AmtUserPaidInt;
+    RVMController controller;
+    ArrayList<Money> moneyHold;
 
     int totalPaidMoney;
+    int totalAmt;
 
-    public MoneyFrame(){
+    JFrame moneyFrame;
+
+    public MoneyFrame(int totalAmt, RVMController controller){
+
+        this.controller = controller;
         totalPaidMoney = 0;
+        moneyHold = new ArrayList<Money>();
+        this.totalAmt = totalAmt;
 
-        JFrame moneyFrame = new JFrame("Purchase Items");
+        moneyFrame = new JFrame("Purchase Items");
         AmttoPaylb = new JLabel("Total Amount to be Paid: ");
         AmtUserPaidlb = new JLabel("You have Paid: "+"             PHP");
-        AmttoPayInt = new JLabel("0"+" PHP");
+        AmttoPayInt = new JLabel(totalAmt+" PHP");
         AmtUserPaidInt = new JTextField();
         JButton btnQuit = new JButton("Cancel Payment");
         JLabel userDesc = new JLabel("Click on the coin/bill you want to input!");
@@ -66,8 +80,10 @@ public class MoneyFrame extends JFrame{
         btnQuit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney = 0;
-                AmtUserPaidInt.setText("0");
+                if(totalPaidMoney == 0)
+                    controller.pushedBack();
+                else
+                    controller.showMoneyHold(moneyHold);
             }
         });
 
@@ -80,8 +96,7 @@ public class MoneyFrame extends JFrame{
         pixel1000.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 1000;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(1000);
             }
         });
 
@@ -97,8 +112,7 @@ public class MoneyFrame extends JFrame{
         pixel500.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 500;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(500);
             }
         });
 
@@ -115,8 +129,7 @@ public class MoneyFrame extends JFrame{
         pixel200.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 200;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(200);
             }
         });
 
@@ -134,8 +147,7 @@ public class MoneyFrame extends JFrame{
         pixel100.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 100;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(100);
             }
         });
 
@@ -151,8 +163,7 @@ public class MoneyFrame extends JFrame{
         pixel50.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 50;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(50);
             }
         });
 
@@ -169,8 +180,7 @@ public class MoneyFrame extends JFrame{
         pixel20.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 20;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(20);
             }
         });
 
@@ -187,8 +197,7 @@ public class MoneyFrame extends JFrame{
         pixel10.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 10;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(10);
             }
         });
 
@@ -204,8 +213,7 @@ public class MoneyFrame extends JFrame{
         pixel5.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 5;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(5);
             }
         });
 
@@ -222,8 +230,8 @@ public class MoneyFrame extends JFrame{
         pixel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                totalPaidMoney += 1;
-                AmtUserPaidInt.setText(totalPaidMoney+"");
+                mouseDetected(1);
+
             }
         });
 
@@ -273,14 +281,16 @@ public class MoneyFrame extends JFrame{
 
     }
 
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MoneyFrame().setVisible(true);
-            }
-        });
+    public void mouseDetected(int amtToAdd){
+        moneyHold.add(new Money(amtToAdd));
+        totalPaidMoney += amtToAdd;
+        AmtUserPaidInt.setText(totalPaidMoney+"");
 
+        if (totalPaidMoney >= this.totalAmt)
+            controller.successPay();
     }
 
+    public JFrame getFrame() {
+        return moneyFrame;
+    }
 }

@@ -1,20 +1,36 @@
 package view;
 
+import controllers.MaintenanceController;
+import controllers.RVMController;
+import model.ItemSlot;
+import model.MoneySlot;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class RVMFrame extends JFrame{
 
     JLabel imgBg;
     ImageIcon RVMbg;
 
+    RVMController controller;
+    ArrayList<MoneySlot> moneyCurr;
+    ArrayList<ItemSlot> itemsCurr;
+    JFrame main;
 
-    public RVMFrame(){
+
+
+    public RVMFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, RVMController controller){
+
+        this.controller = controller;
+        this.moneyCurr = moneyCurr;
+        this.itemsCurr = itemsCurr;
 
         //https://youtu.be/QXVyg7lY9r8
-        JFrame main = new JFrame("Regular Main Menu");
+        main = new JFrame("Regular Main Menu");
         JLabel showWelcome = new JLabel("Welcome to Halo-Halo Zone");
         JButton bthClick = new JButton();
 
@@ -49,14 +65,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
         JLabel pixelIce = new JLabel(iceImg);
-        int icePrice = 5;
+        int icePrice = this.itemsCurr.get(0).getItem().getPrice();
         pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
         pixelIce.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Shaved model.Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved model.Ice",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, iceImg, options,options[1]);
-
+                String options[] ={"Get Item", "Go back"};
+                int choice = JOptionPane.showOptionDialog(main, "Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, iceImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(icePrice,controller.getItemsCurr().get(0));
             }
         });
 
@@ -65,7 +82,7 @@ public class RVMFrame extends JFrame{
         iceStocklb.setBounds(205, 120, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         iceStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         iceStocklb.setForeground(Color.white);
-        JLabel availIcelb = new JLabel("0");
+        JLabel availIcelb = new JLabel(this.itemsCurr.get(0).getQuantity()+"");
         availIcelb.setForeground(Color.white);
         availIcelb.setBounds(243, 120, 40, 27);
         availIcelb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -73,14 +90,15 @@ public class RVMFrame extends JFrame{
         //====================================================================================
         ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
         JLabel pixelEvaMilk = new JLabel(evamilkImg);
-        int evamilkPrice = 25;
+        int evamilkPrice = this.itemsCurr.get(1).getItem().getPrice();
         pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
         pixelEvaMilk.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, evamilkImg, options,options[1]);
-
+                String options[] ={"Get Item", "Go back"};
+                int choice = JOptionPane.showOptionDialog(main, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, evamilkImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(evamilkPrice,controller.getItemsCurr().get(1));
             }
         });
 
@@ -88,7 +106,7 @@ public class RVMFrame extends JFrame{
         evamilkStocklb.setBounds(304, 120, 40, 27); //+102 to the right
         evamilkStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         evamilkStocklb.setForeground(Color.white);
-        JLabel availEvaMilklb = new JLabel("0");
+        JLabel availEvaMilklb = new JLabel(this.itemsCurr.get(1).getQuantity()+"");
         availEvaMilklb.setForeground(Color.white);
         availEvaMilklb.setBounds(342, 120, 40, 27);
         availEvaMilklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -98,13 +116,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
         JLabel pixelVanillaIC = new JLabel(vanillaICImg);
-        int vanillaICPrice = 25;
+        int vanillaICPrice = this.itemsCurr.get(2).getItem().getPrice();
         pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Vanilla model.Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla model.Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
+                int choice = JOptionPane.showOptionDialog(main, "Vanilla Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(vanillaICPrice,controller.getItemsCurr().get(2));
             }
         });
 
@@ -112,7 +132,7 @@ public class RVMFrame extends JFrame{
         vanillaICStocklb.setBounds(205, 192, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         vanillaICStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         vanillaICStocklb.setForeground(Color.white);
-        JLabel availVanillaIClb = new JLabel("0");
+        JLabel availVanillaIClb = new JLabel(this.itemsCurr.get(2).getQuantity()+"");
         availVanillaIClb.setForeground(Color.white);
         availVanillaIClb.setBounds(243, 192, 40, 27);
         availVanillaIClb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -120,14 +140,15 @@ public class RVMFrame extends JFrame{
 //=====================================================================================================
         ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
         JLabel pixelRK = new JLabel(rkImg);
-        int rkPrice = 10;
+        int rkPrice = this.itemsCurr.get(3).getItem().getPrice();
         pixelRK.setBounds(303, 157, 50, 40); //+72 down
         pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie" , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, rkImg, options,options[1]);
-
+                int choice = JOptionPane.showOptionDialog(main, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie" , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, rkImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(rkPrice,controller.getItemsCurr().get(3));
             }
         });
 
@@ -135,7 +156,7 @@ public class RVMFrame extends JFrame{
         rkStocklb.setBounds(304, 192, 40, 27); //+102 to the right
         rkStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         rkStocklb.setForeground(Color.white);
-        JLabel availRKlb = new JLabel("0");
+        JLabel availRKlb = new JLabel(this.itemsCurr.get(3).getQuantity()+"");
         availRKlb.setForeground(Color.white);
         availRKlb.setBounds(342, 192, 40, 27);
         availRKlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -144,14 +165,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
         JLabel pixelBanana = new JLabel(bananaImg);
-        int bananaPrice = 10;
+        int bananaPrice = this.itemsCurr.get(4).getItem().getPrice();
         pixelBanana.setBounds(203, 232, 40, 40); //+75 down
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "model.Banana (PHP "+bananaPrice+"  || 8 Calories)", "model.Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
-
+                int choice = JOptionPane.showOptionDialog(main, "Banana (PHP "+bananaPrice+"  || 8 Calories)", "Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(bananaPrice,controller.getItemsCurr().get(4));
             }
         });
 
@@ -159,7 +181,7 @@ public class RVMFrame extends JFrame{
         bananaStocklb.setBounds(205, 267, 40, 27); //paint coordinates; 208 (-23), 120(-18)
         bananaStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         bananaStocklb.setForeground(Color.white);
-        JLabel availBananalb = new JLabel("0");
+        JLabel availBananalb = new JLabel(this.itemsCurr.get(4).getQuantity()+"");
         availBananalb.setForeground(Color.white);
         availBananalb.setBounds(243, 267, 40, 27);
         availBananalb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -168,14 +190,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
         JLabel pixelCoconut = new JLabel(coconutImg);
-        int coconutPrice = 15;
+        int coconutPrice = this.itemsCurr.get(5).getItem().getPrice();
         pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
         pixelCoconut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "model.Coconut (PHP "+coconutPrice+" || 17 Calories)", "model.Coconut", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, coconutImg, options,options[1]);
-
+                String options[] ={"Get Item", "Go back"};
+                int choice = JOptionPane.showOptionDialog(main, "Coconut (PHP "+coconutPrice+" || 17 Calories)", "Coconut", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, coconutImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(coconutPrice,controller.getItemsCurr().get(5));
             }
         });
 
@@ -183,7 +206,7 @@ public class RVMFrame extends JFrame{
         coconutStocklb.setBounds(304, 267, 40, 27); //+102 to the right
         coconutStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         coconutStocklb.setForeground(Color.white);
-        JLabel availCoconutlb = new JLabel("0");
+        JLabel availCoconutlb = new JLabel(this.itemsCurr.get(5).getQuantity()+"");
         availCoconutlb.setForeground(Color.white);
         availCoconutlb.setBounds(342, 267, 40, 27);
         availCoconutlb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -193,13 +216,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
         JLabel pixelMonggo = new JLabel(monggoImg);
-        int monggoPrice = 15;
+        int monggoPrice = this.itemsCurr.get(6).getItem().getPrice();
         pixelMonggo.setBounds(203, 311, 40, 40); //+79 down
         pixelMonggo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Mung Beans (PHP "+monggoPrice+" || 12 Calories)", "Mung Beans", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, monggoImg, options,options[1]);
+                String options[] ={"Get Item", "Go back"};
+                int choice = JOptionPane.showOptionDialog(main, "Mung Beans (PHP "+monggoPrice+" || 12 Calories)", "Mung Beans", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, monggoImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(monggoPrice,controller.getItemsCurr().get(6));
             }
         });
 
@@ -207,7 +232,7 @@ public class RVMFrame extends JFrame{
         monggoStocklb.setBounds(205, 346, 40, 27); //+102 to the right
         monggoStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         monggoStocklb.setForeground(Color.white);
-        JLabel availMonggolb = new JLabel("0");
+        JLabel availMonggolb = new JLabel(this.itemsCurr.get(6).getQuantity()+"");
         availMonggolb.setForeground(Color.white);
         availMonggolb.setBounds(243, 346, 40, 27);
         availMonggolb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -216,13 +241,15 @@ public class RVMFrame extends JFrame{
 
         ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
         JLabel pixelUbe = new JLabel(ubeImg);
-        int ubePrice = 15;
+        int ubePrice = this.itemsCurr.get(7).getItem().getPrice();
         pixelUbe.setBounds(303, 311, 40, 40); //+79 down
         pixelUbe.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
-                JOptionPane.showOptionDialog(main, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories)", "Purple model.Yam", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, ubeImg, options,options[1]);
+                String options[] ={"Get Item", "Go back"};
+                int choice = JOptionPane.showOptionDialog(main, "Purple Yam (PHP "+ubePrice+" || 15 Calories)", "Purple Yam", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, ubeImg, options,options[1]);
+                if (choice == 0)
+                    controller.pushedGet(ubePrice,controller.getItemsCurr().get(7));
             }
         });
 
@@ -230,7 +257,7 @@ public class RVMFrame extends JFrame{
         ubeStocklb.setBounds(304, 346, 40, 27); //+102 to the right
         ubeStocklb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
         ubeStocklb.setForeground(Color.white);
-        JLabel availUbelb = new JLabel("0");
+        JLabel availUbelb = new JLabel(this.itemsCurr.get(7).getQuantity()+"");
         availUbelb.setForeground(Color.white);
         availUbelb.setBounds(342, 346, 40, 27);
         availUbelb.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
@@ -238,10 +265,16 @@ public class RVMFrame extends JFrame{
 
         //=======================================================================================================================
 
-        JButton btnMaintenance = new JButton("model.Maintenance Mode");
+        JButton btnMaintenance = new JButton("Maintenance Mode");
         btnMaintenance.setBounds(250, 550,120,20);
         btnMaintenance.setMargin(new Insets(0,0,0,0));
         btnMaintenance.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        btnMaintenance.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedMaintenanceBtn();
+            }
+        });
 
         JButton btnSwitch = new JButton("Switch to Special Vending Machine");
         btnSwitch.setBounds(488, 250,74,80);
@@ -295,15 +328,7 @@ public class RVMFrame extends JFrame{
 
     }
 
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RVMFrame().setVisible(true);
-            }
-        });
-
+    public JFrame getFrame() {
+        return main;
     }
-
-
 }

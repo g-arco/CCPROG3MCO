@@ -1,30 +1,34 @@
 package model;
 
+import view.MaintenanceFrame;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Maintenance
 {
-    public void setNewPrice(Item i)
+    ArrayList<ItemSlot> itemList;
+    ArrayList<MoneySlot> moneyList;
+    public Maintenance(ArrayList<ItemSlot> itemList, ArrayList<MoneySlot> moneyList){
+        this.itemList = itemList;
+        this.moneyList = moneyList;
+    }
+    public void setNewPrice(Item i, int newPHP)
     {
         int newPrice;
-        Scanner s = new Scanner(System.in);
 
-        System.out.println("Insert new price of "+i.getName());
-        System.out.println("Current price: "+i.getPrice());
-        newPrice = s.nextInt();
+        newPrice = newPHP;
 
         i.setPrice(newPrice);
     }
 
-    public void restockItem(ItemSlot i)
+    public void restockItem(ItemSlot i, int Amt)
     {
-        Scanner s = new Scanner(System.in);
         int dAmount;
         boolean result;
 
-        System.out.println("Insert amount to restock");
-        dAmount = s.nextInt();
+
+        dAmount = Amt;
 
         result = i.addItem(dAmount);
 
@@ -35,20 +39,27 @@ public class Maintenance
 
     }
 
-    public void collectMoney(MoneySlot m) // update parameters if needed.
+    public void collectMoney(int mIndex) // update parameters if needed.
     {
-        ArrayList<Money> n = m.getSlot();
-        n.clear();
+        this.moneyList.get(mIndex).clearSlots();
     }
 
-    public void replenishMoney(MoneySlot ms) // update parameters if needed
+    public void replenishMoney(int mIndex, int Amt) // update parameters if needed
     {
-        Scanner s = new Scanner(System.in);
         int dAmount;
 
-        System.out.println("Insert amount to replenish");
-        dAmount = s.nextInt();
+        dAmount = Amt;
 
-        ms.getReplenished(dAmount);
+        this.moneyList.get(mIndex).getReplenished(dAmount);
+
+
+    }
+
+    public ArrayList<ItemSlot> getItemList() {
+        return itemList;
+    }
+
+    public ArrayList<MoneySlot> getMoneyList() {
+        return moneyList;
     }
 }

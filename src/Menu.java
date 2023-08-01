@@ -1,15 +1,17 @@
+import model.*;
+import view.MoneyFrame;
+import view.RVMFrame;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.plaf.metal.MetalBorders.PaletteBorder;
-
-import java.io.*;
 /**
- * This Menu class is really just a way to implement the program and declutter the Driver class by only having the method MainMenu loop.
+ * This Menu class is really just a way to implement the program and declutter the Menu.Driver class by only having the method MainMenu loop.
  */
 public class Menu
 {
-    RVM rvm;
+
+    VendingMachine rvm;
     Maintenance m;
 
     /**
@@ -17,7 +19,7 @@ public class Menu
      * @param rvm the vending machine itself
      * @param m maintenance class
      */
-    public Menu (RVM rvm, Maintenance m)
+    public Menu (VendingMachine rvm, Maintenance m)
     {
         this.rvm = rvm;
         this.m = m;
@@ -25,10 +27,10 @@ public class Menu
 
     /**
      * The main menu where classes start interacting with each other as well as for the user to input and output.
-     * @return true if any method other than quit is called. returns false if user decides to quit, terminating the loop in Driver.
+     * @return true if any method other than quit is called. returns false if user decides to quit, terminating the loop in Menu.Driver.
      */
 
-    public boolean MainMenu()
+    public void MainMenu() //tbc to boolean
     {
         Scanner s = new Scanner(System.in);
         int i, inputIndex, inputMoney = 0;
@@ -46,6 +48,7 @@ public class Menu
         System.out.println("Hello! Welcome to the Halo-Halo Zone!");
         System.out.println("What would you like to buy?");
 
+        /*
 
         for (i = 0; i < rvm.getCurrentSlots().size(); i++)
         {
@@ -60,7 +63,7 @@ public class Menu
 
             if (i == rvm.getCurrentSlots().size()-1)
             {
-                System.out.println("[-1] - Maintenance Mode");
+                System.out.println("[-1] - model.Maintenance Mode");
                 System.out.println("[-2] - Quit");
             }
         }
@@ -238,12 +241,13 @@ public class Menu
 
                     }
 
-                    /*for (int j = rvm.getMoney().length-1; j >= 0; j--)
+                    for (int j = rvm.getMoney().length-1; j >= 0; j--)
                     {
                         System.out.println(rvm.getMoney()[j].getValue()+"  "+rvm.getMoney()[j].getQuantity());
 
-                    }*/
+                    }
 
+/*
                     for (moneyArrIndex = 0; moneyArrIndex < moneyarr.size(); moneyArrIndex++)
                     {
                         for(int j=0; j < 9; j++)
@@ -251,15 +255,16 @@ public class Menu
                             if (moneyarr.get(moneyArrIndex) == rvm.getMoney()[j].getValue())
                                 rvm.getMoney()[j].setQuantity(rvm.getMoney()[j].getQuantity()+1);
                         }
-                    }
+                    }*/
 
-                    /*for (int j = rvm.getMoney().length-1; j >= 0; j--)
+        /*
+                    for (int j = rvm.getMoney().length-1; j >= 0; j--)
                     {
                         System.out.println(rvm.getMoney()[j].getValue()+"  "+rvm.getMoney()[j].getQuantity());
 
                     }*/
                 }
-                else
+                /*else
                 {
                     rvm.cancelItem();
                     while(moneyarr.size()>0)
@@ -282,9 +287,9 @@ public class Menu
                 System.out.print("\033[H\033[2J"); 
                 System.out.println("What would you like to do?");
                 System.out.println("[1] - Restock Items");
-                System.out.println("[2] - Set Price of an Item");
-                System.out.println("[3] - Replenish Money");
-                System.out.println("[4] - Collect Money");
+                System.out.println("[2] - Set Price of an model.Item");
+                System.out.println("[3] - Replenish model.Money");
+                System.out.println("[4] - Collect model.Money");
                 System.out.println("[5] - Print Summary of Transactions");
                 System.out.println("[6] - Quit");
 
@@ -313,7 +318,7 @@ public class Menu
                 }while (mIndex > 6 || mIndex <= 0);
 
                 switch(mIndex)
-                {
+                {/*
                     case 1:
                         rvm.setStartingSlots(rvm.getCurrentSlots());
                         m.setCurrentSlots(rvm.getCurrentSlots());
@@ -341,10 +346,92 @@ public class Menu
                         break;
                     case 6:
                         mFlag = false;
-                        break;
-                }
+                        break;*/
 
-            } while (mFlag == true);
+    public static class Driver
+    {
+
+
+        public static void main (String args[])
+        {
+            /*model.Item model.Ice = new model.Item(0, 30, "model.Ice");
+            model.Item Milk = new model.Item(80, 25, "Evaporated milk");
+            model.Item VanillaIC = new model.Item(111, 25, "Vanilla ice cream");
+            model.Item model.RiceKrispie = new model.Item(7, 10, "Rice krispie");
+            model.Item model.Banana = new model.Item(8, 10, "model.Banana");
+            model.Item model.Coconut = new model.Item(17, 15, "model.Coconut");
+            model.Item model.MungBeans = new model.Item(12, 15, "Mung beans");
+            model.Item model.Yam = new model.Item(15, 15, "model.Yam");
+            //https://www.nutritionix.com/i/nutritionix/halo-halo-1-cup/56ba1309ef6b82185c64dd98
+
+            model.ItemSlot IceSlots = new model.ItemSlot(model.Ice, 5);
+            model.ItemSlot MilkSlots = new model.ItemSlot(Milk, 5);
+            model.ItemSlot VanillaICSlots = new model.ItemSlot(VanillaIC, 5);
+            model.ItemSlot RiceKrispieSlots = new model.ItemSlot(model.RiceKrispie, 5);
+            model.ItemSlot BananaSlots = new model.ItemSlot(model.Banana, 5);
+            model.ItemSlot CoconutSlots = new model.ItemSlot(model.Coconut, 5);
+            model.ItemSlot MungBeansSlots = new model.ItemSlot(model.MungBeans, 5);
+            model.ItemSlot YamSlots = new model.ItemSlot(model.Yam, 5);
+
+            boolean flag;
+
+            model.Money money1000 = new model.Money(1000, 0);
+            model.Money money500 = new model.Money(500, 0);
+            model.Money money200 = new model.Money(200, 0);
+            model.Money money100 = new model.Money(100, 0);
+            model.Money money50 = new model.Money(50, 0);
+            model.Money money20 = new model.Money(20, 0);
+            model.Money money10 = new model.Money(10, 0);
+            model.Money money5 = new model.Money(5, 0);
+            model.Money money1 = new model.Money(1, 0);
+
+            ArrayList<model.ItemSlot> slots = new ArrayList<>();
+            slots.add(IceSlots);
+            slots.add(MilkSlots);
+            slots.add(VanillaICSlots);
+            slots.add(RiceKrispieSlots);
+            slots.add(BananaSlots);
+            slots.add(CoconutSlots);
+            slots.add(MungBeansSlots);
+            slots.add(YamSlots);
+            model.Money money[] = {money1000, money500, money200, money100, money50, money20, money10, money5, money1};
+            RVM r = new RVM(slots, money);
+            model.Maintenance m = new model.Maintenance(slots, money);*/
+
+
+            /* Some crazy polymorphism: */
+
+
+            // these are for testing only:
+            Item ice = new Ice(5, 0, "model.Ice", false);
+            Item evapMilk = new EvapMilk(0, 80, "Evaporated Milk", false);
+            Item vanIceCream = new IceCream(25, 111, "Vanilla model.Ice Cream", true, "Vanilla");
+            Item riKi = new RiceKrispie(10, 10, "Rice Krispie", false);
+            Item banana = new Banana(10, 8, "model.Banana", true);
+            Item coco = new Coconut(15, 17, "model.Coconut", true);
+            Item mung = new MungBeans(15, 12, "Mung Beans", true);
+            Item yam = new Yam(15, 15, "model.Yam", false);
+
+            //model.Maintenance m = new model.Maintenance();
+
+            ItemSlot iceSlot = new ItemSlot(ice);
+
+
+            //Menu menu = new Menu(r, m);
+            //view.MaintenanceFrame maitenanceF = new view.MaintenanceFrame();
+
+            /*
+            do
+            {
+                System.out.print("\033[H\033[2J");
+                flag = menu.MainMenu();
+            } while (flag == true);*/
+
+        }
+    }
+}
+
+            /*} while (mFlag == true);
 
             return true;
         }
@@ -354,6 +441,6 @@ public class Menu
             System.out.println("Thank you!");
             return false;
         }
-    }
+    }*/
 
-}
+

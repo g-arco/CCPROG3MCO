@@ -2,7 +2,7 @@ package model;
 
 /**
 
- * This is the model.Money class. It helps the user pay the RVM and for the RVM to dispense the change.
+ * This is the Money class. It helps the user pay the RVM and for the RVM to dispense the change.
  */
 public class Money
 {

@@ -1,11 +1,21 @@
 package view;
 
+import controllers.MaintenanceController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class SummaryFrame extends JFrame{
 
-    public SummaryFrame(){
+    MaintenanceController controller;
+    MaintenanceFrame sourceFrame;
+    public SummaryFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
+
+        this.controller = controller;
+        this.sourceFrame = sourceFrame;
+
         JFrame printFrame = new JFrame("Print Summary of Transactions");
         JButton btnDone = new JButton("Done Viewing");
         JLabel showTitle = new JLabel("Print Summary of Transactions");
@@ -31,6 +41,12 @@ public class SummaryFrame extends JFrame{
         btnDone.setBounds(250, 550,120,20);
         btnDone.setMargin(new Insets(0,0,0,0));
         btnDone.setFont(lbFont);
+        btnDone.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedDone(printFrame, "summaryFrame");
+            }
+        });
 
         summaryPrint.setBounds(16,100, 564, 420);
 
@@ -43,15 +59,11 @@ public class SummaryFrame extends JFrame{
 
     }
 
-    public static void main(String args[])
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SummaryFrame().setVisible(true);
-            }
-        });
-
+    public JFrame getFrame(){
+        return this;
     }
+
+
 
 
 }

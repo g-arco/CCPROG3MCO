@@ -12,8 +12,9 @@ public class IceCream extends Item
         this.flavor = flavor;
     }
 
-    public void ItemPreparation()
+    public String ItemPreparation()
     {
         System.out.println(name+" is being scooped...");
+        return name+" is being scooped...";
     }
 }

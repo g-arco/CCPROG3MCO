@@ -9,8 +9,9 @@ public class Banana extends Item
         super(price, calories, name, soldAlone);
     }
 
-    public void ItemPreparation()
+    public String ItemPreparation()
     {
         System.out.println(name+" is being sliced...");
+        return name+" is being sliced...";
     }
 }
