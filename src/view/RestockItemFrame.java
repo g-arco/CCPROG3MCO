@@ -4,8 +4,10 @@ import controllers.MaintenanceController;
 import model.ItemSlot;
 
 import javax.swing.*;
+import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class RestockItemFrame extends JFrame{
@@ -16,16 +18,18 @@ public class RestockItemFrame extends JFrame{
         MaintenanceFrame sourceFrame;
 
         ArrayList<ItemSlot> itemsCurr;
+        JFrame restockItem;
         int iceStock, evamilkStock,vanillaICStock,rkStock,bananaStock, coconutStock,monggoStock,ubeStock;
 
-        public RestockItemFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<ItemSlot> itemsCCurr){
+        public RestockItemFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<ItemSlot> itemsCurr){
             int iceAmt;
             this.controller = controller;
             this.sourceFrame = sourceFrame;
-            this.itemsCurr = itemsCCurr;
+            this.itemsCurr = itemsCurr;
+
 
             //https://youtu.be/QXVyg7lY9r8
-            JFrame restockItem = new JFrame("Restock Items");
+            restockItem = new JFrame("Restock Items");
             JLabel showWelcome = new JLabel("Restock Items");
             //JButton bthClick = new JButton();
 
@@ -77,9 +81,9 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String iceAmtStr = getIceAmt.getText();
-                    int iceAmtInt = Integer.parseInt(iceAmtStr);
-                    controller.restockItems(iceAmtInt, 0);
-                    iceStock = controller.getItemsCurr().get(0).getQuantity();
+                    int iceAmtInt=0;
+                    mouseEntered(iceAmtStr,iceAmtInt,0);
+                    iceStock=controller.getItemsCurr().get(0).getQuantity();
 
                 }
             });
@@ -110,9 +114,9 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String evamilkAmtStr = getEvaMilkAmt.getText();
-                    int evamilkAmtInt = Integer.parseInt(evamilkAmtStr);
-                    controller.restockItems(evamilkAmtInt, 1);
-                    evamilkStock = controller.getItemsCurr().get(1).getQuantity();
+                    int evamilkAmtInt = 0;
+                    mouseEntered(evamilkAmtStr,evamilkAmtInt,1);
+                    evamilkStock=controller.getItemsCurr().get(1).getQuantity();
 
                 }
             });
@@ -144,8 +148,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String vanillaICAmtStr = getVanillaICAmt.getText();
-                    int vanillaICAmtInt = Integer.parseInt(vanillaICAmtStr);
-                    controller.restockItems(vanillaICAmtInt, 2);
+                    int vanillaICAmtInt = 0;
+                    mouseEntered(vanillaICAmtStr,vanillaICAmtInt,2);
                     vanillaICStock = controller.getItemsCurr().get(2).getQuantity();
 
                 }
@@ -177,8 +181,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String rkAmtStr = getRKAmt.getText();
-                    int rkAmtInt = Integer.parseInt(rkAmtStr);
-                    controller.restockItems(rkAmtInt, 3);
+                    int rkAmtInt = 0;
+                    mouseEntered(rkAmtStr,rkAmtInt,3);
                     rkStock = controller.getItemsCurr().get(3).getQuantity();
 
                 }
@@ -211,8 +215,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String bananaAmtStr = getBananaAmt.getText();
-                    int bananaAmtInt = Integer.parseInt(bananaAmtStr);
-                    controller.restockItems(bananaAmtInt, 4);
+                    int bananaAmtInt = 0;
+                    mouseEntered(bananaAmtStr,bananaAmtInt,4);
                     bananaStock = controller.getItemsCurr().get(4).getQuantity();
 
                 }
@@ -248,8 +252,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String coconutAmtStr = getCoconutAmt.getText();
-                    int coconutAmtInt = Integer.parseInt(coconutAmtStr);
-                    controller.restockItems(coconutAmtInt, 5);
+                    int coconutAmtInt = 0;
+                    mouseEntered(coconutAmtStr,coconutAmtInt,5);
                     coconutStock = controller.getItemsCurr().get(5).getQuantity();
 
                 }
@@ -282,8 +286,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String monggoAmtStr = getMonggoAmt.getText();
-                    int monggoAmtInt = Integer.parseInt(monggoAmtStr);
-                    controller.restockItems(monggoAmtInt, 6);
+                    int monggoAmtInt = 0;
+                    mouseEntered(monggoAmtStr,monggoAmtInt,6);
                     monggoStock = controller.getItemsCurr().get(6).getQuantity();
 
                 }
@@ -316,8 +320,8 @@ public class RestockItemFrame extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String ubeAmtStr = getUbeAmt.getText();
-                    int ubeAmtInt = Integer.parseInt(ubeAmtStr);
-                    controller.restockItems(ubeAmtInt, 7);
+                    int ubeAmtInt = 0;
+                    mouseEntered(ubeAmtStr,ubeAmtInt,7);
                     monggoStock = controller.getItemsCurr().get(7).getQuantity();
 
                 }
@@ -381,6 +385,27 @@ public class RestockItemFrame extends JFrame{
 
         }
 
+        public void mouseEntered(String str, int stringToInt, int index){
+            int tryAgain=0;
+
+            if(str.matches(".*\\d.*")) //if string has an integer
+            {
+                stringToInt = Integer.parseInt(str);
+                if(controller.isPassed(stringToInt,index)==true)
+                {
+                    controller.restockItems(stringToInt, index);
+                    JOptionPane.showMessageDialog(restockItem, this.itemsCurr.get(index).getItem().getName()+" has +"+stringToInt+" restock","Restock Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(restockItem, "Stock Overflowing! Enter a value that will make total stock less than or equal to 10","Invalid Value", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            else
+                JOptionPane.showMessageDialog(restockItem, "ERROR! Should be an integer input.","Integer Input Needed", JOptionPane.ERROR_MESSAGE);
+
+        }
+
         public void setFrame(boolean bool)
     {
         this.setVisible(bool);
@@ -389,8 +414,9 @@ public class RestockItemFrame extends JFrame{
         public JFrame getFrame(){
             return this;}
 
-
-
+        public ArrayList<ItemSlot> getItemsCurr() {
+            return itemsCurr;
+        }
 }
 
 

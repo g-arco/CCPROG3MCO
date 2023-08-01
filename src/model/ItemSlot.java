@@ -29,6 +29,22 @@ public class ItemSlot
 
     }
 
+    public ItemSlot(Item i, int quantity)
+    {
+        this.items = new ArrayList<Item>();
+        this.quantity = quantity;
+        name = i.getName();
+        canSell = i.getSoldAlone();
+        this.item = i;
+
+        for(int counter = 0; counter < quantity; counter++)
+        {
+            this.items.add(i);
+        }
+
+    }
+
+
     // use polymorphism.
     public boolean addItem(int amount)
     {

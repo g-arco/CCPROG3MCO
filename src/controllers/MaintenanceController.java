@@ -1,5 +1,6 @@
 package controllers;
 import model.*;
+import model.Record;
 import view.*;
 
 import javax.swing.*;
@@ -17,13 +18,16 @@ public class MaintenanceController {
     ArrayList<ItemSlot> itemsCurr;
 
     MainController mainC;
+    Record allRecord;
 
 
-    public MaintenanceController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, MainController mainC){
+
+    public MaintenanceController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, MainController mainC, Record allRecord){
 
         this.mainC = mainC;
         this.moneyCurr = moneyCurr;
         this.itemsCurr = itemsCurr;
+        this.allRecord = allRecord;
         this.modelMaintenance = new Maintenance(itemsCurr,moneyCurr);
         this.maintenanceFrame = new MaintenanceFrame(itemsCurr,moneyCurr,this);
     }
@@ -61,7 +65,8 @@ public class MaintenanceController {
     public boolean pushedSummaryBtn(){
         this.maintenanceFrame.getFrame().dispose();
         maintenanceFrame.dispose();
-        this.summaryFrame = new SummaryFrame(maintenanceFrame,this);
+        ArrayList<String> summary = allRecord.printRecord();
+        this.summaryFrame = new SummaryFrame(maintenanceFrame,this, summary);
 
         return true;
     }
@@ -73,10 +78,13 @@ public class MaintenanceController {
         if (frameName.equals("moneyMaintenanceFrame"))
             moneyMaintenanceFrame.getFrame().dispose();
         if (frameName.equals("restockItemFrame"))
+        {
+            this.allRecord.initializeRecord(this.itemsCurr);
             restockItemFrame.getFrame().dispose();
+        }
         if (frameName.equals("summaryFrame"))
             summaryFrame.getFrame().dispose();
-        this.maintenanceFrame = new MaintenanceFrame(itemsCurr, moneyCurr, this);
+        this.maintenanceFrame = new MaintenanceFrame(this.itemsCurr, this.moneyCurr, this);
 
         return true;
     }
@@ -140,6 +148,15 @@ public class MaintenanceController {
         for (int i =0; i <moneyCurr.size(); i++)
             System.out.println(modelMaintenance.getMoneyList().get(i).getQuantity());*/
 
+    }
+
+    public boolean isPassed(int amt, int index){
+        int checkCurrQuantity = this.itemsCurr.get(index).getQuantity();
+
+        if (checkCurrQuantity + amt > 0 && checkCurrQuantity + amt <= 10)
+            return true;
+        else
+            return false;
     }
 
     public ArrayList<ItemSlot> getItemsCurr() {

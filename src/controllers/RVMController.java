@@ -3,6 +3,7 @@ package controllers;
 import model.ItemSlot;
 import model.Money;
 import model.MoneySlot;
+import model.Record;
 import model.SVM;
 import view.LoadingFrame;
 import view.MoneyFrame;
@@ -24,13 +25,15 @@ public class RVMController {
     ArrayList<ItemSlot> itemToBuy;
     ArrayList<String> itemPrep;
     int totalPaid;
+    Record allRecord;
 
-    public RVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList,MainController mainC){
+    public RVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList,MainController mainC, Record allRecord){
 
         this.mainC = mainC;
         this.moneyCurr = moneyCurr;
         this.itemsCurr = itemsCurr;
-        this.svm = new SVM(this.itemsCurr, this.moneyCurr);
+        this.allRecord = allRecord;
+        this.svm = new SVM(this.itemsCurr, this.moneyCurr, this.allRecord);
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
         this.channgeList = changeList;
         initializeChangeList();

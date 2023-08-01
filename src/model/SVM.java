@@ -8,12 +8,14 @@ public class SVM {
     private ArrayList<ItemSlot> itemSlotArrayList;
     private ArrayList<MoneySlot> moneySlotArrayList;
     private int totalSales;
+    private Record currRecord;
 
-    public SVM(ArrayList<ItemSlot> itemSlotArrayList, ArrayList<MoneySlot> moneySlotArrayList)
+    public SVM(ArrayList<ItemSlot> itemSlotArrayList, ArrayList<MoneySlot> moneySlotArrayList, Record currRecord)
     {
         this.itemSlotArrayList = itemSlotArrayList;
         this.moneySlotArrayList = moneySlotArrayList;
         this.totalSales = 0;
+        this.currRecord = currRecord;
     }
 
     // YOU MAY WANT TO ADAPT THIS FOR GUI BUT FOR NOW, CLI IS JUST FOR TESTING
@@ -141,6 +143,7 @@ public class SVM {
                     {
                         this.itemSlotArrayList.get(i).dispenseItem();
                         this.itemSlotArrayList.get(i).setToSell(0);
+                        this.currRecord.update(this.itemSlotArrayList,this.itemSlotArrayList.get(i).getItem().getPrice(),this.itemSlotArrayList.get(i).getItem());
                     }
 
             }
@@ -159,6 +162,7 @@ public class SVM {
                     do
                     {
                         this.itemSlotArrayList.get(i).dispenseItem();
+                        this.currRecord.update(this.itemSlotArrayList,this.itemSlotArrayList.get(i).getItem().getPrice(),this.itemSlotArrayList.get(i).getItem());
                     }while(this.itemSlotArrayList.get(i).getToSell() > 0);
                 }
 

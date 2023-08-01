@@ -3,6 +3,7 @@ package controllers;
 import model.ItemSlot;
 import model.Money;
 import model.MoneySlot;
+import model.Record;
 import model.SVM;
 import view.*;
 
@@ -21,13 +22,15 @@ public class SVMController {
     ArrayList<ItemSlot> itemToBuy;
     ArrayList<String> itemPrep;
     int totalPaid, totalDue;
+    Record allRecord;
 
-    public SVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList,MainController mainC){
+    public SVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList, MainController mainC, Record allRecord){
 
         this.mainC = mainC;
         this.moneyCurr = moneyCurr;
         this.itemsCurr = itemsCurr;
-        this.svm = new SVM(this.itemsCurr, this.moneyCurr);
+        this.allRecord = allRecord;
+        this.svm = new SVM(this.itemsCurr, this.moneyCurr, this.allRecord);
         this.specialVMFrame = new SpecialVMFrame(this.itemsCurr, this.moneyCurr, this);
         this.channgeList = changeList;
         initializeChangeList();

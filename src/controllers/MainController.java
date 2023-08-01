@@ -1,6 +1,7 @@
 package controllers;
 
 import model.*;
+import model.Record;
 import view.*;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class MainController {
     MaintenanceController maintenanceController;
     SVMController svmController;
     MoneyFrame moneyFrame;
+    Record allRecord;
 
     public MainController(){
 
@@ -91,19 +93,20 @@ public class MainController {
         forChange.add(money1C);
 
 
-
         this.moneyCurr = moneyList;
         this.itemCurr = initializeList;
         this.changeList = forChange;
 
-       rvmController = new RVMController(this.moneyCurr, this.itemCurr, changeList, this);
+        this.allRecord = new Record(this.itemCurr);
+
+       rvmController = new RVMController(this.moneyCurr, this.itemCurr, changeList, this, this.allRecord);
     }
 
     public void pushedSVMBtn(){
         this.itemCurr = rvmController.getItemsCurr();
         this.moneyCurr = rvmController.getMoneyCurr();
         if (svmController == null)
-            svmController = new SVMController(this.moneyCurr, this.itemCurr, changeList,this);
+            svmController = new SVMController(this.moneyCurr, this.itemCurr, changeList,this, allRecord);
         else
         {
             svmController.setItemsCurr(this.itemCurr);
@@ -117,7 +120,7 @@ public class MainController {
         this.itemCurr = rvmController.getItemsCurr();
         this.moneyCurr = rvmController.getMoneyCurr();
         if (maintenanceController == null)
-            maintenanceController = new MaintenanceController(this.moneyCurr, this.itemCurr, this);
+            maintenanceController = new MaintenanceController(this.moneyCurr, this.itemCurr, this, allRecord);
         else
         {
             maintenanceController.setItemsCurr(this.itemCurr);

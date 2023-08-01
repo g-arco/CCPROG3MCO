@@ -6,12 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class SummaryFrame extends JFrame{
 
     MaintenanceController controller;
     MaintenanceFrame sourceFrame;
-    public SummaryFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
+    public SummaryFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<String> summary){
 
         this.controller = controller;
         this.sourceFrame = sourceFrame;
@@ -49,11 +50,21 @@ public class SummaryFrame extends JFrame{
         });
 
         summaryPrint.setBounds(16,100, 564, 420);
+        summaryPrint.setText("");
+        for (int i=0; i <summary.size();i++)
+        {
+            summaryPrint.append(summary.get(i));
+        }
+        summaryPrint.setLineWrap(true);
 
+        JScrollPane scroll = new JScrollPane(summaryPrint);
+        scroll.setBounds(16,100, 564, 420);
+        scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+
+        printFrame.add(scroll);
         printFrame.add(btnDone);
         printFrame.add(userDesc);
         printFrame.add(showTitle);
-        printFrame.add(summaryPrint);
 
         printFrame.setVisible(true);
 
