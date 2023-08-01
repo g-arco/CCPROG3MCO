@@ -1,7 +1,9 @@
 package view;
 
+import controllers.MainController;
 import controllers.RVMController;
 import model.Money;
+import model.MoneySlot;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -17,11 +19,11 @@ public class LoadingFrame extends JFrame {
         JFrame load;
         JLabel loadHaloHalo;
         JLabel strOutput;
-        int index;
+        int index, index2;
         int buffer;
-        RVMController controller;
+        MainController controller;
 
-        public LoadingFrame(ArrayList<Money> moneyHold, RVMController controller)
+        public LoadingFrame(ArrayList<Money> moneyHold, MainController controller, int source)
         {
             init();
 
@@ -32,7 +34,7 @@ public class LoadingFrame extends JFrame {
             strOutput.setHorizontalAlignment(JLabel.CENTER);
             strOutput.setForeground(Color.red);
 
-            Timer timer = new Timer(800, null);
+            Timer timer = new Timer(900, null);
             index = moneyHold.size()-1;
             buffer=1;
             ActionListener listner = new ActionListener() {
@@ -43,7 +45,7 @@ public class LoadingFrame extends JFrame {
                     if (index==-1){
                         strOutput.setText("Finished...");
                         timer.stop();
-                        controller.closeWindow();
+                        controller.closeWindow(1, source);
                     }
                     else if (buffer==1)
                     {
@@ -71,7 +73,7 @@ public class LoadingFrame extends JFrame {
 
         }
 
-    public LoadingFrame(ArrayList<String> string, ArrayList<Money> money, RVMController controller)
+    public LoadingFrame(ArrayList<MoneySlot> money, MainController controller, int source, int a)
     {
         init();
 
@@ -82,7 +84,61 @@ public class LoadingFrame extends JFrame {
         strOutput.setHorizontalAlignment(JLabel.CENTER);
         strOutput.setForeground(Color.red);
 
-        Timer timer = new Timer(800, null);
+        Timer timer = new Timer(900, null);
+        index2 = money.size()-1;
+        buffer=1;
+        ActionListener listner = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (index2==-1){
+                    strOutput.setText("Finished...");
+                    timer.stop();
+                    controller.closeWindow(1, source);
+                }
+                else if (buffer==1)
+                {
+                    if(money.get(index2).getQuantity() > 0)
+                    {
+                        strOutput.setText(money.get(index2).getQuantity()+" "+money.get(index2).getValue()+" PHP has been dispensed...");
+                        System.out.println(money.get(index2).getQuantity()+" "+money.get(index2).getValue()+" PHP has been dispensed...");
+                    }
+
+                    index2--;
+                    buffer=2;
+                }
+                else
+                {
+                    strOutput.setText("....");
+                    buffer=1;
+                }
+
+
+            }
+        };
+        timer.addActionListener(listner);
+        timer.start();
+
+
+
+        loadHaloHalo.add(strOutput);
+
+
+    }
+
+    public LoadingFrame(ArrayList<String> string, MainController controller, int source, int a, int b)
+    {
+        init();
+
+        String str = "Processing...";
+        JLabel strOutput = new JLabel(str);//get string from model
+        strOutput.setBounds(0, 50, 480, 60);
+        strOutput.setFont(new Font("Comic Sans MS",Font.PLAIN,15));
+        strOutput.setHorizontalAlignment(JLabel.CENTER);
+        strOutput.setForeground(Color.red);
+
+        Timer timer = new Timer(1000, null);
         index = string.size()-1;
         buffer=1;
         ActionListener listner = new ActionListener() {
@@ -93,7 +149,7 @@ public class LoadingFrame extends JFrame {
                 if (index==-1){
                     strOutput.setText("Finished...");
                     timer.stop();
-                    controller.closeWindow();
+                    controller.closeWindow(0, source);
                 }
                 else if (buffer==1)
                 {

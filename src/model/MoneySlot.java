@@ -21,6 +21,7 @@ public class MoneySlot
             slot.add(m);
             i++;
         } while (i < 15); // 15 is just an arbitrary number lol
+        quantity = 15;
     }
 
     public void getReplenished(int amount)
@@ -33,9 +34,9 @@ public class MoneySlot
             i++;
         } while (i < amount);
 
-        quantity = slot.size();
+        this.quantity = slot.size();
 
-        System.out.println("Successfully replenished! Quantity is now "+quantity+": "+this.money.getValue());
+        System.out.println("Successfully replenished! Quantity is now "+this.quantity+": "+this.money.getValue());
     }
 
     public void clearSlots()
@@ -51,7 +52,7 @@ public class MoneySlot
     {
         if(!slot.isEmpty())
         {
-            slot.remove(quantity);
+            slot.remove(quantity-1);
             quantity--;
             return true;
         }
@@ -78,6 +79,6 @@ public class MoneySlot
 
     public int getQuantity()
     {
-        return quantity;
+        return this.quantity;
     }
 }

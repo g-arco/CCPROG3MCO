@@ -84,7 +84,7 @@ public class MaintenanceController {
     public boolean pushedtoRVM(){
         this.maintenanceFrame.getFrame().dispose();
         maintenanceFrame.dispose();
-        mainC.pushedBacktoRVM();
+        mainC.pushedBacktoRVMfromM();
         return true;
     }
 
@@ -152,5 +152,9 @@ public class MaintenanceController {
 
     public void setItemsCurr(ArrayList<ItemSlot> itemsCurr) {
         this.itemsCurr = itemsCurr;
+    }
+
+    public ArrayList<MoneySlot> getMoneyCurr() {
+        return moneyCurr;
     }
 }

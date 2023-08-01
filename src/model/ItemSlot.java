@@ -25,6 +25,8 @@ public class ItemSlot
         {
             this.items.add(i);
         }
+
+
     }
 
     // use polymorphism.
@@ -43,7 +45,7 @@ public class ItemSlot
             } while(amount != 0);
 
             this.toSell = 0;
-
+            System.out.println(quantity);
             return true;
         }
 
@@ -105,4 +107,5 @@ public class ItemSlot
     {
         return this.item;
     }
+
 }

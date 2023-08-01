@@ -1,5 +1,6 @@
 package view;
 
+import controllers.MainController;
 import controllers.RVMController;
 import model.*;
 
@@ -16,20 +17,22 @@ public class MoneyFrame extends JFrame{
     JLabel AmtUserPaidlb;
     JLabel AmttoPayInt;
     JTextField AmtUserPaidInt;
-    RVMController controller;
+    MainController controller;
     ArrayList<Money> moneyHold;
 
     int totalPaidMoney;
     int totalAmt;
 
     JFrame moneyFrame;
+    int source;
 
-    public MoneyFrame(int totalAmt, RVMController controller){
+    public MoneyFrame(int totalAmt, MainController controller, int source){
 
         this.controller = controller;
         totalPaidMoney = 0;
         moneyHold = new ArrayList<Money>();
         this.totalAmt = totalAmt;
+        this.source = source;
 
         moneyFrame = new JFrame("Purchase Items");
         AmttoPaylb = new JLabel("Total Amount to be Paid: ");
@@ -81,9 +84,20 @@ public class MoneyFrame extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(totalPaidMoney == 0)
-                    controller.pushedBack();
+                {
+                    if (source==1)
+                        controller.pushedBack();
+                    else
+                        controller.pushedBackS();
+                }
                 else
-                    controller.showMoneyHold(moneyHold);
+                {
+                    if (source==1)
+                        controller.showMoneyHold(moneyHold);
+                    else
+                        controller.showMoneyHoldS(moneyHold);
+                }
+
             }
         });
 
@@ -287,7 +301,13 @@ public class MoneyFrame extends JFrame{
         AmtUserPaidInt.setText(totalPaidMoney+"");
 
         if (totalPaidMoney >= this.totalAmt)
-            controller.successPay();
+        {
+            if (source==1)
+                controller.successPay(totalPaidMoney);
+            else
+                controller.successPayS(totalPaidMoney);
+        }
+
     }
 
     public JFrame getFrame() {

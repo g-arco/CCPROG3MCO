@@ -121,7 +121,7 @@ public class RVMFrame extends JFrame{
         pixelVanillaIC.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
+                String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Vanilla Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
                 if (choice == 0)
                     controller.pushedGet(vanillaICPrice,controller.getItemsCurr().get(2));
@@ -145,7 +145,7 @@ public class RVMFrame extends JFrame{
         pixelRK.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
+                String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie" , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, rkImg, options,options[1]);
                 if (choice == 0)
                     controller.pushedGet(rkPrice,controller.getItemsCurr().get(3));
@@ -170,7 +170,7 @@ public class RVMFrame extends JFrame{
         pixelBanana.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                String options[] ={"Get model.Item", "Go back"};
+                String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Banana (PHP "+bananaPrice+"  || 8 Calories)", "Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
                 if (choice == 0)
                     controller.pushedGet(bananaPrice,controller.getItemsCurr().get(4));
@@ -281,6 +281,12 @@ public class RVMFrame extends JFrame{
         btnSwitch.setMargin(new Insets(0,0,0,0));
         btnSwitch.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
         btnSwitch.setText("<html><center>Switch to Special<br/> Vending Machine </center> </html>");
+        btnSwitch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedSwitchBtn();
+            }
+        });
 
 
         imgBg.add(pixelIce);

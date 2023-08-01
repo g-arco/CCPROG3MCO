@@ -16,11 +16,14 @@ public class RVMController {
     MoneyFrame moneyFrame;
     LoadingFrame loadingFrame;
     ArrayList<MoneySlot> moneyCurr;
+    ArrayList<MoneySlot> channgeList;
     ArrayList<ItemSlot> itemsCurr;
     MainController mainC;
     SVM svm;
 
     ArrayList<ItemSlot> itemToBuy;
+    ArrayList<String> itemPrep;
+    int totalPaid;
 
     public RVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList,MainController mainC){
 
@@ -29,9 +32,21 @@ public class RVMController {
         this.itemsCurr = itemsCurr;
         this.svm = new SVM(this.itemsCurr, this.moneyCurr);
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
+        this.channgeList = changeList;
+        initializeChangeList();
     }
 
-    public void backFromMaintenance(){
+    public void initializeChangeList(){
+        for (int i =0; i <this.channgeList.size(); i++)
+        {
+            this.channgeList.get(i).clearSlots();
+            //System.out.println(this.channgeList.get(i).getQuantity());
+            //System.out.println(this.moneyCurr.get(i).getQuantity());
+        }
+
+    }
+
+    public void backFromOthers(){
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
     }
 
@@ -41,40 +56,65 @@ public class RVMController {
         mainC.pushedMaintenanceBtn();
     }
 
+    public void pushedSwitchBtn(){
+        this.rvmFrame.getFrame().dispose();
+        this.rvmFrame.dispose();
+        mainC.pushedSVMBtn();
+    }
+
     public void pushedGet(int totalAmt, ItemSlot itemSlot){
         itemToBuy = new ArrayList<ItemSlot>();
         this.rvmFrame.getFrame().dispose();
         this.rvmFrame.dispose();
         this.itemToBuy.add(itemSlot);
         this.itemToBuy.get(0).setToSell(1);
-        this.moneyFrame = new MoneyFrame(totalAmt, this);
+        mainC.toMoneyFrame(totalAmt, 1);
 
     }
 
-    public void pushedBack(){
+    public void pushedBack(MoneyFrame moneyFrame){
+        this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
     }
 
-    public void showMoneyHold(ArrayList<Money> moneyHold){
+    public void showMoneyHold(ArrayList<Money> moneyHold,MoneyFrame moneyFrame){
+        this.moneyFrame = moneyFrame;
+        this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
-        this.loadingFrame = new LoadingFrame(moneyHold, this);
+        this.loadingFrame = new LoadingFrame(moneyHold, mainC, 1);
     }
 
-    public void closeWindow(){
-        this.loadingFrame.getFrame().dispose();
-        this.loadingFrame.dispose();
-        this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
+    public void closeWindow(int isDone){
+        if(isDone ==0)
+        {
+            this.loadingFrame.getFrame().dispose();
+            this.loadingFrame.dispose();
+            this.channgeList = this.svm.produceChange(this.totalPaid, this.itemToBuy.get(0).getItem().getPrice(), this.channgeList);
+            this.moneyCurr = this.svm.getMoneySlotArrayList();
+            this.loadingFrame = new LoadingFrame(this.channgeList, mainC, 1,0);
+
+        }
+        else {
+            this.loadingFrame.getFrame().dispose();
+            this.loadingFrame.dispose();
+            this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
+            initializeChangeList();
+        }
+
     }
 
-    public void successPay(){
+    public void successPay(int totalPaid,MoneyFrame moneyFrame){
+        this.moneyFrame = moneyFrame;
+        this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
-        ArrayList<Money> change = new ArrayList<>();
-        change.add(new Money(1));
-        ArrayList<String> itemPrep = new ArrayList<String>();
-        itemPrep = this.svm.proceedTransaction(this.itemToBuy);
-        this.loadingFrame = new LoadingFrame(itemPrep, change, this);
+
+        this.totalPaid = totalPaid;
+        this.itemPrep = new ArrayList<String>();
+        this.itemPrep = this.svm.proceedTransaction(this.itemToBuy);
+        System.out.println(itemPrep.get(0));
+        this.loadingFrame = new LoadingFrame(itemPrep, mainC, 1, 0, 0);
         this.itemsCurr = svm.getItemSlotArrayList();
         this.moneyCurr = svm.getMoneySlotArrayList();
     }

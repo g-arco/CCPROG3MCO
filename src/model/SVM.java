@@ -124,13 +124,14 @@ public class SVM {
         else
         {
             proceedTransaction(chosenItems);
-            // produceChange(payment, totalPrice);
         }
     }
 
     public ArrayList<String> proceedTransaction(ArrayList<ItemSlot> chosenItems)
     {
-        int sold=1;
+        int sold, tempToSell;
+        ArrayList<String> dispenseString = new ArrayList<String>();
+
         if (chosenItems.size()==1)
         {
             for(int i = 0; i < this.itemSlotArrayList.size(); i++)
@@ -139,41 +140,46 @@ public class SVM {
                     if (chosenItems.get(0).getItem() == this.itemSlotArrayList.get(i).getItem())
                     {
                         this.itemSlotArrayList.get(i).dispenseItem();
+                        this.itemSlotArrayList.get(i).setToSell(0);
                     }
 
             }
+
+            sold =1;
+            dispenseString.add(sold+" "+chosenItems.get(0).getItem().ItemPreparation()+"");
         }
+        else
+        {
+            for(int i = 0; i < chosenItems.size(); i++)
+            {
+                this.itemSlotArrayList.get(i).setToSell(chosenItems.get(i).getToSell());
+                if (chosenItems.get(i).getToSell() > 0)
+                {
+                    dispenseString.add(chosenItems.get(i).getToSell()+" "+chosenItems.get(i).getItem().ItemPreparation()+"");
+                    do
+                    {
+                        this.itemSlotArrayList.get(i).dispenseItem();
+                    }while(this.itemSlotArrayList.get(i).getToSell() > 0);
+                }
+
+            }
 
             /*
-        for(int i = 0; i < this.itemSlotArrayList.size(); i++)
-        {
-            for (int j = 0; j < chosenItems.size(); j++)
+            for(int i = 0; i < chosenItems.size(); i++)
             {
-                    do {
-                        System.out.println(chosenItems.get(j).getItem() == this.itemSlotArrayList.get(i).getItem());
-                        if (chosenItems.get(j).getItem() == this.itemSlotArrayList.get(i).getItem())
-                        {
-                            this.itemSlotArrayList.get(i).dispenseItem();
-                            chosenItems.get(0).dispenseItem();
-                        }
-                    } while(chosenItems.get(j).getToSell() > 0);
-            }
-        }*/
-
-        ArrayList<String> dispenseString = new ArrayList<String>();
-        for(int i = 0; i < chosenItems.size(); i++)
-        {
-            System.out.println("Stock: "+chosenItems.get(i).getArrayList().size());
-            System.out.println("getItems: "+chosenItems.get(i).getToSell()+" Quantity: "+chosenItems.get(i).getQuantity());
-            dispenseString.add(sold+" "+chosenItems.get(i).getItem().ItemPreparation()+"");
+                System.out.println("Stock: "+chosenItems.get(i).getArrayList().size());
+                System.out.println("getItems: "+chosenItems.get(i).getToSell()+" Quantity: "+chosenItems.get(i).getQuantity());
+                dispenseString.add(" "+chosenItems.get(i).getItem().ItemPreparation()+"");
+            }*/
         }
+
 
         return dispenseString;
     }
 
-    public void produceChange(int payment, int due)
+    public ArrayList<MoneySlot> produceChange(int payment, int due, ArrayList<MoneySlot> changeList)
     {
-        int change = payment - due;
+        /*
         int oneThousand = 0, fiveHundred = 0, twoHundred = 0, oneHundred = 0, fifty = 0, twenty = 0, ten = 0, five = 0, one = 0;
 
         oneThousand = change/1000;
@@ -200,22 +206,48 @@ public class SVM {
         five = change/5;
         change %= 5;
 
-        one = change;
+        one = change;*/
+
+        int totalChange = payment - due;
+        int checkChange;
+
+        for (int i = 0; i < this.moneySlotArrayList.size(); i++)
+        {
+            checkChange = totalChange/changeList.get(i).getValue();
+            if (checkChange>0)
+                changeList.get(i).getReplenished(totalChange/changeList.get(i).getValue()); //divides to see if it is divisble
+            if(changeList.get(i).getQuantity()==0)
+                totalChange = totalChange%changeList.get(i).getValue(); //not divisible so totalChange remains the same
+            else
+            {
+
+                //assume success
+                totalChange = totalChange%changeList.get(i).getValue(); //it is divible by some number so we are left with a few pesos left which we need to dispense
+                this.moneySlotArrayList.get(i).dispense(); //subtracts the money rvm dispenses
+                System.out.println(changeList.get(i).getQuantity());
+            }
+
+        }
+
+
+
 
         System.out.println("Change:");
-        System.out.println("1000 "+oneThousand);
-        System.out.println("500 "+fiveHundred);
-        System.out.println("200 "+twoHundred);
-        System.out.println("100 "+oneHundred);
-        System.out.println("50 "+fifty);
-        System.out.println("20 "+twenty);
-        System.out.println("10 "+ten);
-        System.out.println("5 "+five);
-        System.out.println("1 "+one);
+        System.out.println("1000 "+changeList.get(0).getQuantity());
+        System.out.println("500 "+changeList.get(1).getQuantity());
+        System.out.println("200 "+changeList.get(2).getQuantity());
+        System.out.println("100 "+changeList.get(3).getQuantity());
+        System.out.println("50 "+changeList.get(4).getQuantity());
+        System.out.println("20 "+changeList.get(5).getQuantity());
+        System.out.println("10 "+changeList.get(6).getQuantity());
+        System.out.println("5 "+changeList.get(7).getQuantity());
+        System.out.println("1 "+changeList.get(8).getQuantity());
 
-        dispenseChange(oneThousand, fiveHundred, twoHundred, oneHundred, fifty, twenty, ten, five, one);
+        //dispenseChange(oneThousand, fiveHundred, twoHundred, oneHundred, fifty, twenty, ten, five, one);
 
         this.totalSales = due;
+
+        return changeList;
     }
 
     public void dispenseChange(int oneThousand, int fiveHundred, int twoHundred, int oneHundred, int fifty, int twenty, int ten, int five, int one)

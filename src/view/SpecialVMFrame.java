@@ -1,25 +1,57 @@
 package view;
 
+import controllers.RVMController;
+import controllers.SVMController;
+import model.ItemSlot;
+import model.Money;
+import model.MoneySlot;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class SpecialVMFrame extends JFrame {
 
         JLabel imgBg;
         ImageIcon SVMbg;
 
+        SVMController controller;
+        ArrayList<MoneySlot> moneyCurr;
+        ArrayList<ItemSlot> itemsCurr;
+
+        JFrame main2;
+        int totalAmt;
+        JLabel AmttoPaylb;
+
+        ArrayList<ItemSlot> cart;
 
 
-        public SpecialVMFrame(){
 
-            int totalAmt=0;
+        public SpecialVMFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, SVMController controller){
+
+            totalAmt=0;
+            this.controller = controller;
+            this.moneyCurr = moneyCurr;
+            this.itemsCurr = itemsCurr;
+            this.cart = new ArrayList<ItemSlot>();
+
+            for (int i = 0; i < itemsCurr.size(); i++)
+            {
+                this.cart.add(new ItemSlot(this.itemsCurr.get(i).getItem()));
+                for (int j = 0; j < this.itemsCurr.get(i).getQuantity(); j++)
+                {
+                    this.cart.get(i).dispenseItem();
+                }
+                this.cart.get(i).setToSell(0);
+            }
+
 
             //https://youtu.be/QXVyg7lY9r8
-            JFrame main2 = new JFrame("Special Main Menu");
+            main2 = new JFrame("Special Main Menu");
             JLabel showWelcome = new JLabel("Welcome to Halo-Halo Zone");
             JButton bthClick = new JButton();
 
@@ -45,8 +77,14 @@ public class SpecialVMFrame extends JFrame {
             btnCLick.setMargin(new Insets(0, 0, 0, 0));
             btnCLick.setFont(new Font("Comic Sans MS",Font.PLAIN,7));
             btnCLick.setText("Purchase");
+            btnCLick.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.purchaseItems(cart,totalAmt);
+                }
+            });
 
-            JLabel AmttoPaylb = new JLabel("<html>Total Amount: "+totalAmt+" PHP </html>");
+            AmttoPaylb = new JLabel("<html>Total Amount: "+totalAmt+" PHP </html>");
             AmttoPaylb.setBounds(488, 170,74,80);
             AmttoPaylb.setForeground(Color.black);
             AmttoPaylb.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
@@ -59,13 +97,13 @@ public class SpecialVMFrame extends JFrame {
 
             ImageIcon iceImg = new ImageIcon(getClass().getResource("/resources/pixel_Ice.png"));
             JLabel pixelIce = new JLabel(iceImg);
-            int iceStock =0;
-            int icePrice = 5;
+            int iceStock =this.itemsCurr.get(0).getQuantity();
+            int icePrice = this.itemsCurr.get(0).getItem().getPrice();
             pixelIce.setBounds(203, 95, 40, 27); //paint coordinates; 208 (-28), 120(-18)
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved model.Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
+                    JOptionPane.showMessageDialog(main2, "Shaved Ice (PHP "+icePrice+" || 0 Calories || In Stock: "+iceStock+")", "Shaved Ice", JOptionPane.INFORMATION_MESSAGE, iceImg);
                 }
             });
 
@@ -79,37 +117,26 @@ public class SpecialVMFrame extends JFrame {
             getIceAmt.setForeground(Color.black);
             getIceAmt.setBounds(218, 125, 40, 13);
             getIceAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            /*
-              getIceAmt.addActionListener(new ActionListener() {
 
-                //something like
-                int newTotal = totalAmt;
+            getIceAmt.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String iceAmtStr = getIceAmt.getText();
-                    int newTotal = totalAmt;
+
                     int iceAmt = Integer.parseInt(iceAmtStr);
                     if (iceAmt > 0) {
-                        newTotal = totalAmt + icePrice * iceAmt;
+                        itemsCurr.get(0).setToSell(iceAmt);
+                        clickEnter(iceAmt*icePrice);
                     }
-                    AmttoPaylb.setText("<html>Total Amount: "+newTotal+" PHP </html>");
-                }
-
-                public int getNewTotal()
-                {
-                    return newTotal;
                 }
             });
-
-
-            totalAmt = actionlistener.getNewTotal();*/
 
 
             //====================================================================================
             ImageIcon evamilkImg = new ImageIcon(getClass().getResource("/resources/pixel_Milk.png"));
             JLabel pixelEvaMilk = new JLabel(evamilkImg);
-            int evamilkStock = 0;
-            int evamilkPrice = 25;
+            int evamilkStock = this.itemsCurr.get(1).getQuantity();
+            int evamilkPrice = this.itemsCurr.get(1).getItem().getPrice();
             pixelEvaMilk.setBounds(303, 85, 40, 40); //paint coordinates; 208 (-23), 120(-18)
             pixelEvaMilk.addMouseListener(new MouseAdapter() {
                 @Override
@@ -127,20 +154,30 @@ public class SpecialVMFrame extends JFrame {
             getEvaMilkAmt.setForeground(Color.black);
             getEvaMilkAmt.setBounds(318, 125, 40, 13);
             getEvaMilkAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String evamilkAmtStr = getEvaMilkAmt.getText();
-            //evamilkAmt = Integer.parseInt(iceAmtStr);
+            getEvaMilkAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String iceAmtStr = getEvaMilkAmt.getText();
+
+                    int evamilkAmt = Integer.parseInt(iceAmtStr);
+                    if (evamilkAmt > 0) {
+                        itemsCurr.get(1).setToSell(evamilkAmt);
+                        clickEnter(evamilkAmt*evamilkPrice);
+                    }
+                }
+            });
 
             //===============================================================================
 
             ImageIcon vanillaICImg = new ImageIcon(getClass().getResource("/resources/pixel_vanillaIC.png"));
             JLabel pixelVanillaIC = new JLabel(vanillaICImg);
-            int vanillaICStock = 0;
-            int vanillaICPrice = 25;
+            int vanillaICStock = this.itemsCurr.get(2).getQuantity();
+            int vanillaICPrice = this.itemsCurr.get(2).getItem().getPrice();
             pixelVanillaIC.setBounds(203, 157, 40, 40); //+72 down
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Vanilla model.Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla model.Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
+                    JOptionPane.showMessageDialog(main2, "Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories || In Stock: "+vanillaICStock+")", "Vanilla Ice Cream", JOptionPane.INFORMATION_MESSAGE, vanillaICImg);
                 }
             });
 
@@ -153,13 +190,23 @@ public class SpecialVMFrame extends JFrame {
             getVanillaICAmt.setForeground(Color.black);
             getVanillaICAmt.setBounds(218, 197, 40, 13);
             getVanillaICAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String vanillaICAmtStr = getVanillaICAmt.getText();
-            //vanillaICAmtStr = Integer.parseInt(iceAmtStr);
+            getVanillaICAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String vanillaICeAmtStr = getVanillaICAmt.getText();
+
+                    int vanillaICeAmt = Integer.parseInt(vanillaICeAmtStr);
+                    if (vanillaICeAmt > 0) {
+                        itemsCurr.get(2).setToSell(vanillaICeAmt);
+                        clickEnter(vanillaICeAmt*vanillaICPrice);
+                    }
+                }
+            });
 //=====================================================================================================
             ImageIcon rkImg = new ImageIcon(getClass().getResource("/resources/pixel_RiceKrispies.png"));
             JLabel pixelRK = new JLabel(rkImg);
-            int rkStock =0;
-            int rkPrice = 10;
+            int rkStock = this.itemsCurr.get(3).getQuantity();
+            int rkPrice = this.itemsCurr.get(3).getItem().getPrice();
             pixelRK.setBounds(303, 157, 50, 40); //+72 down
             pixelRK.addMouseListener(new MouseAdapter() {
                 @Override
@@ -177,20 +224,30 @@ public class SpecialVMFrame extends JFrame {
             getRKAmt.setForeground(Color.black);
             getRKAmt.setBounds(318, 197, 40, 13);
             getRKAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String rkAmtStr = getEvaMilkAmt.getText();
-            //rkAmtStr = Integer.parseInt(iceAmtStr);
+            getRKAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String rkAmtStr = getRKAmt.getText();
+
+                    int rkAmt = Integer.parseInt(rkAmtStr);
+                    if (rkAmt > 0) {
+                        itemsCurr.get(3).setToSell(rkAmt);
+                        clickEnter(rkAmt*rkPrice);
+                    }
+                }
+            });
 
             //===============================================================================================
 
             ImageIcon bananaImg = new ImageIcon(getClass().getResource("/resources/pixel_banana.png"));
             JLabel pixelBanana = new JLabel(bananaImg);
-            int bananaStock = 0;
-            int bananaPrice = 10;
+            int bananaStock = this.itemsCurr.get(4).getQuantity();
+            int bananaPrice = this.itemsCurr.get(4).getItem().getPrice();
             pixelBanana.setBounds(203, 232, 40, 40); //+75 down
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "model.Banana (PHP "+bananaPrice+"  || 8 Calories || In Stock: "+bananaStock+")", "model.Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
+                    JOptionPane.showMessageDialog(main2, "Banana (PHP "+bananaPrice+"  || 8 Calories || In Stock: "+bananaStock+")", "Banana", JOptionPane.INFORMATION_MESSAGE, bananaImg);
                 }
             });
 
@@ -203,21 +260,31 @@ public class SpecialVMFrame extends JFrame {
             getBananaAmt.setForeground(Color.black);
             getBananaAmt.setBounds(218, 272, 40, 13);
             getBananaAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String bananaAmtStr = getBananaAmt.getText();
-            //bananaAmt = Integer.parseInt(iceAmtStr);
+            getBananaAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String bananaAmtStr = getBananaAmt.getText();
+
+                    int bananaAmt = Integer.parseInt(bananaAmtStr);
+                    if (bananaAmt > 0) {
+                        itemsCurr.get(4).setToSell(bananaAmt);
+                        clickEnter(bananaAmt*bananaPrice);
+                    }
+                }
+            });
 
 
 //=====================================================================================================
 
             ImageIcon coconutImg = new ImageIcon(getClass().getResource("/resources/pixel_coconut.png"));
             JLabel pixelCoconut = new JLabel(coconutImg);
-            int coconutStock = 0;
-            int coconutPrice = 15;
+            int coconutStock = this.itemsCurr.get(5).getQuantity();
+            int coconutPrice = this.itemsCurr.get(5).getItem().getPrice();
             pixelCoconut.setBounds(303, 232, 40, 40); //+75 down
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "model.Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "model.Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
+                    JOptionPane.showMessageDialog(main2, "Coconut (PHP "+coconutPrice+" || 17 Calories || In Stock: "+coconutStock+")", "Coconut", JOptionPane.INFORMATION_MESSAGE, coconutImg);
                 }
             });
 
@@ -230,15 +297,25 @@ public class SpecialVMFrame extends JFrame {
             getCoconutAmt.setForeground(Color.black);
             getCoconutAmt.setBounds(318, 272, 40, 13);
             getCoconutAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String coconutAmtStr = getEvaMilkAmt.getText();
-            //rcAmtStr = Integer.parseInt(iceAmtStr);
+            getCoconutAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String coconutAmtStr = getCoconutAmt.getText();
+
+                    int coconutAmt = Integer.parseInt(coconutAmtStr);
+                    if (coconutAmt > 0) {
+                        itemsCurr.get(5).setToSell(coconutAmt);
+                        clickEnter(coconutAmt*coconutPrice);
+                    }
+                }
+            });
 
             //=====================================================================================================================
 
             ImageIcon monggoImg = new ImageIcon(getClass().getResource("/resources/pixel_mungbeans.png"));
             JLabel pixelMonggo = new JLabel(monggoImg);
-            int monggoStock = 0;
-            int monggoPrice = 15;
+            int monggoStock = this.itemsCurr.get(6).getQuantity();
+            int monggoPrice = this.itemsCurr.get(6).getItem().getPrice();
             pixelMonggo.setBounds(203, 310, 40, 40); //+78 down
             pixelMonggo.addMouseListener(new MouseAdapter() {
                 @Override
@@ -256,20 +333,30 @@ public class SpecialVMFrame extends JFrame {
             getMonggoAmt.setForeground(Color.black);
             getMonggoAmt.setBounds(218, 350, 40, 13);
             getMonggoAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String monggoAmtStr = getMonggoAmt.getText();
-            //monggoAmt = Integer.parseInt(iceAmtStr);
+            getMonggoAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String monggoAmtStr = getMonggoAmt.getText();
+
+                    int monggoAmt = Integer.parseInt(monggoAmtStr);
+                    if (monggoAmt > 0) {
+                        itemsCurr.get(6).setToSell(monggoAmt);
+                        clickEnter(monggoAmt*monggoPrice);
+                    }
+                }
+            });
 
             //=======================================================================================================================
 
             ImageIcon ubeImg = new ImageIcon(getClass().getResource("/resources/pixel_ube.png"));
             JLabel pixelUbe = new JLabel(ubeImg);
-            int ubeStock = 0;
-            int ubePrice = 15;
+            int ubeStock = this.itemsCurr.get(7).getQuantity();
+            int ubePrice = this.itemsCurr.get(7).getItem().getPrice();
             pixelUbe.setBounds(303, 310, 40, 40); //+72 down
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    JOptionPane.showMessageDialog(main2, "Purple model.Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple model.Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
+                    JOptionPane.showMessageDialog(main2, "Purple Yam (PHP "+ubePrice+" || 15 Calories || In Stock: "+ubeStock+")", "Purple Yam", JOptionPane.INFORMATION_MESSAGE, ubeImg);
                 }
             });
 
@@ -282,21 +369,43 @@ public class SpecialVMFrame extends JFrame {
             getUbeAmt.setForeground(Color.black);
             getUbeAmt.setBounds(318, 350, 40, 13);
             getUbeAmt.setFont(new Font("Comic Sans MS",Font.PLAIN,10));
-            String ubeAmtStr = getEvaMilkAmt.getText();
-            //rcAmtStr = Integer.parseInt(iceAmtStr);
+            getUbeAmt.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String ubeAmtStr = getUbeAmt.getText();
+
+                    int ubeAmt = Integer.parseInt(ubeAmtStr);
+                    if (ubeAmt > 0) {
+                        itemsCurr.get(7).setToSell(ubeAmt);
+                        clickEnter(ubeAmt*ubePrice);
+                    }
+                }
+            });
 
             //=======================================================================================================================
 
-            JButton btnMaintenance = new JButton("model.Maintenance Mode");
+            JButton btnMaintenance = new JButton("Maintenance Mode");
             btnMaintenance.setBounds(250, 550,120,20);
             btnMaintenance.setMargin(new Insets(0,0,0,0));
             btnMaintenance.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            btnMaintenance.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.pushedMaintenanceBtn();
+                }
+            });
 
             JButton btnSwitch = new JButton("Switch to Regular Vending Machine");
             btnSwitch.setBounds(488, 250,74,80);
             btnSwitch.setMargin(new Insets(0,0,0,0));
             btnSwitch.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
             btnSwitch.setText("<html><center>Switch to Regular<br/> Vending Machine </center> </html>");
+            btnSwitch.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.pushedSwitchBtn();
+                }
+            });
 
 
 
@@ -346,14 +455,14 @@ public class SpecialVMFrame extends JFrame {
 
         }
 
-        public static void main(String args[])
-        {
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new view.SpecialVMFrame().setVisible(true);
-                }
-            });
+        public JFrame getFrame() {
+        return main2;
+    }
+
+        public void clickEnter(int amtToAdd){
+
+            totalAmt+=amtToAdd;
+            AmttoPaylb.setText("<html>Total Amount: "+totalAmt+" PHP </html>");
 
         }
-
 }

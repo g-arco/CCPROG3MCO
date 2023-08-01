@@ -1,7 +1,7 @@
 package controllers;
 
 import model.*;
-import view.MaintenanceFrame;
+import view.*;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,11 @@ public class MainController {
 
     ArrayList<ItemSlot> itemCurr;
     ArrayList<MoneySlot> moneyCurr;
+    ArrayList<MoneySlot> changeList;
     RVMController rvmController;
     MaintenanceController maintenanceController;
+    SVMController svmController;
+    MoneyFrame moneyFrame;
 
     public MainController(){
 
@@ -55,7 +58,7 @@ public class MainController {
         MoneySlot money1 = new MoneySlot(new Money(1));
 
         ArrayList<MoneySlot> moneyList = new ArrayList<MoneySlot>();
-        ArrayList<MoneySlot> changeList = new ArrayList<MoneySlot>();
+        ArrayList<MoneySlot> forChange = new ArrayList<MoneySlot>();
 
         moneyList.add(money1000);
         moneyList.add(money500);
@@ -67,21 +70,47 @@ public class MainController {
         moneyList.add(money5);
         moneyList.add(money1);
 
-        changeList.add(money1000);
-        changeList.add(money500);
-        changeList.add(money200);
-        changeList.add(money100);
-        changeList.add(money50);
-        changeList.add(money20);
-        changeList.add(money10);
-        changeList.add(money5);
-        changeList.add(money1);
+        MoneySlot money1000C = new MoneySlot(new Money(1000));
+        MoneySlot money500C = new MoneySlot(new Money(500));
+        MoneySlot money200C = new MoneySlot(new Money(200));
+        MoneySlot money100C = new MoneySlot(new Money(100));
+        MoneySlot money50C = new MoneySlot(new Money(50));
+        MoneySlot money20C = new MoneySlot(new Money(20));
+        MoneySlot money10C = new MoneySlot(new Money(10));
+        MoneySlot money5C = new MoneySlot(new Money(5));
+        MoneySlot money1C = new MoneySlot(new Money(1));
+
+        forChange.add(money1000C);
+        forChange.add(money500C);
+        forChange.add(money200C);
+        forChange.add(money100C);
+        forChange.add(money50C);
+        forChange.add(money20C);
+        forChange.add(money10C);
+        forChange.add(money5C);
+        forChange.add(money1C);
+
+
 
         this.moneyCurr = moneyList;
         this.itemCurr = initializeList;
-        VendingMachine vm = new VendingMachine(this.itemCurr);
+        this.changeList = forChange;
 
        rvmController = new RVMController(this.moneyCurr, this.itemCurr, changeList, this);
+    }
+
+    public void pushedSVMBtn(){
+        this.itemCurr = rvmController.getItemsCurr();
+        this.moneyCurr = rvmController.getMoneyCurr();
+        if (svmController == null)
+            svmController = new SVMController(this.moneyCurr, this.itemCurr, changeList,this);
+        else
+        {
+            svmController.setItemsCurr(this.itemCurr);
+            svmController.setMoneyCurr(this.moneyCurr);
+            svmController.backFromRVM();
+        }
+
     }
 
     public void pushedMaintenanceBtn(){
@@ -98,14 +127,64 @@ public class MainController {
 
     }
 
-    public void pushedBacktoRVM(){
-        this.itemCurr = rvmController.getItemsCurr();
-        this.moneyCurr = rvmController.getMoneyCurr();
+    public void pushedBacktoRVMfromM(){
+        this.itemCurr = maintenanceController.getItemsCurr();
+        this.moneyCurr = maintenanceController.getMoneyCurr();
 
         rvmController.setItemsCurr(this.itemCurr);
         rvmController.setMoneyCurr(this.moneyCurr);
-        rvmController.backFromMaintenance();
+        rvmController.backFromOthers();
 
+    }
+
+    public void pushedBacktoRVMfromS(){
+        this.itemCurr = svmController.getItemsCurr();
+        this.moneyCurr = svmController.getMoneyCurr();
+
+        rvmController.setItemsCurr(this.itemCurr);
+        rvmController.setMoneyCurr(this.moneyCurr);
+        rvmController.backFromOthers();
+
+    }
+
+    public void toMoneyFrame(int totalAmt, int source){
+        this.moneyFrame = new MoneyFrame(totalAmt, this, source);
+    }
+
+    public void pushedBack(){
+        rvmController.pushedBack(this.moneyFrame);
+    }
+
+    public void showMoneyHold(ArrayList<Money> moneyHold){
+        rvmController.showMoneyHold(moneyHold, this.moneyFrame);
+    }
+
+    public void pushedBackS(){
+        svmController.pushedBackS(this.moneyFrame);
+    }
+
+    public void showMoneyHoldS(ArrayList<Money> moneyHold){
+        svmController.showMoneyHoldS(moneyHold, this.moneyFrame);
+    }
+
+    public void successPay(int totalMoney){
+        rvmController.successPay(totalMoney, this.moneyFrame);
+    }
+
+    public void successPayS(int totalMoney){
+        svmController.successPayS(totalMoney, this.moneyFrame);
+    }
+
+    public void closeWindow(int isDone, int source){
+        if(source==1)
+            rvmController.closeWindow(isDone);
+        if(source==2)
+            svmController.closeWindowS(isDone);
+
+    }
+
+    public MoneyFrame getMoneyFrame() {
+        return moneyFrame;
     }
 
     public void terminateProgram(){
