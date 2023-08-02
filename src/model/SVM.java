@@ -212,28 +212,56 @@ public class SVM {
 
         one = change;*/
 
-        int totalChange = payment - due;
-        int checkChange;
+        int totalChange;
+        int checkChange, tempQuan;
+
+        totalChange=payment-due;
+        System.out.println(totalChange+"++++"+payment+" "+due);
 
         for (int i = 0; i < this.moneySlotArrayList.size(); i++)
         {
-            checkChange = totalChange/changeList.get(i).getValue();
-            if (checkChange>0)
-                changeList.get(i).getReplenished(totalChange/changeList.get(i).getValue()); //divides to see if it is divisble
-            if(changeList.get(i).getQuantity()==0)
-                totalChange = totalChange%changeList.get(i).getValue(); //not divisible so totalChange remains the same
-            else
-            {
+            checkChange = totalChange/changeList.get(i).getValue(); //divides to see if it is divisble
+            System.out.println(checkChange+" "+totalChange+" "+changeList.get(i).getValue()+"++++");
 
-                //assume success
-                totalChange = totalChange%changeList.get(i).getValue(); //it is divible by some number so we are left with a few pesos left which we need to dispense
-                this.moneySlotArrayList.get(i).dispense(); //subtracts the money rvm dispenses
+            if(checkChange==0)
+                totalChange = totalChange%changeList.get(i).getValue(); //not divisible so totalChange remains the same
+            else {
+
+                System.out.println(checkChange+" "+this.moneySlotArrayList.get(i).getQuantity()+"++++");
+                if(checkChange >= this.moneySlotArrayList.get(i).getQuantity())
+                {
+                    System.out.println(checkChange+" "+this.moneySlotArrayList.get(i).getQuantity()+"++++");
+                    if (i == (changeList.size()-1))
+                    {
+                        changeList.add(new MoneySlot(new Money(0)));
+                        return changeList;
+                    }
+                    else
+                    {
+                        changeList.get(i).getReplenished(this.moneySlotArrayList.get(i).getQuantity());//maximizes the money rvm has
+                        System.out.println(changeList.get(i).getQuantity()+"++++");
+                        checkChange = checkChange-(changeList.get(i).getQuantity()*changeList.get(i).getValue()); //subtract the money it was able to retrive
+                    }
+                }
+                else
+                {
+                    if (checkChange>0)
+                        changeList.get(i).getReplenished(checkChange); //divides to see if it is divisble
+                    totalChange = totalChange%changeList.get(i).getValue(); //it is divible by some number so we are left with a few pesos left which we need to dispense
+                }
+
                 System.out.println(changeList.get(i).getQuantity());
             }
 
+            System.out.println(changeList.get(i).getQuantity());
         }
-
-
+        for (int i = 0; i < this.moneySlotArrayList.size(); i++)
+        {
+            for (int j=0; j < changeList.get(i).getQuantity(); j++)
+            {
+                this.moneySlotArrayList.get(i).dispense(); //subtracts the money rvm dispenses
+            }
+        }
 
 
         System.out.println("Change:");

@@ -139,10 +139,12 @@ public class MaintenanceController {
 
     }
 
-    public void stockMoney(int Amt, int moneyIndex)
+    public int stockMoney(int Amt, int moneyIndex)
     {
         modelMaintenance.replenishMoney(moneyIndex, Amt);
         this.moneyCurr = modelMaintenance.getMoneyList();
+
+        return modelMaintenance.getMoneyList().get(moneyIndex).getQuantity();
 
         /*
         for (int i =0; i <moneyCurr.size(); i++)

@@ -154,6 +154,20 @@ public class MainController {
         this.moneyFrame = new MoneyFrame(totalAmt, this, source);
     }
 
+    public boolean checkChange(int source, int totalPaid){
+        if(source==1)
+        {
+            return rvmController.checkChange(totalPaid);
+        }
+        else
+        {
+            boolean i = svmController.checkChange(totalPaid);
+            System.out.println(i+"!!!!");
+            return i;
+        }
+
+    }
+
     public void pushedBack(){
         rvmController.pushedBack(this.moneyFrame);
     }
@@ -186,11 +200,22 @@ public class MainController {
 
     }
 
+    public void setMoneyCurr(ArrayList<Money> moneyHold){
+        for(int i=0; i < moneyHold.size(); i++)
+        {
+            for (int j=0; j < this.moneyCurr.size(); j++)
+            {
+                if(this.moneyCurr.get(j).getMoney() == moneyHold.get(i))
+                    this.moneyCurr.get(j).getReplenished(1);
+            }
+        }
+    }
+
     public MoneyFrame getMoneyFrame() {
         return moneyFrame;
     }
 
     public void terminateProgram(){
-
+        System.exit(0);
     }
 }

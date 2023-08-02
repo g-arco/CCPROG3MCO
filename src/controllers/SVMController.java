@@ -38,9 +38,12 @@ public class SVMController {
     }
 
     public void initializeChangeList(){
-        for (int i =0; i <this.channgeList.size(); i++)
+        for (int i =0; i < this.channgeList.size(); i++)
         {
-            this.channgeList.get(i).clearSlots();
+            if (i==9)
+                this.channgeList.remove(i);
+            else
+                this.channgeList.get(i).clearSlots();
             //System.out.println(this.channgeList.get(i).getQuantity());
             //System.out.println(this.moneyCurr.get(i).getQuantity());
         }
@@ -72,6 +75,12 @@ public class SVMController {
         this.specialVMFrame.getFrame().dispose();
         this.specialVMFrame.dispose();
         mainC.pushedBacktoRVMfromS();
+    }
+
+    public void clearSVM(){
+        this.specialVMFrame.getFrame().dispose();
+        this.specialVMFrame.dispose();
+        this.specialVMFrame = new SpecialVMFrame(itemsCurr,moneyCurr,this);
     }
 
     public void purchaseItems(ArrayList<ItemSlot> cart, int totalAmt)
@@ -119,6 +128,20 @@ public class SVMController {
         this.loadingFrame = new LoadingFrame(moneyHold, mainC,2);
     }
 
+    public boolean checkChange(int totalPaid){
+        this.totalPaid = totalPaid;
+        if(this.svm.produceChange(this.totalPaid, this.totalDue, this.channgeList).size() == 9)
+        {
+            System.out.println(this.channgeList.size());
+            return true;
+        }
+        else
+        {
+            initializeChangeList();
+            return false;
+        }
+    }
+
 
     public void closeWindowS(int isDone){
         if(isDone ==0)
@@ -126,7 +149,7 @@ public class SVMController {
             this.loadingFrame.getFrame().dispose();
             this.loadingFrame.dispose();
 
-            this.channgeList = this.svm.produceChange(this.totalPaid, this.totalDue, this.channgeList);
+            //this.channgeList = this.svm.produceChange(this.totalPaid, this.totalDue, this.channgeList);
             this.moneyCurr = this.svm.getMoneySlotArrayList();
             this.loadingFrame = new LoadingFrame(this.channgeList, mainC, 2,0);
 
@@ -153,6 +176,8 @@ public class SVMController {
         int checkIfWith=0;
         this.withPrep = 0;
 
+        System.out.println(checkIfWith+"> START");
+
         if(this.itemsCurr.get(0).getToSell() >= 1)
         {
             checkIfWith++; this.withPrep++;
@@ -165,11 +190,19 @@ public class SVMController {
             checkIfWith+=2;
         if(this.itemsCurr.get(4).getToSell() >= 1)
             checkIfWith+=2;
+        System.out.println(checkIfWith);
         if(this.itemsCurr.get(5).getToSell() >= 1)
             checkIfWith+=2;
 
 
         System.out.println(checkIfWith);
+        if (checkIfWith%2 != 0)
+        {
+            if(this.itemsCurr.get(1).getToSell() == 0 && this.itemsCurr.get(0).getToSell() == 1)
+                checkIfWith=0;
+            if(this.itemsCurr.get(1).getToSell() == 1 && this.itemsCurr.get(0).getToSell() == 0)
+                checkIfWith=0;
+        }
 
         if(checkIfWith >= 2)
             return true;

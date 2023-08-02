@@ -13,6 +13,7 @@ public class MoneyMaintenanceFrame extends JFrame{
 
     MaintenanceController controller;
     MaintenanceFrame sourceFrame;
+    JFrame moneyMFrame;
 
 
     public MoneyMaintenanceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller) {
@@ -20,7 +21,7 @@ public class MoneyMaintenanceFrame extends JFrame{
         this.controller = controller;
         this.sourceFrame = sourceFrame;
 
-        JFrame moneyMFrame = new JFrame("Stock Money");
+        moneyMFrame = new JFrame("Stock Money");
         JButton btnDone = new JButton("Done Stocking");
         JLabel showTitle = new JLabel("Stock Money");
         JLabel userDesc = new JLabel("<html><center>Input the AMOUNT YOU WANT TO ADD on the text fields<br/>for each bill/coin respectively!<center><html>");
@@ -71,8 +72,10 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p1000AmtStr = getP1000Amt.getText();
-                int p1000AmtInt = Integer.parseInt(p1000AmtStr);
-                controller.stockMoney(p1000AmtInt, 0);
+                int p1000AmtInt = 0;
+                clickEnter(p1000AmtStr, p1000AmtInt, 0, "1000 PHP");
+
+
 
             }
         });
@@ -95,8 +98,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p500AmtStr = getP500Amt.getText();
-                int p500AmtInt = Integer.parseInt(p500AmtStr);
-                controller.stockMoney(p500AmtInt, 1);
+                int p500AmtInt = 0;
+                clickEnter(p500AmtStr, p500AmtInt, 1, "500 PHP");
 
             }
         });
@@ -121,8 +124,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p200AmtStr = getP200Amt.getText();
-                int p200AmtInt = Integer.parseInt(p200AmtStr);
-                controller.stockMoney(p200AmtInt, 2);
+                int p200AmtInt =  0;
+                clickEnter(p200AmtStr, p200AmtInt, 2, "200 PHP");
 
             }
         });
@@ -148,8 +151,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p100AmtStr = getP100Amt.getText();
-                int p100AmtInt = Integer.parseInt(p100AmtStr);
-                controller.stockMoney(p100AmtInt, 3);
+                int p100AmtInt = 0;
+                clickEnter(p100AmtStr, p100AmtInt, 3, "100 PHP");
 
             }
         });
@@ -173,8 +176,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p50AmtStr = getP50Amt.getText();
-                int p50AmtInt = Integer.parseInt(p50AmtStr);
-                controller.stockMoney(p50AmtInt, 4);
+                int p50AmtInt = 0;
+                clickEnter(p50AmtStr, p50AmtInt, 4, "50 PHP");
 
             }
         });
@@ -201,8 +204,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p20AmtStr = getP20Amt.getText();
-                int p20AmtInt = Integer.parseInt(p20AmtStr);
-                controller.stockMoney(p20AmtInt, 5);
+                int p20AmtInt = 0;
+                clickEnter(p20AmtStr, p20AmtInt, 5, "20 PHP");
 
             }
         });
@@ -228,8 +231,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p10AmtStr = getP10Amt.getText();
-                int p10AmtInt = Integer.parseInt(p10AmtStr);
-                controller.stockMoney(p10AmtInt, 6);
+                int p10AmtInt = 0;
+                clickEnter(p10AmtStr, p10AmtInt, 6, "10 PHP");
 
             }
         });
@@ -254,8 +257,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p5AmtStr = getP5Amt.getText();
-                int p5AmtInt = Integer.parseInt(p5AmtStr);
-                controller.stockMoney(p5AmtInt, 7);
+                int p5AmtInt = 0;
+                clickEnter(p5AmtStr, p5AmtInt, 7, "5 PHP");
 
             }
         });
@@ -280,8 +283,8 @@ public class MoneyMaintenanceFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String p1AmtStr = getP1Amt.getText();
-                int p1AmtInt = Integer.parseInt(p1AmtStr);
-                controller.stockMoney(p1AmtInt, 8);
+                int p1AmtInt =  0;
+                clickEnter(p1AmtStr, p1AmtInt, 8, "1 PHP");
 
             }
         });
@@ -333,13 +336,24 @@ public class MoneyMaintenanceFrame extends JFrame{
         moneyMFrame.setVisible(true);
     }
 
+    public void clickEnter(String str, int strToInt, int index, String name){
+        if(str.matches(".*\\d.*")) //if string has an integer
+        {
+            strToInt = Integer.parseInt(str);
+            int i = controller.stockMoney(strToInt, index);
+            JOptionPane.showMessageDialog(moneyMFrame, name+" has +"+strToInt+" Stock/ Quantity Now: "+i,"Restock Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(moneyMFrame, "ERROR! Should be an integer input.","Integer Input Needed", JOptionPane.ERROR_MESSAGE);
+    }
+
     public void setFrame(boolean bool)
     {
         this.setVisible(bool);
     }
 
     public JFrame getFrame(){
-        return this;
+        return this.moneyMFrame;
     }
 
 

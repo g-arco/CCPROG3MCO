@@ -15,6 +15,7 @@ public class SetPriceFrame extends JFrame{
         MaintenanceFrame sourceFrame;
         int icePrice, evamilkPrice, vanillaICPrice, rkPrice, bananaPrice,coconutPrice,monggoPrice,ubePrice;
         JLabel icePricelb, evamilkPricelb, vanillaICPricelb, rkPricelb, bananaPricelb, coconutPricelb, monggoPricelb, ubePricelb;
+        JFrame setPrice;
 
 
         public SetPriceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
@@ -23,7 +24,7 @@ public class SetPriceFrame extends JFrame{
             this.sourceFrame = sourceFrame;
 
             //https://youtu.be/QXVyg7lY9r8
-            JFrame setPrice = new JFrame("Set Item Price");
+            setPrice = new JFrame("Set Item Price");
             JLabel showWelcome = new JLabel("Set Item Price");
 
             setPrice.setSize(612, 612);
@@ -56,15 +57,11 @@ public class SetPriceFrame extends JFrame{
             pixelIce.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object iceNewPrice;
-                    iceNewPrice=  JOptionPane.showInputDialog(setPrice, "<html>Shaved Ice (PHP "+icePrice+" || 0 Calories)<br/>Enter new price: </html>", "Shaved Ice", JOptionPane.PLAIN_MESSAGE, iceImg, null, icePrice);
-                    if(iceNewPrice!=null)
-                    {
-                        if(Integer.parseInt(iceNewPrice.toString())!=icePrice) {
-                            controller.newPrice(0,Integer.parseInt(iceNewPrice.toString()));
-                            icePrice = controller.getItemsCurr().get(0).getItem().getPrice();
-                        }
-                    }
+                    String iceNewPrice;
+                    iceNewPrice=  (String) JOptionPane.showInputDialog(setPrice, "<html>Shaved Ice (PHP "+icePrice+" || 0 Calories)<br/>Enter new price: </html>", "Shaved Ice", JOptionPane.PLAIN_MESSAGE, iceImg, null, icePrice);
+
+                    clickChange(iceNewPrice, icePrice, 0);
+
                 }
             });
 
@@ -82,15 +79,10 @@ public class SetPriceFrame extends JFrame{
             pixelEvaMilk.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object evamilkNewPrice;
-                    evamilkNewPrice= JOptionPane.showInputDialog(setPrice, "<html>Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)<br/>Enter new price: </html>", "Evaporated Milk", JOptionPane.PLAIN_MESSAGE, evamilkImg, null, evamilkPrice);
-                    if(evamilkNewPrice!=null)
-                    {
-                        if(Integer.parseInt(evamilkNewPrice.toString())!=evamilkPrice) {
-                            controller.newPrice(1,Integer.parseInt(evamilkNewPrice.toString()));
-                            evamilkPrice = controller.getItemsCurr().get(1).getItem().getPrice();
-                        }
-                    }
+                    String evamilkNewPrice;
+                    evamilkNewPrice= (String) JOptionPane.showInputDialog(setPrice, "<html>Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)<br/>Enter new price: </html>", "Evaporated Milk", JOptionPane.PLAIN_MESSAGE, evamilkImg, null, evamilkPrice);
+
+                    clickChange(evamilkNewPrice, evamilkPrice, 1);
                 }
             });
 
@@ -109,15 +101,11 @@ public class SetPriceFrame extends JFrame{
             pixelVanillaIC.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object vanillaICNewPrice;
-                    vanillaICNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories))<br/>Enter new price: </html>", "Vanilla Ice Cream", JOptionPane.PLAIN_MESSAGE, vanillaICImg, null, vanillaICPrice);
-                    if(vanillaICNewPrice!=null)
-                    {
-                        if(Integer.parseInt(vanillaICNewPrice.toString())!=vanillaICPrice) {
-                            controller.newPrice(2, Integer.parseInt(vanillaICNewPrice.toString()));
-                            vanillaICPrice = controller.getItemsCurr().get(2).getItem().getPrice();
-                        }
-                    }
+                    String vanillaICNewPrice;
+                    vanillaICNewPrice=(String) JOptionPane.showInputDialog(setPrice, "<html>Vanilla Ice Cream (PHP "+vanillaICPrice+" || 111 Calories))<br/>Enter new price: </html>", "Vanilla Ice Cream", JOptionPane.PLAIN_MESSAGE, vanillaICImg, null, vanillaICPrice);
+
+
+                    clickChange(vanillaICNewPrice, vanillaICPrice, 2);
                 }
             });
 
@@ -134,15 +122,10 @@ public class SetPriceFrame extends JFrame{
             pixelRK.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object rkNewPrice;
-                    rkNewPrice=JOptionPane.showInputDialog(setPrice, "<html>Rice Krispie (PHP "+rkPrice+" || 10 Calories)<br/>Enter new price: </html>", "Rice Krispie", JOptionPane.PLAIN_MESSAGE, rkImg, null, rkPrice);
-                    if(rkNewPrice!=null)
-                    {
-                        if(Integer.parseInt(rkNewPrice.toString())!=rkPrice) {
-                            controller.newPrice(3, Integer.parseInt(rkNewPrice.toString()));
-                            rkPrice = controller.getItemsCurr().get(3).getItem().getPrice();
-                        }
-                    }
+                    String rkNewPrice;
+                    rkNewPrice=(String)JOptionPane.showInputDialog(setPrice, "<html>Rice Krispie (PHP "+rkPrice+" || 10 Calories)<br/>Enter new price: </html>", "Rice Krispie", JOptionPane.PLAIN_MESSAGE, rkImg, null, rkPrice);
+
+                    clickChange(rkNewPrice, rkPrice, 3);
                 }
             });
 
@@ -160,15 +143,10 @@ public class SetPriceFrame extends JFrame{
             pixelBanana.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object bananaNewPrice;
-                    bananaNewPrice= JOptionPane.showInputDialog(setPrice, "<html>Banana (PHP "+bananaPrice+" || 8 Calories)<br/>Enter new price: </html>", "Banana", JOptionPane.PLAIN_MESSAGE, bananaImg, null, bananaPrice);
-                    if(bananaNewPrice!=null)
-                    {
-                        if(Integer.parseInt(bananaNewPrice.toString())!=bananaPrice) {
-                            controller.newPrice(4,Integer.parseInt(bananaNewPrice.toString()));
-                            bananaPrice = controller.getItemsCurr().get(4).getItem().getPrice();
-                        }
-                    }
+                    String bananaNewPrice;
+                    bananaNewPrice= (String) JOptionPane.showInputDialog(setPrice, "<html>Banana (PHP "+bananaPrice+" || 8 Calories)<br/>Enter new price: </html>", "Banana", JOptionPane.PLAIN_MESSAGE, bananaImg, null, bananaPrice);
+
+                    clickChange(bananaNewPrice, bananaPrice, 4);
                 }
             });
 
@@ -186,15 +164,9 @@ public class SetPriceFrame extends JFrame{
             pixelCoconut.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object coconutNewPrice;
-                    coconutNewPrice= JOptionPane.showInputDialog(setPrice, "<html>Coconut (PHP "+coconutPrice+" || 17 Calories)<br/>Enter new price: </html>", "Coconut", JOptionPane.PLAIN_MESSAGE, coconutImg, null, coconutPrice);
-                    if(coconutNewPrice!=null)
-                    {
-                        if(Integer.parseInt(coconutNewPrice.toString())!=coconutPrice) {
-                            controller.newPrice(5,Integer.parseInt(coconutNewPrice.toString()));
-                            coconutPrice = controller.getItemsCurr().get(5).getItem().getPrice();
-                        }
-                    }
+                    String coconutNewPrice;
+                    coconutNewPrice=(String) JOptionPane.showInputDialog(setPrice, "<html>Coconut (PHP "+coconutPrice+" || 17 Calories)<br/>Enter new price: </html>", "Coconut", JOptionPane.PLAIN_MESSAGE, coconutImg, null, coconutPrice);
+                    clickChange(coconutNewPrice, coconutPrice, 5);
                 }
             });
 
@@ -212,15 +184,10 @@ public class SetPriceFrame extends JFrame{
             pixelMonggo.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object monggoNewPrice;
-                    monggoNewPrice= JOptionPane.showInputDialog(setPrice, "<html>Mung Beans (PHP "+monggoPrice+" || 12 Calories)<br/>Enter new price: </html>", "Mung Beans", JOptionPane.PLAIN_MESSAGE, monggoImg, null, monggoPrice);
-                    if(monggoNewPrice!=null)
-                    {
-                        if(Integer.parseInt(monggoNewPrice.toString())!=monggoPrice) {
-                            controller.newPrice(6,Integer.parseInt(monggoNewPrice.toString()));
-                            monggoPrice = controller.getItemsCurr().get(6).getItem().getPrice();
-                        }
-                    }
+                    String monggoNewPrice;
+                    monggoNewPrice= (String) JOptionPane.showInputDialog(setPrice, "<html>Mung Beans (PHP "+monggoPrice+" || 12 Calories)<br/>Enter new price: </html>", "Mung Beans", JOptionPane.PLAIN_MESSAGE, monggoImg, null, monggoPrice);
+
+                    clickChange(monggoNewPrice, monggoPrice, 6);
                 }
             });
 
@@ -238,15 +205,10 @@ public class SetPriceFrame extends JFrame{
             pixelUbe.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Object ubeNewPrice;
-                    ubeNewPrice= JOptionPane.showInputDialog(setPrice, "<html>Purple Yam (PHP "+ubePrice+" || 15 Calories)<br/>Enter new price: </html>", "Purple Yam", JOptionPane.PLAIN_MESSAGE, ubeImg, null, ubePrice);
-                    if(ubeNewPrice!=null)
-                    {
-                        if(Integer.parseInt(ubeNewPrice.toString())!=ubePrice) {
-                            controller.newPrice(7,Integer.parseInt(ubeNewPrice.toString()));
-                            ubePrice = controller.getItemsCurr().get(7).getItem().getPrice();
-                        }
-                    }
+                    String ubeNewPrice;
+                    ubeNewPrice= (String) JOptionPane.showInputDialog(setPrice, "<html>Purple Yam (PHP "+ubePrice+" || 15 Calories)<br/>Enter new price: </html>", "Purple Yam", JOptionPane.PLAIN_MESSAGE, ubeImg, null, ubePrice);
+
+                    clickChange(ubeNewPrice, ubePrice, 7);
                 }
             });
 
@@ -314,6 +276,23 @@ public class SetPriceFrame extends JFrame{
 
     public JFrame getFrame(){
         return this;
+    }
+
+    public void clickChange(String str, int price, int index){
+
+        if(str!=null)
+        {
+            if(str.matches(".*\\d.*")) //if string has an integer
+            {
+                if(Integer.parseInt(str.toString())!=price) {
+                    controller.newPrice(index,Integer.parseInt(str));
+                    price = controller.getItemsCurr().get(index).getItem().getPrice();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(setPrice, "ERROR! Should be an integer input.","Integer Input Needed", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     public JLabel getIcePricelb() {

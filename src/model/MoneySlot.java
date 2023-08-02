@@ -20,20 +20,22 @@ public class MoneySlot
         {
             slot.add(m);
             i++;
-        } while (i < 15); // 15 is just an arbitrary number lol
+        } while (i < 15);// 15 is just an arbitrary number lol
         quantity = 15;
     }
 
     public void getReplenished(int amount)
     {
         int i = 0;
+        System.out.println(i+" "+amount);
 
-        do
+        while (i < amount)
         {
             slot.add(money);
             i++;
-        } while (i < amount);
-
+            System.out.println(i);
+        }
+        System.out.println(slot.size());
         this.quantity = slot.size();
 
         System.out.println("Successfully replenished! Quantity is now "+this.quantity+": "+this.money.getValue());
@@ -80,5 +82,9 @@ public class MoneySlot
     public int getQuantity()
     {
         return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

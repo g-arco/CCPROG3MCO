@@ -82,19 +82,38 @@ public class RVMController {
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
     }
 
+    public void pushedExit(){
+        this.rvmFrame.getFrame().dispose();
+        this.rvmFrame.dispose();
+        mainC.terminateProgram();
+    }
+
+
     public void showMoneyHold(ArrayList<Money> moneyHold,MoneyFrame moneyFrame){
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
         this.loadingFrame = new LoadingFrame(moneyHold, mainC, 1);
     }
+    public boolean checkChange(int totalPaid) {
+        this.totalPaid = totalPaid;
+        if (this.svm.produceChange(this.totalPaid, this.itemToBuy.get(0).getItem().getPrice(), this.channgeList).size() == 9) {
+            System.out.println(this.channgeList.size());
+            return true;
+        }
+        else {
+            initializeChangeList();
+            return false;
+        }
+    }
+
 
     public void closeWindow(int isDone){
         if(isDone ==0)
         {
             this.loadingFrame.getFrame().dispose();
             this.loadingFrame.dispose();
-            this.channgeList = this.svm.produceChange(this.totalPaid, this.itemToBuy.get(0).getItem().getPrice(), this.channgeList);
+
             this.moneyCurr = this.svm.getMoneySlotArrayList();
             this.loadingFrame = new LoadingFrame(this.channgeList, mainC, 1,0);
 

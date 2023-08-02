@@ -302,10 +302,14 @@ public class MoneyFrame extends JFrame{
 
         if (totalPaidMoney >= this.totalAmt)
         {
-            if (source==1)
-                controller.successPay(totalPaidMoney);
-            else
-                controller.successPayS(totalPaidMoney);
+            if(controller.checkChange(source, totalPaidMoney) == true)
+            {
+                controller.setMoneyCurr(moneyHold);
+                if (source==1)
+                    controller.successPay(totalPaidMoney);
+                else
+                    controller.successPayS(totalPaidMoney);
+            }
         }
 
     }

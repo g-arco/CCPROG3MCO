@@ -331,6 +331,17 @@ public class RVMFrame extends JFrame{
             }
         });
 
+        JButton btnExit = new JButton("Exit");
+        btnExit.setBounds(37, 250,74,80);
+        btnExit.setMargin(new Insets(0,0,0,0));
+        btnExit.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+        btnExit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.pushedExit();
+            }
+        });
+
 
         imgBg.add(pixelIce);
         imgBg.add(iceStocklb);
@@ -366,6 +377,7 @@ public class RVMFrame extends JFrame{
 
         imgBg.add(btnCLick);
         imgBg.add(btnSwitch);
+        imgBg.add(btnExit);
         imgBg.add(btnMaintenance);
         imgBg.add(showWelcome);
         imgBg.add(showDesc);

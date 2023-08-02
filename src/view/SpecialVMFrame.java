@@ -27,7 +27,6 @@ public class SpecialVMFrame extends JFrame {
         int totalAmt, totalCalories;
         JLabel AmttoPaylb;
 
-        ArrayList<ItemSlot> cart;
 
 
 
@@ -38,16 +37,11 @@ public class SpecialVMFrame extends JFrame {
             this.controller = controller;
             this.moneyCurr = moneyCurr;
             this.itemsCurr = itemsCurr;
-            this.cart = new ArrayList<ItemSlot>();
 
-            for (int i = 0; i < itemsCurr.size(); i++)
+            for (int i = 0; i < this.itemsCurr.size(); i++)
             {
-                this.cart.add(new ItemSlot(this.itemsCurr.get(i).getItem()));
-                for (int j = 0; j < this.itemsCurr.get(i).getQuantity(); j++)
-                {
-                    this.cart.get(i).dispenseItem();
-                }
-                this.cart.get(i).setToSell(0);
+                this.itemsCurr.get(i).setToSell(0);
+                System.out.println(this.itemsCurr.get(i).getToSell());
             }
 
 
@@ -83,7 +77,7 @@ public class SpecialVMFrame extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                     System.out.println(controller.canbeSold());
                     if(controller.canbeSold()==true)
-                        controller.purchaseItems(cart,totalAmt);
+                        controller.purchaseItems(itemsCurr,totalAmt);
                     else
                         JOptionPane.showMessageDialog(main2, "Invalid items. Make sure it can be sold alone or with[ICE AND EVAPORATED MILK]","Invalid Items",JOptionPane.ERROR_MESSAGE);
                 }
@@ -387,6 +381,17 @@ public class SpecialVMFrame extends JFrame {
                 }
             });
 
+            JButton btnClear = new JButton("Clear");
+            btnClear.setBounds(37, 250,74,80);
+            btnClear.setMargin(new Insets(0,0,0,0));
+            btnClear.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+            btnClear.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    controller.clearSVM();
+                }
+            });
+
 
 
             imgBg.add(pixelIce);
@@ -423,6 +428,7 @@ public class SpecialVMFrame extends JFrame {
 
             imgBg.add(btnCLick);
             imgBg.add(btnSwitch);
+            imgBg.add(btnClear);
             imgBg.add(AmttoPaylb);
             imgBg.add(btnMaintenance);
             imgBg.add(showWelcome);
