@@ -23,6 +23,7 @@ public class SVMController {
     ArrayList<String> itemPrep;
     int totalPaid, totalDue;
     Record allRecord;
+    int withPrep;
 
     public SVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList, MainController mainC, Record allRecord){
 
@@ -118,6 +119,7 @@ public class SVMController {
         this.loadingFrame = new LoadingFrame(moneyHold, mainC,2);
     }
 
+
     public void closeWindowS(int isDone){
         if(isDone ==0)
         {
@@ -135,6 +137,48 @@ public class SVMController {
             this.specialVMFrame = new SpecialVMFrame(this.itemsCurr, this.moneyCurr, this);
             initializeChangeList();
         }
+
+    }
+
+    public boolean isAvailable(int index){
+
+        if (this.itemsCurr.get(index).getQuantity() >= 1)
+            return true;
+        else
+            return false;
+
+    }
+
+    public boolean canbeSold(){
+        int checkIfWith=0;
+        this.withPrep = 0;
+
+        if(this.itemsCurr.get(0).getToSell() >= 1)
+        {
+            checkIfWith++; this.withPrep++;
+        }
+        if(this.itemsCurr.get(1).getToSell() >= 1)
+        {
+            checkIfWith++; this.withPrep++;
+        }
+        if(this.itemsCurr.get(2).getToSell() >= 1)
+            checkIfWith+=2;
+        if(this.itemsCurr.get(4).getToSell() >= 1)
+            checkIfWith+=2;
+        if(this.itemsCurr.get(5).getToSell() >= 1)
+            checkIfWith+=2;
+
+
+        System.out.println(checkIfWith);
+
+        if(checkIfWith >= 2)
+            return true;
+        else
+        {
+            this.withPrep = 0;
+            return false;
+        }
+
 
     }
 

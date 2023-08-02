@@ -73,7 +73,13 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Shaved Ice (PHP "+icePrice+"|| 0 Calories)", "Shaved Ice",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, iceImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(icePrice,controller.getItemsCurr().get(0));
+                {
+                    if(controller.isAvailable(itemsCurr.get(0))==true)
+                        controller.pushedGet(icePrice,controller.getItemsCurr().get(0));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 
@@ -98,7 +104,12 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Evaporated Milk (PHP "+evamilkPrice+" || 80 Calories)", "Evaporated Milk", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, evamilkImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(evamilkPrice,controller.getItemsCurr().get(1));
+                {
+                    if(controller.isAvailable(itemsCurr.get(1))==true)
+                       controller.pushedGet(evamilkPrice,controller.getItemsCurr().get(1));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -124,7 +135,12 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Vanilla Ice Cream (PHP  "+vanillaICPrice+" || 111 Calories)", "Vanilla Ice Cream", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, vanillaICImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(vanillaICPrice,controller.getItemsCurr().get(2));
+                {
+                    if(controller.isAvailable(itemsCurr.get(2))==true)
+                        controller.pushedGet(vanillaICPrice,controller.getItemsCurr().get(2));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -148,7 +164,13 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Rice Krispie (PHP "+rkPrice+" || 10 Calories)", "Rice Krispie" , JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, rkImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(rkPrice,controller.getItemsCurr().get(3));
+                {
+                    if(controller.isAvailable(itemsCurr.get(3))==true)
+                        controller.pushedGet(rkPrice,controller.getItemsCurr().get(3));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 
@@ -173,7 +195,13 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Banana (PHP "+bananaPrice+"  || 8 Calories)", "Banana",  JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, bananaImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(bananaPrice,controller.getItemsCurr().get(4));
+                {
+                    if(controller.isAvailable(itemsCurr.get(4))==true)
+                        controller.pushedGet(bananaPrice,controller.getItemsCurr().get(4));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
 
@@ -198,7 +226,12 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Coconut (PHP "+coconutPrice+" || 17 Calories)", "Coconut", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, coconutImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(coconutPrice,controller.getItemsCurr().get(5));
+                {
+                    if(controller.isAvailable(itemsCurr.get(5))==true)
+                        controller.pushedGet(coconutPrice,controller.getItemsCurr().get(5));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -224,7 +257,12 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Mung Beans (PHP "+monggoPrice+" || 12 Calories)", "Mung Beans", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, monggoImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(monggoPrice,controller.getItemsCurr().get(6));
+                {
+                    if(controller.isAvailable(itemsCurr.get(6))==true)
+                        controller.pushedGet(monggoPrice,controller.getItemsCurr().get(6));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -249,7 +287,12 @@ public class RVMFrame extends JFrame{
                 String options[] ={"Get Item", "Go back"};
                 int choice = JOptionPane.showOptionDialog(main, "Purple Yam (PHP "+ubePrice+" || 15 Calories)", "Purple Yam", JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, ubeImg, options,options[1]);
                 if (choice == 0)
-                    controller.pushedGet(ubePrice,controller.getItemsCurr().get(7));
+                {
+                    if(controller.isAvailable(itemsCurr.get(7))==true)
+                        controller.pushedGet(ubePrice,controller.getItemsCurr().get(7));
+                    else
+                        JOptionPane.showMessageDialog(main,"No more stock! Please try another item", "Stock Empty", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

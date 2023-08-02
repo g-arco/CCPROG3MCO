@@ -108,6 +108,14 @@ public class RVMController {
 
     }
 
+    public boolean isAvailable(ItemSlot itemSlot){
+        if (itemSlot.getQuantity() >= 1)
+            return true;
+        else
+            return false;
+
+    }
+
     public void successPay(int totalPaid,MoneyFrame moneyFrame){
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();

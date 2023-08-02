@@ -25,7 +25,7 @@ public class MainController {
         Item riKi = new RiceKrispie(10, 10, "Rice Krispie", false);
         Item banana = new Banana(10, 8, "Banana", true);
         Item coco = new Coconut(15, 17, "Coconut", true);
-        Item mung = new MungBeans(15, 12, "Mung Beans", true);
+        Item mung = new MungBeans(15, 12, "Mung Beans", false);
         Item yam = new Yam(15, 15, "Yam", false);
 
 

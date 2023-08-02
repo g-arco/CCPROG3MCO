@@ -24,7 +24,7 @@ public class SpecialVMFrame extends JFrame {
         ArrayList<ItemSlot> itemsCurr;
 
         JFrame main2;
-        int totalAmt;
+        int totalAmt, totalCalories;
         JLabel AmttoPaylb;
 
         ArrayList<ItemSlot> cart;
@@ -34,6 +34,7 @@ public class SpecialVMFrame extends JFrame {
         public SpecialVMFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, SVMController controller){
 
             totalAmt=0;
+            totalCalories = 0;
             this.controller = controller;
             this.moneyCurr = moneyCurr;
             this.itemsCurr = itemsCurr;
@@ -80,11 +81,15 @@ public class SpecialVMFrame extends JFrame {
             btnCLick.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    controller.purchaseItems(cart,totalAmt);
+                    System.out.println(controller.canbeSold());
+                    if(controller.canbeSold()==true)
+                        controller.purchaseItems(cart,totalAmt);
+                    else
+                        JOptionPane.showMessageDialog(main2, "Invalid items. Make sure it can be sold alone or with[ICE AND EVAPORATED MILK]","Invalid Items",JOptionPane.ERROR_MESSAGE);
                 }
             });
 
-            AmttoPaylb = new JLabel("<html>Total Amount: "+totalAmt+" PHP </html>");
+            AmttoPaylb = new JLabel("<html>Total Amount: "+totalAmt+" PHP <br/> Total Calories: "+totalCalories+" cal </html>\"");
             AmttoPaylb.setBounds(488, 170,74,80);
             AmttoPaylb.setForeground(Color.black);
             AmttoPaylb.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
@@ -122,12 +127,8 @@ public class SpecialVMFrame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String iceAmtStr = getIceAmt.getText();
-
-                    int iceAmt = Integer.parseInt(iceAmtStr);
-                    if (iceAmt > 0) {
-                        itemsCurr.get(0).setToSell(iceAmt);
-                        clickEnter(iceAmt*icePrice);
-                    }
+                    int iceAmt = 0;
+                    clickEnter(iceAmtStr, iceAmt,0);
                 }
             });
 
@@ -157,13 +158,10 @@ public class SpecialVMFrame extends JFrame {
             getEvaMilkAmt.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String iceAmtStr = getEvaMilkAmt.getText();
+                    String evamilkStr = getEvaMilkAmt.getText();
 
-                    int evamilkAmt = Integer.parseInt(iceAmtStr);
-                    if (evamilkAmt > 0) {
-                        itemsCurr.get(1).setToSell(evamilkAmt);
-                        clickEnter(evamilkAmt*evamilkPrice);
-                    }
+                    int evamilkAmt = 0;
+                    clickEnter(evamilkStr, evamilkAmt,1);
                 }
             });
 
@@ -195,11 +193,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String vanillaICeAmtStr = getVanillaICAmt.getText();
 
-                    int vanillaICeAmt = Integer.parseInt(vanillaICeAmtStr);
-                    if (vanillaICeAmt > 0) {
-                        itemsCurr.get(2).setToSell(vanillaICeAmt);
-                        clickEnter(vanillaICeAmt*vanillaICPrice);
-                    }
+                    int vanillaICeAmt = 0;
+                    clickEnter(vanillaICeAmtStr, vanillaICeAmt,2);
                 }
             });
 //=====================================================================================================
@@ -229,11 +224,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String rkAmtStr = getRKAmt.getText();
 
-                    int rkAmt = Integer.parseInt(rkAmtStr);
-                    if (rkAmt > 0) {
-                        itemsCurr.get(3).setToSell(rkAmt);
-                        clickEnter(rkAmt*rkPrice);
-                    }
+                    int rkAmt = 0;
+                    clickEnter(rkAmtStr, rkAmt,3);
                 }
             });
 
@@ -265,11 +257,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String bananaAmtStr = getBananaAmt.getText();
 
-                    int bananaAmt = Integer.parseInt(bananaAmtStr);
-                    if (bananaAmt > 0) {
-                        itemsCurr.get(4).setToSell(bananaAmt);
-                        clickEnter(bananaAmt*bananaPrice);
-                    }
+                    int bananaAmt = 0;
+                    clickEnter(bananaAmtStr, bananaAmt,4);
                 }
             });
 
@@ -302,11 +291,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String coconutAmtStr = getCoconutAmt.getText();
 
-                    int coconutAmt = Integer.parseInt(coconutAmtStr);
-                    if (coconutAmt > 0) {
-                        itemsCurr.get(5).setToSell(coconutAmt);
-                        clickEnter(coconutAmt*coconutPrice);
-                    }
+                    int coconutAmt = 0;
+                    clickEnter(coconutAmtStr, coconutAmt,5);
                 }
             });
 
@@ -338,11 +324,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String monggoAmtStr = getMonggoAmt.getText();
 
-                    int monggoAmt = Integer.parseInt(monggoAmtStr);
-                    if (monggoAmt > 0) {
-                        itemsCurr.get(6).setToSell(monggoAmt);
-                        clickEnter(monggoAmt*monggoPrice);
-                    }
+                    int monggoAmt = 0;
+                    clickEnter(monggoAmtStr, monggoAmt,6);
                 }
             });
 
@@ -374,11 +357,8 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String ubeAmtStr = getUbeAmt.getText();
 
-                    int ubeAmt = Integer.parseInt(ubeAmtStr);
-                    if (ubeAmt > 0) {
-                        itemsCurr.get(7).setToSell(ubeAmt);
-                        clickEnter(ubeAmt*ubePrice);
-                    }
+                    int ubeAmt = 0;
+                    clickEnter(ubeAmtStr, ubeAmt,7);
                 }
             });
 
@@ -459,10 +439,25 @@ public class SpecialVMFrame extends JFrame {
         return main2;
     }
 
-        public void clickEnter(int amtToAdd){
+        public void clickEnter(String str, int stringToInt, int index) {
 
-            totalAmt+=amtToAdd;
-            AmttoPaylb.setText("<html>Total Amount: "+totalAmt+" PHP </html>");
+
+            if(str.matches(".*\\d.*")) //if string has an integer
+            {
+                stringToInt = Integer.parseInt(str);
+                if(controller.isAvailable(index)==true)
+                {
+                    itemsCurr.get(index).setToSell(stringToInt);
+                    totalAmt+=(itemsCurr.get(index).getItem().getPrice()*stringToInt);
+                    totalCalories+=(itemsCurr.get(index).getItem().getCalories()*stringToInt);
+                    AmttoPaylb.setText("<html>Total Amount: "+totalAmt+" PHP <br/> Total Calories: "+totalCalories+" cal </html>");                }
+                else {
+                    JOptionPane.showMessageDialog(main2, "Empty stock. Please try another Item.","Empty Stock", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            else
+                JOptionPane.showMessageDialog(main2, "ERROR! Should be an integer input.","Integer Input Needed", JOptionPane.ERROR_MESSAGE);
 
         }
 }
