@@ -94,14 +94,20 @@ public class SVMController {
     }
 
     public void successPayS(int totalPaid,MoneyFrame moneyFrame){
+        int isDone=0;
+
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
 
         this.totalPaid = totalPaid;
 
+        if (this.totalPaid == this.totalDue){
+            isDone = 1;
+        }
+
         this.itemPrep = new ArrayList<String>();
-        this.itemPrep = this.svm.proceedTransaction(this.itemsCurr);
+        this.itemPrep = this.svm.proceedTransaction(this.itemsCurr, this.withPrep);
 
         for (int i = 0; i < this.itemPrep.size(); i++)
         {
@@ -109,7 +115,7 @@ public class SVMController {
             System.out.println(itemPrep.get(i));
         }
 
-        this.loadingFrame = new LoadingFrame(itemPrep, mainC, 2, 0, 0);
+        this.loadingFrame = new LoadingFrame(itemPrep, mainC, 2, isDone, 0);
         this.itemsCurr = svm.getItemSlotArrayList();
         this.moneyCurr = svm.getMoneySlotArrayList();
     }
@@ -180,11 +186,11 @@ public class SVMController {
 
         if(this.itemsCurr.get(0).getToSell() >= 1)
         {
-            checkIfWith++; this.withPrep++;
+            checkIfWith++;
         }
         if(this.itemsCurr.get(1).getToSell() >= 1)
         {
-            checkIfWith++; this.withPrep++;
+            checkIfWith++;
         }
         if(this.itemsCurr.get(2).getToSell() >= 1)
             checkIfWith+=2;
@@ -198,11 +204,14 @@ public class SVMController {
         System.out.println(checkIfWith);
         if (checkIfWith%2 != 0)
         {
-            if(this.itemsCurr.get(1).getToSell() == 0 && this.itemsCurr.get(0).getToSell() == 1)
+            if(this.itemsCurr.get(1).getToSell() == 0 && this.itemsCurr.get(0).getToSell() >= 1)
                 checkIfWith=0;
-            if(this.itemsCurr.get(1).getToSell() == 1 && this.itemsCurr.get(0).getToSell() == 0)
+            if(this.itemsCurr.get(1).getToSell() >= 1 && this.itemsCurr.get(0).getToSell() == 0)
                 checkIfWith=0;
         }
+
+        if(this.itemsCurr.get(1).getToSell() >= 1 && this.itemsCurr.get(0).getToSell() >= 1)
+            this.withPrep=2;
 
         if(checkIfWith >= 2)
             return true;

@@ -136,15 +136,21 @@ public class RVMController {
     }
 
     public void successPay(int totalPaid,MoneyFrame moneyFrame){
+        int isDone=0;
+
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
 
         this.totalPaid = totalPaid;
         this.itemPrep = new ArrayList<String>();
-        this.itemPrep = this.svm.proceedTransaction(this.itemToBuy);
+        this.itemPrep = this.svm.proceedTransaction(this.itemToBuy,0);
         System.out.println(itemPrep.get(0));
-        this.loadingFrame = new LoadingFrame(itemPrep, mainC, 1, 0, 0);
+
+        if (this.totalPaid == this.itemToBuy.get(0).getItem().getPrice()){
+            isDone = 1;
+        }
+        this.loadingFrame = new LoadingFrame(itemPrep, mainC, 1, isDone, 0);
         this.itemsCurr = svm.getItemSlotArrayList();
         this.moneyCurr = svm.getMoneySlotArrayList();
     }

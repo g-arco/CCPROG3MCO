@@ -125,11 +125,11 @@ public class SVM {
 
         else
         {
-            proceedTransaction(chosenItems);
+            //proceedTransaction(chosenItems);
         }
     }
 
-    public ArrayList<String> proceedTransaction(ArrayList<ItemSlot> chosenItems)
+    public ArrayList<String> proceedTransaction(ArrayList<ItemSlot> chosenItems, int withPrep)
     {
         int sold, tempToSell;
         ArrayList<String> dispenseString = new ArrayList<String>();
@@ -149,7 +149,7 @@ public class SVM {
             }
 
             sold =1;
-            dispenseString.add(sold+" "+chosenItems.get(0).getItem().ItemPreparation()+"");
+            dispenseString.add(sold+" "+chosenItems.get(0).getItem().getName()+" is being dispensed...");
         }
         else
         {
@@ -158,7 +158,10 @@ public class SVM {
                 this.itemSlotArrayList.get(i).setToSell(chosenItems.get(i).getToSell());
                 if (chosenItems.get(i).getToSell() > 0)
                 {
-                    dispenseString.add(chosenItems.get(i).getToSell()+" "+chosenItems.get(i).getItem().ItemPreparation()+"");
+                    if (withPrep==2)
+                        dispenseString.add(chosenItems.get(i).getToSell()+" "+chosenItems.get(i).getItem().ItemPreparation()+"... ");
+                    else
+                        dispenseString.add(chosenItems.get(i).getToSell()+" is being dispensed...");
                     do
                     {
                         this.itemSlotArrayList.get(i).dispenseItem();

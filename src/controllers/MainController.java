@@ -205,9 +205,11 @@ public class MainController {
         {
             for (int j=0; j < this.moneyCurr.size(); j++)
             {
-                if(this.moneyCurr.get(j).getMoney() == moneyHold.get(i))
+                if(this.moneyCurr.get(j).getMoney().getValue() == moneyHold.get(i).getValue())
                     this.moneyCurr.get(j).getReplenished(1);
+                //System.out.println(this.moneyCurr.get(j).getQuantity());
             }
+            //System.out.println(this.channgeList.get(i).getQuantity());
         }
     }
 

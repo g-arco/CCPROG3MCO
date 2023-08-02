@@ -127,7 +127,7 @@ public class LoadingFrame extends JFrame {
 
     }
 
-    public LoadingFrame(ArrayList<String> string, MainController controller, int source, int a, int b)
+    public LoadingFrame(ArrayList<String> string, MainController controller, int source, int isDone, int b)
     {
         init();
 
@@ -149,7 +149,7 @@ public class LoadingFrame extends JFrame {
                 if (index==-1){
                     strOutput.setText("Finished...");
                     timer.stop();
-                    controller.closeWindow(0, source);
+                    controller.closeWindow(isDone, source);
                 }
                 else if (buffer==1)
                 {
