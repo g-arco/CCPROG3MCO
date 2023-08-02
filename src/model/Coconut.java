@@ -1,7 +1,9 @@
 package model;
 
 import model.Item;
-
+/**
+ * This is coconut item
+ */
 public class Coconut extends Item
 {
     public Coconut(int price, int calories, String name, boolean soldAlone)

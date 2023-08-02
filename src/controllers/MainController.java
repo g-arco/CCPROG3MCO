@@ -6,17 +6,33 @@ import view.*;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles all operations for connecting sub-operations in maintenance, svm, and rvm
+ */
 public class MainController {
 
-    ArrayList<ItemSlot> itemCurr;
-    ArrayList<MoneySlot> moneyCurr;
-    ArrayList<MoneySlot> changeList;
-    RVMController rvmController;
-    MaintenanceController maintenanceController;
-    SVMController svmController;
-    MoneyFrame moneyFrame;
-    Record allRecord;
+    /**
+     * itemsCurr = basis of current items
+     * moneyCurr = basis for current money
+     * changeList = basis for change to be dispensed
+     * rvmController = sub-controller for regular vending machine
+     * maintenanceController = sub-controller for maintenance
+     * svmController = sub-controller for special vending machine
+     * moneyFrame = centralized money frame
+     * allRecord = basis for all records
+     */
+    private ArrayList<ItemSlot> itemCurr;
+    private ArrayList<MoneySlot> moneyCurr;
+    private ArrayList<MoneySlot> changeList;
+    private RVMController rvmController;
+    private MaintenanceController maintenanceController;
+    private SVMController svmController;
+    private MoneyFrame moneyFrame;
+    private Record allRecord;
 
+    /**
+     * Constructor method for main controller and where items and money will be initialized
+     */
     public MainController(){
 
         Item ice = new Ice(5, 0, "Ice", false);
@@ -102,6 +118,9 @@ public class MainController {
        rvmController = new RVMController(this.moneyCurr, this.itemCurr, changeList, this, this.allRecord);
     }
 
+    /**
+     * This method will switch the frames from rvm to svm
+     */
     public void pushedSVMBtn(){
         this.itemCurr = rvmController.getItemsCurr();
         this.moneyCurr = rvmController.getMoneyCurr();
@@ -116,6 +135,9 @@ public class MainController {
 
     }
 
+    /**
+     * This method will switch the frames to the Maintenance frames
+     */
     public void pushedMaintenanceBtn(){
         this.itemCurr = rvmController.getItemsCurr();
         this.moneyCurr = rvmController.getMoneyCurr();
@@ -130,6 +152,9 @@ public class MainController {
 
     }
 
+    /**
+     * This method is used when going back to the rvm frame from maintenance frame
+     */
     public void pushedBacktoRVMfromM(){
         this.itemCurr = maintenanceController.getItemsCurr();
         this.moneyCurr = maintenanceController.getMoneyCurr();
@@ -140,6 +165,9 @@ public class MainController {
 
     }
 
+    /**
+     * This method is used when going back to the rvm frame from svm frame
+     */
     public void pushedBacktoRVMfromS(){
         this.itemCurr = svmController.getItemsCurr();
         this.moneyCurr = svmController.getMoneyCurr();
@@ -150,10 +178,21 @@ public class MainController {
 
     }
 
+    /**
+     * This method is used to generate the money frame
+     * @param totalAmt = total amout of money that needs to be paid
+     * @param source = source that calls on money frame; 1 for rvm, 2 for svm
+     */
     public void toMoneyFrame(int totalAmt, int source){
         this.moneyFrame = new MoneyFrame(totalAmt, this, source);
     }
 
+    /**
+     * This method checks if the vending machine has enough change
+     * @param source = source that calls on this method; 1 for rvm, 2 for svm
+     * @param totalPaid = total amount that the user paid
+     * @return boolean = true, if there's enough change; false, if otherwise
+     */
     public boolean checkChange(int source, int totalPaid){
         if(source==1)
         {
@@ -168,30 +207,57 @@ public class MainController {
 
     }
 
+    /**
+     * This automatically redirects user to rvm if no money was inputted and payment was cancelled
+     */
     public void pushedBack(){
         rvmController.pushedBack(this.moneyFrame);
     }
 
+    /**
+     * This dispenses the user's money when payment is cancelled (from rvm)
+     * @param moneyHold = money inputted by the user
+     */
     public void showMoneyHold(ArrayList<Money> moneyHold){
         rvmController.showMoneyHold(moneyHold, this.moneyFrame);
     }
 
+    /**
+     * This automatically redirects user to svm if no money was inputted and payment was cancelled
+     */
     public void pushedBackS(){
         svmController.pushedBackS(this.moneyFrame);
     }
 
+    /**
+     * This dispenses the user's money when payment is cancelled (from svm)
+     * @param moneyHold = money inputted by the user
+     */
     public void showMoneyHoldS(ArrayList<Money> moneyHold){
         svmController.showMoneyHoldS(moneyHold, this.moneyFrame);
     }
 
+    /**
+     * This method is used when a user can successfully purchase an item from rvm
+     * @param totalMoney = total money paid by user
+     */
     public void successPay(int totalMoney){
         rvmController.successPay(totalMoney, this.moneyFrame);
     }
 
+    /**
+     * This method is used when a user can successfully purchase an item from svm
+     * @param totalMoney
+     */
     public void successPayS(int totalMoney){
         svmController.successPayS(totalMoney, this.moneyFrame);
     }
 
+    /**
+     * This method is called when payment is successful and initiates the closing of loading frame/s
+     * @param isDone = indicates if no more processing frames is needed
+     * @param source = indicates if svm or rvm needs this method
+     */
     public void closeWindow(int isDone, int source){
         if(source==1)
             rvmController.closeWindow(isDone);
@@ -200,6 +266,23 @@ public class MainController {
 
     }
 
+    /**
+     * This method is called when payment is cancelled the user inputted money is dispensed and closes the loading frame
+     * @param isDone = indicates if no more processing frames is needed
+     * @param source = indicates if svm or rvm needs this method
+     */
+    public void closeWindowMH(int isDone, int source){
+        if(source==1)
+            rvmController.closeWindowMH(isDone);
+        if(source==2)
+            svmController.closeWindowSMH(isDone);
+
+    }
+
+    /**
+     * When a transaction is successful, it adds the inputted money into the current money array list
+     * @param moneyHold = money inputted by the user
+     */
     public void setMoneyCurr(ArrayList<Money> moneyHold){
         for(int i=0; i < moneyHold.size(); i++)
         {
@@ -213,10 +296,17 @@ public class MainController {
         }
     }
 
+    /**
+     * Getter for this money frame
+     * @return moneyFrame
+     */
     public MoneyFrame getMoneyFrame() {
         return moneyFrame;
     }
 
+    /**
+     * This method is called when exit is pressed and it terminates the program
+     */
     public void terminateProgram(){
         System.exit(0);
     }

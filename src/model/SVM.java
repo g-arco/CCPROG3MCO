@@ -1,3 +1,7 @@
+/**
+ * This is the SVM, the special vending machine where the user can customize their halo-halo.
+ */
+
 package model;
 
 import java.util.ArrayList;
@@ -5,11 +9,23 @@ import java.util.Scanner;
 
 public class SVM {
 
+    /**
+     * itemSlotArrayList = the arraylist of itemslots which contains the items to be sold
+     * moneySlotArrayList = the arraylist of moneySlot that will be loaded and dispensed to the user for change
+     * totalSales = the total number of sales from all the transactions
+     * records = the class that contains the records of sales made and the stock of each itemslot
+     */
     private ArrayList<ItemSlot> itemSlotArrayList;
     private ArrayList<MoneySlot> moneySlotArrayList;
     private int totalSales;
     private Record currRecord;
 
+    /**
+     * This is a constructor method that instantiates SVM
+     * @param itemSlotArrayList = the arraylist containing all the itemslots which contain the items that the SVM will sell
+     * @param moneySlotArrayList = the arraylist containing the money which will be dispensed for change or loaded
+     * @param currRecord = the current records of the program
+     */
     public SVM(ArrayList<ItemSlot> itemSlotArrayList, ArrayList<MoneySlot> moneySlotArrayList, Record currRecord)
     {
         this.itemSlotArrayList = itemSlotArrayList;
@@ -18,7 +34,9 @@ public class SVM {
         this.currRecord = currRecord;
     }
 
-    // YOU MAY WANT TO ADAPT THIS FOR GUI BUT FOR NOW, CLI IS JUST FOR TESTING
+    /**
+     * This method shows the user the available items to sell, asks which ones they want and their quantity, and proceeds with the transactions or cancels it depending on the user.
+     */
     public void sellItems(ArrayList<ItemSlot> itemsToBuy)
     {
         Scanner s = new Scanner(System.in);
@@ -81,7 +99,10 @@ public class SVM {
             cart.clear();
         }
     }
-
+    /**
+     * This method calculates for the total price of the items that the user chose and accepts input from user the money or cancels the transaction
+     * @param chosenItems = the arraylist containing the chosen itemslots which contain the items, their price, and their quantity for computation and dispensing
+     */
     private void transaction(ArrayList<ItemSlot> chosenItems)
     {
         int totalPrice = 0, j, payment = 0, input;
@@ -129,6 +150,12 @@ public class SVM {
         }
     }
 
+    /**
+     * This method calls the dispense method of the ItemSlot when a transaction is successful
+     * @param chosenItems = the list of items that will be dispensed
+     * @param withPrep = determines if the string values that will re turned will be in a special or ordinary dispensing manner
+     * @return String ArrayList = this will be shon in the processing and dispensing frames
+     */
     public ArrayList<String> proceedTransaction(ArrayList<ItemSlot> chosenItems, int withPrep)
     {
         int sold, tempToSell;
@@ -184,36 +211,15 @@ public class SVM {
         return dispenseString;
     }
 
+    /**
+     * This method produces change for each and every denomination by counting how many of each is needed given the paid amount
+     * @param payment = the payment of the user
+     * @param due = the amount to pay
+     * @param changeList = moneyslots ArrayList SOLELY for the change
+     * @return change = change that will be shown in the dispensing frames
+     */
     public ArrayList<MoneySlot> produceChange(int payment, int due, ArrayList<MoneySlot> changeList)
     {
-        /*
-        int oneThousand = 0, fiveHundred = 0, twoHundred = 0, oneHundred = 0, fifty = 0, twenty = 0, ten = 0, five = 0, one = 0;
-
-        oneThousand = change/1000;
-        change %= 1000;
-
-        fiveHundred = change/500;
-        change %= 500;
-
-        twoHundred = change/200;
-        change %= 200;
-
-        oneHundred = change/100;
-        change %= 100;
-
-        fifty = change/50;
-        change %= 50;
-
-        twenty = change/20;
-        change %= 20;
-
-        ten = change/10;
-        change %= 10;
-
-        five = change/5;
-        change %= 5;
-
-        one = change;*/
 
         int totalChange;
         int checkChange, tempQuan;
@@ -278,107 +284,28 @@ public class SVM {
         System.out.println("5 "+changeList.get(7).getQuantity());
         System.out.println("1 "+changeList.get(8).getQuantity());
 
-        //dispenseChange(oneThousand, fiveHundred, twoHundred, oneHundred, fifty, twenty, ten, five, one);
 
         this.totalSales = due;
 
         return changeList;
     }
 
-    public void dispenseChange(int oneThousand, int fiveHundred, int twoHundred, int oneHundred, int fifty, int twenty, int ten, int five, int one)
-    {
-        int amounts[] = {one, five, ten, twenty, fifty, oneHundred, twoHundred, fiveHundred, oneThousand};
-        int loop = 0;
 
-        for(int i = 0; i < 9; i++)
-        {
-            loop = 0;
-
-            if(amounts[i] > 0)
-            {
-                do
-                {
-                    moneySlotArrayList.get(i).dispense();
-                    loop++;
-                } while (loop < amounts[i]);
-            }
-        }
-
-        for(int i = 0; i < 9; i++)
-            System.out.println(moneySlotArrayList.get(i).getQuantity());
-    }
-
+    /**
+     * Getters fot this current ItemSlot Array list
+     * @return itemSlotArrayList
+     */
     public ArrayList<ItemSlot> getItemSlotArrayList() {
         return itemSlotArrayList;
     }
 
+    /**
+     * Getters fot this current MoneySlot Array list
+     * @return MoneySlotArrayList
+     */
     public ArrayList<MoneySlot> getMoneySlotArrayList() {
         return moneySlotArrayList;
     }
-    /*
-        int change = payment - due; //total change
 
-        for (int j = 0; j < this.change.length; j++)
-        {
-            this.change[j].setQuantity(extraM/this.change[j].getValue()); //divides to see if it is divisble
-            if(this.change[j].getQuantity()==0)
-                extraM = extraM%this.change[j].getValue(); //not divisible so extraM remains the same
-            //System.out.print(this.change[j].getQuantity()+" "+this.money[j].getQuantity());
-            //System.out.println(this.change[j].getQuantity() > this.money[j].getQuantity());
-
-            if(this.change[j].getQuantity() > this.money[j].getQuantity())
-            {
-                if (j == (this.change.length-1))
-                {
-                    System.out.println("Vending Machine has insufficient change.");
-                    System.out.println("Enter any number to continue: ");
-                    placeholder = 0;
-                    noException = 0;
-
-                    while(noException == 0)
-                    {
-                        try
-                        {
-                            placeholder = s.nextInt();
-                            noException = 1;
-                        }
-                        catch (Exception e)
-                        {
-                            s.nextLine();
-                            System.out.println("ERROR: Please input an Integer.");
-                        }
-
-                    }
-
-                    return false;
-                }
-                else
-                {
-                    this.change[j].setQuantity(this.money[j].getQuantity()); //maximizes the money rvm has
-                    extraM = extraM-(this.change[j].getQuantity()*this.change[j].getValue()); //subtract the money it was able to retrive
-                }
-
-
-            }
-            else if (this.change[j].getQuantity() > 0)
-            {
-                extraM = extraM%this.change[j].getValue(); //it is divible by some number so we are left with a few pesos left which we need to dispense
-                this.money[j].setQuantity(this.money[j].getQuantity()-this.change[j].getQuantity() ); //subtracts the money rvm dispenses
-            }
-
-        }
-
-                        for (int j = this.money.length-1; j >= 0; j--)
-                        {
-                            System.out.println(this.money[j].getValue()+"  "+this.money[j].getQuantity());
-
-                        }
-
-        System.out.println("Dispensing Change: ");
-        for (int j = this.change.length-1; j >= 0; j--)
-        {
-            if (this.change[j].getQuantity() != 0)
-                System.out.println("    +"+this.change[j].getQuantity()+" of "+this.change[j].getValue()+" pesos");
-        }*/
 
 }

@@ -8,10 +8,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * This is the frame tha displays the summary of records
+ */
 public class SummaryFrame extends JFrame{
 
     MaintenanceController controller;
     MaintenanceFrame sourceFrame;
+
+    /**
+     * Constructor for summary frame
+     * @param sourceFrame = maintenance frame
+     * @param controller = maintenance controller
+     * @param summary = summary string
+     */
     public SummaryFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<String> summary){
 
         this.controller = controller;
@@ -70,6 +80,10 @@ public class SummaryFrame extends JFrame{
 
     }
 
+    /**
+     * Getter for this frame
+     * @return this
+     */
     public JFrame getFrame(){
         return this;
     }

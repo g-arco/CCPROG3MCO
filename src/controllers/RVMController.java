@@ -12,22 +12,47 @@ import view.RVMFrame;
 import javax.swing.*;
 import java.util.ArrayList;
 
+/**
+ * This class handles all rvm operations
+ */
 public class RVMController {
 
-    RVMFrame rvmFrame;
-    MoneyFrame moneyFrame;
-    LoadingFrame loadingFrame;
-    ArrayList<MoneySlot> moneyCurr;
-    ArrayList<MoneySlot> channgeList;
-    ArrayList<ItemSlot> itemsCurr;
-    MainController mainC;
-    SVM svm;
+    /**
+     * rvmFrame = main rvm frame
+     * moneyFrame = money frame to be showed after rvm frame
+     * loadingFrame = loading frame for all things that will be dispensed
+     * moneyCurr = current money in the system
+     * channgeList = moneyslot for change
+     * itemsCurr = current items in the system
+     * mainC = main controller
+     * svm = vending machine model
+     * itemToBuy = the item of choice from user
+     * itemPrep = string that will be used when dispensing item process will be shown to user
+     * totalPaid = total money paid by the user
+     *  allRecord = basis of system records
+     */
+    private RVMFrame rvmFrame;
+    private MoneyFrame moneyFrame;
+    private LoadingFrame loadingFrame;
+    private ArrayList<MoneySlot> moneyCurr;
+    private ArrayList<MoneySlot> channgeList;
+    private ArrayList<ItemSlot> itemsCurr;
+    private MainController mainC;
+    private SVM svm;
 
-    ArrayList<ItemSlot> itemToBuy;
-    ArrayList<String> itemPrep;
-    int totalPaid;
-    Record allRecord;
+    private ArrayList<ItemSlot> itemToBuy;
+    private ArrayList<String> itemPrep;
+    private int totalPaid;
+    private Record allRecord;
 
+    /**
+     * Constructor method for RVM Controller
+     * @param moneyCurr =  current money in the system
+     * @param itemsCurr = current items in the system
+     * @param changeList = moneyslot arraylist for change
+     * @param mainC = main controller
+     * @param allRecord = records from main controller
+     */
     public RVMController(ArrayList<MoneySlot> moneyCurr, ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> changeList,MainController mainC, Record allRecord){
 
         this.mainC = mainC;
@@ -40,6 +65,9 @@ public class RVMController {
         initializeChangeList();
     }
 
+    /**
+     * This method initializes change moneyslot array list
+     */
     public void initializeChangeList(){
         for (int i =0; i <this.channgeList.size(); i++)
         {
@@ -50,22 +78,36 @@ public class RVMController {
 
     }
 
+    /**
+     * This method calls on a new rvm frame when it returns from other frames
+     */
     public void backFromOthers(){
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
     }
 
+    /**
+     * This method redirects user to Maintenance frame
+     */
     public void pushedMaintenanceBtn(){
         this.rvmFrame.getFrame().dispose();
         this.rvmFrame.dispose();
         mainC.pushedMaintenanceBtn();
     }
 
+    /**
+     * This method is used to switch from rvm frame to svm frame
+     */
     public void pushedSwitchBtn(){
         this.rvmFrame.getFrame().dispose();
         this.rvmFrame.dispose();
         mainC.pushedSVMBtn();
     }
 
+    /**
+     * This method is used when a user chooses their desired item
+     * @param totalAmt = total amount that needs to be paid
+     * @param itemSlot = the itemslot of desired item
+     */
     public void pushedGet(int totalAmt, ItemSlot itemSlot){
         itemToBuy = new ArrayList<ItemSlot>();
         this.rvmFrame.getFrame().dispose();
@@ -76,6 +118,10 @@ public class RVMController {
 
     }
 
+    /**
+     * This method redirects user back to rvm when payment is cancelled and no money was inputted
+     * @param moneyFrame = the money frame that was displayed
+     */
     public void pushedBack(MoneyFrame moneyFrame){
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
@@ -83,19 +129,31 @@ public class RVMController {
         this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
     }
 
+    /**
+     * This method will terminate program after exit button was pushed
+     */
     public void pushedExit(){
         this.rvmFrame.getFrame().dispose();
         this.rvmFrame.dispose();
         mainC.terminateProgram();
     }
-
-
+    /**
+     * This dispenses the user's money when payment is cancelled
+     * @param moneyHold = money inputted by the user
+     * @param moneyFrame = money frame in display
+     */
     public void showMoneyHold(ArrayList<Money> moneyHold,MoneyFrame moneyFrame){
         this.moneyFrame = moneyFrame;
         this.moneyFrame.getFrame().dispose();
         this.moneyFrame.dispose();
         this.loadingFrame = new LoadingFrame(moneyHold, mainC, 1);
     }
+
+    /**
+     * This method checks if there is sufficient change
+     * @param totalPaid = total money paid by the user
+     * @return boolean = true, if there is available change; false, if otherwise
+     */
     public boolean checkChange(int totalPaid) {
         this.totalPaid = totalPaid;
         if (this.svm.produceChange(this.totalPaid, this.itemToBuy.get(0).getItem().getPrice(), this.channgeList).size() == 9) {
@@ -109,6 +167,10 @@ public class RVMController {
     }
 
 
+    /**
+     * This method is called when payment is successful and initiates the closing of loading frame/s
+     * @param isDone = 0 value indicates if there is more processing frames; 1, if no more processing after
+     */
     public void closeWindow(int isDone){
         if(isDone ==0)
         {
@@ -130,6 +192,28 @@ public class RVMController {
 
     }
 
+    /**
+     * This method is called when payment is cancelled the user inputted money is dispensed and closes the loading frame
+     * @param isDone = indicates if there is more processing frames after
+     */
+    public void closeWindowMH(int isDone){
+        if(isDone ==1)
+        {
+            this.loadingFrame.getFrame().dispose();
+            this.loadingFrame.dispose();
+
+            this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
+            JOptionPane.showMessageDialog(null, "Money Dispense Completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            initializeChangeList();
+        }
+
+    }
+
+    /**
+     * This method determines if the user's desired item still has stock
+     * @param itemSlot = the item slot of desired item
+     * @return bool = true, if item is available for purchase; false, if otherwise
+     */
     public boolean isAvailable(ItemSlot itemSlot){
         if (itemSlot.getQuantity() >= 1)
             return true;
@@ -138,6 +222,11 @@ public class RVMController {
 
     }
 
+    /**
+     * This method is called when the item can be successfully dispensed
+     * @param totalPaid = total amount of money paid
+     * @param moneyFrame = the moneyFrame that is displayed
+     */
     public void successPay(int totalPaid,MoneyFrame moneyFrame){
         int isDone=0;
 
@@ -158,18 +247,34 @@ public class RVMController {
         this.moneyCurr = svm.getMoneySlotArrayList();
     }
 
+    /**
+     * Getter for current MoneySlot arraylist
+     * @return moneyCurr
+     */
     public ArrayList<MoneySlot> getMoneyCurr() {
         return moneyCurr;
     }
 
+    /**
+     * Getter for current ItemSlot arraylist
+     * @return itemsCurr
+     */
     public ArrayList<ItemSlot> getItemsCurr() {
         return itemsCurr;
     }
 
+    /**
+     * Setter for current MoneySlot arraylist
+     * @param  moneyCurr
+     */
     public void setMoneyCurr(ArrayList<MoneySlot> moneyCurr) {
         this.moneyCurr = moneyCurr;
     }
 
+    /**
+     * Getter for current ItemSlot arraylist
+     * @param itemsCurr
+     */
     public void setItemsCurr(ArrayList<ItemSlot> itemsCurr) {
         this.itemsCurr = itemsCurr;
     }

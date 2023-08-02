@@ -1,7 +1,9 @@
 package model;
 
 import model.Item;
-
+/**
+ * This is evaporated milk item
+ */
 public class EvapMilk extends Item
 {
     public EvapMilk(int price, int calories, String name, boolean soldAlone)

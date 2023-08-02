@@ -11,6 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * The main menu for RVM
+ */
 public class RVMFrame extends JFrame{
 
     JLabel imgBg;
@@ -21,7 +24,12 @@ public class RVMFrame extends JFrame{
     ArrayList<ItemSlot> itemsCurr;
     JFrame main;
 
-
+    /**
+     * Constructor for rvm frame
+     * @param itemsCurr = current items
+     * @param moneyCurr = current money
+     * @param controller = rvm controller
+     */
 
     public RVMFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, RVMController controller){
 
@@ -389,6 +397,10 @@ public class RVMFrame extends JFrame{
 
     }
 
+    /**
+     * Getter for RVM main frame
+     * @return main
+     */
     public JFrame getFrame() {
         return main;
     }

@@ -14,6 +14,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * This is the main menu frame for the SVM
+ */
 public class SpecialVMFrame extends JFrame {
 
         JLabel imgBg;
@@ -28,7 +31,7 @@ public class SpecialVMFrame extends JFrame {
         JLabel AmttoPaylb;
 
 
-
+        int[] desired = {0,0,0,0,0,0,0,0};
 
         public SpecialVMFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, SVMController controller){
 
@@ -43,7 +46,6 @@ public class SpecialVMFrame extends JFrame {
                 this.itemsCurr.get(i).setToSell(0);
                 System.out.println(this.itemsCurr.get(i).getToSell());
             }
-
 
             //https://youtu.be/QXVyg7lY9r8
             main2 = new JFrame("Special Main Menu");
@@ -122,7 +124,7 @@ public class SpecialVMFrame extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String iceAmtStr = getIceAmt.getText();
                     int iceAmt = 0;
-                    clickEnter(iceAmtStr, iceAmt,0);
+                    clickEnter(iceAmtStr, iceAmt,0, 0);
                 }
             });
 
@@ -155,7 +157,7 @@ public class SpecialVMFrame extends JFrame {
                     String evamilkStr = getEvaMilkAmt.getText();
 
                     int evamilkAmt = 0;
-                    clickEnter(evamilkStr, evamilkAmt,1);
+                    clickEnter(evamilkStr, evamilkAmt,1, 1);
                 }
             });
 
@@ -188,7 +190,7 @@ public class SpecialVMFrame extends JFrame {
                     String vanillaICeAmtStr = getVanillaICAmt.getText();
 
                     int vanillaICeAmt = 0;
-                    clickEnter(vanillaICeAmtStr, vanillaICeAmt,2);
+                    clickEnter(vanillaICeAmtStr, vanillaICeAmt,2, 2);
                 }
             });
 //=====================================================================================================
@@ -219,7 +221,7 @@ public class SpecialVMFrame extends JFrame {
                     String rkAmtStr = getRKAmt.getText();
 
                     int rkAmt = 0;
-                    clickEnter(rkAmtStr, rkAmt,3);
+                    clickEnter(rkAmtStr, rkAmt,3, 3);
                 }
             });
 
@@ -252,7 +254,7 @@ public class SpecialVMFrame extends JFrame {
                     String bananaAmtStr = getBananaAmt.getText();
 
                     int bananaAmt = 0;
-                    clickEnter(bananaAmtStr, bananaAmt,4);
+                    clickEnter(bananaAmtStr, bananaAmt,4, 4);
                 }
             });
 
@@ -286,7 +288,7 @@ public class SpecialVMFrame extends JFrame {
                     String coconutAmtStr = getCoconutAmt.getText();
 
                     int coconutAmt = 0;
-                    clickEnter(coconutAmtStr, coconutAmt,5);
+                    clickEnter(coconutAmtStr, coconutAmt,5, 5);
                 }
             });
 
@@ -319,7 +321,7 @@ public class SpecialVMFrame extends JFrame {
                     String monggoAmtStr = getMonggoAmt.getText();
 
                     int monggoAmt = 0;
-                    clickEnter(monggoAmtStr, monggoAmt,6);
+                    clickEnter(monggoAmtStr, monggoAmt,6, 6);
                 }
             });
 
@@ -352,7 +354,7 @@ public class SpecialVMFrame extends JFrame {
                     String ubeAmtStr = getUbeAmt.getText();
 
                     int ubeAmt = 0;
-                    clickEnter(ubeAmtStr, ubeAmt,7);
+                    clickEnter(ubeAmtStr, ubeAmt,7, 7);
                 }
             });
 
@@ -441,23 +443,37 @@ public class SpecialVMFrame extends JFrame {
 
         }
 
-        public JFrame getFrame() {
+    /**
+     * Getter for main frame
+     * @return main2
+     */
+    public JFrame getFrame() {
         return main2;
     }
 
-        public void clickEnter(String str, int stringToInt, int index) {
+    /**
+     * This method evaluates if the string input is valid or not and if items are available for purchase or not
+     * @param str = string input
+     * @param stringToInt = string converted to integer variable
+     * @param index = index of the desired item
+     * @param dIndex = index indicating current desired amount for certain item
+     */
+        public void clickEnter(String str, int stringToInt, int index, int dIndex) {
 
 
             if(str.matches(".*\\d.*")) //if string has an integer
             {
                 stringToInt = Integer.parseInt(str);
-                if(controller.isAvailable(index)==true)
+                desired[dIndex] = desired[dIndex] +stringToInt;
+                System.out.println(desired[dIndex]+" desired");
+                if(controller.isAvailable(index, desired[dIndex])==true)
                 {
                     itemsCurr.get(index).setToSell(stringToInt);
                     totalAmt+=(itemsCurr.get(index).getItem().getPrice()*stringToInt);
                     totalCalories+=(itemsCurr.get(index).getItem().getCalories()*stringToInt);
                     AmttoPaylb.setText("<html>Total Amount: "+totalAmt+" PHP <br/> Total Calories: "+totalCalories+" cal </html>");                }
                 else {
+                    desired[dIndex]=desired[dIndex]-stringToInt;
                     JOptionPane.showMessageDialog(main2, "Empty stock. Please try another Item.","Empty Stock", JOptionPane.ERROR_MESSAGE);
                 }
             }

@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * This is for setting a new price frame
+ */
 public class SetPriceFrame extends JFrame{
 
         JLabel imgBg;
@@ -17,8 +20,13 @@ public class SetPriceFrame extends JFrame{
         JLabel icePricelb, evamilkPricelb, vanillaICPricelb, rkPricelb, bananaPricelb, coconutPricelb, monggoPricelb, ubePricelb;
         JFrame setPrice;
 
+    /**
+     * Constructor for setprice frame
+     * @param sourceFrame = maintenance frame
+     * @param controller = maintenance controller
+     */
 
-        public SetPriceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
+    public SetPriceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller){
 
             this.controller = controller;
             this.sourceFrame = sourceFrame;
@@ -269,15 +277,29 @@ public class SetPriceFrame extends JFrame{
 
         }
 
+    /**
+     * This method sets this frame to visible or not
+     * @param bool
+     */
     public void setFrame(boolean bool)
     {
         this.setVisible(bool);
     }
 
+    /**
+     * Gets this frame
+     * @return this
+     */
     public JFrame getFrame(){
         return this;
     }
 
+    /**
+     * This triggers the change in price in view and passes on important parameters
+     * @param str = string input
+     * @param price = current price (to be changed)
+     * @param index = index of desired item to change
+     */
     public void clickChange(String str, int price, int index){
 
         if(str!=null)
@@ -295,34 +317,66 @@ public class SetPriceFrame extends JFrame{
 
     }
 
+    /**
+     * Getter for ice price label
+     * @return icePricelb
+     */
     public JLabel getIcePricelb() {
         return icePricelb;
     }
 
+    /**
+     * Getter for evaporation milk price label
+     * @return evamilkPricelb
+     */
     public JLabel getEvamilkPricelb() {
         return evamilkPricelb;
     }
 
+    /**
+     * Getter for vanilla ice cream price label
+     * @return vanillaICPricelb
+     */
     public JLabel getVanillaICPricelb() {
         return vanillaICPricelb;
     }
 
+    /**
+     * Getter for rice krispie price label
+     * @return rkPricelb
+     */
     public JLabel getRkPricelb() {
         return rkPricelb;
     }
 
+    /**
+     * Getter for banana price label
+     * @return bananaPricelb
+     */
     public JLabel getBananaPricelb() {
         return bananaPricelb;
     }
 
+    /**
+     * Getter for coconut price label
+     * @return coconutPricelb
+     */
     public JLabel getCoconutPricelb() {
         return coconutPricelb;
     }
 
+    /**
+     * Getter for monggo price label
+     * @return monggoPricelb
+     */
     public JLabel getMonggoPricelb() {
         return monggoPricelb;
     }
 
+    /**
+     * Getter for ube price label
+     * @return ubePricelb
+     */
     public JLabel getUbePricelb() {
         return ubePricelb;
     }

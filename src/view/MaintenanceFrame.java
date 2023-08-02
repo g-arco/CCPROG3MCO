@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * This is the main menu frame for maintenance
+ */
 public class MaintenanceFrame extends JFrame{
 
     JLabel imgBg;
@@ -20,7 +23,12 @@ public class MaintenanceFrame extends JFrame{
     JLabel availIcelb, availEvaMilklb, availVanillaIClb, availRKlb, availBananalb, availCoconutlb, availMonggolb, availUbelb;
 
 
-
+    /**
+     * Constructor for maintenance
+     * @param itemsCurr = current items
+     * @param moneyCurr = current money
+     * @param controller = maintenance controller
+     */
     public MaintenanceFrame(ArrayList<ItemSlot> itemsCurr, ArrayList<MoneySlot> moneyCurr, MaintenanceController controller){
         int iceAmt;
         this.controller = controller;
@@ -366,11 +374,19 @@ public class MaintenanceFrame extends JFrame{
 
     }
 
+    /**
+     * Method to set frame to visible or not
+     * @param bool
+     */
     public void setFrame(boolean bool)
     {
         maintenance.setVisible(bool);
     }
 
+    /**
+     * Getter for this main frame
+     * @return maintenance
+     */
     public JFrame getFrame() {
         return maintenance;
     }

@@ -10,6 +10,9 @@ import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+/**
+ * This is the restock items frame
+ */
 public class RestockItemFrame extends JFrame{
 
         JLabel imgBg;
@@ -21,6 +24,12 @@ public class RestockItemFrame extends JFrame{
         JFrame restockItem;
         int iceStock, evamilkStock,vanillaICStock,rkStock,bananaStock, coconutStock,monggoStock,ubeStock;
 
+    /**
+     * Constructor for main frame
+     * @param sourceFrame = source frame (maintenance)
+     * @param controller = maintenance controller
+     * @param itemsCurr = current items
+     */
         public RestockItemFrame(MaintenanceFrame sourceFrame, MaintenanceController controller, ArrayList<ItemSlot> itemsCurr){
             int iceAmt;
             this.controller = controller;
@@ -385,6 +394,12 @@ public class RestockItemFrame extends JFrame{
 
         }
 
+    /**
+     * This method checks if the user input is valid or not and if the desired restock will not make the vanding machine overflow
+     * @param str = inputted string
+     * @param stringToInt = integer from converted string
+     * @param index = index of desired item
+     */
         public void mouseEntered(String str, int stringToInt, int index){
             int tryAgain=0;
 
@@ -406,14 +421,26 @@ public class RestockItemFrame extends JFrame{
 
         }
 
-        public void setFrame(boolean bool)
+    /**
+     * Sets frame to visible or not
+     * @param bool
+     */
+    public void setFrame(boolean bool)
     {
         this.setVisible(bool);
     }
 
+    /**
+     * Getter for this frame
+     * @return this
+     */
         public JFrame getFrame(){
             return this;}
 
+    /**
+     * Getter for item slot
+     * @return itemsCurr
+     */
         public ArrayList<ItemSlot> getItemsCurr() {
             return itemsCurr;
         }

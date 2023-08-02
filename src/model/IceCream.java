@@ -1,7 +1,9 @@
 package model;
 
 import model.Item;
-
+/**
+ * This is ice cream item
+ */
 public class IceCream extends Item
 {
     private String flavor;

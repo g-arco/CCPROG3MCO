@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * This is the frame to ask user for money input
+ */
 public class MoneyFrame extends JFrame{
 
     JLabel AmttoPaylb;
@@ -26,6 +29,12 @@ public class MoneyFrame extends JFrame{
     JFrame moneyFrame;
     int source;
 
+    /**
+     * Constructor class for money frame
+     * @param totalAmt = total amount from the rvm/svm
+     * @param controller = operations controller
+     * @param source = source frame indicator
+     */
     public MoneyFrame(int totalAmt, MainController controller, int source){
 
         this.controller = controller;
@@ -295,6 +304,10 @@ public class MoneyFrame extends JFrame{
 
     }
 
+    /**
+     * This method triggers change in user paid amount text field and passes on values from the user input
+     * @param amtToAdd = how much to add
+     */
     public void mouseDetected(int amtToAdd){
         moneyHold.add(new Money(amtToAdd));
         totalPaidMoney += amtToAdd;
@@ -310,10 +323,16 @@ public class MoneyFrame extends JFrame{
                 else
                     controller.successPayS(totalPaidMoney);
             }
+            else
+                JOptionPane.showMessageDialog(moneyFrame, "Insufficient Change. Please cancel payment and try again.", "Insufficient Change", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
+    /**
+     * Getter for moneyFrame
+     * @return moneyFrame
+     */
     public JFrame getFrame() {
         return moneyFrame;
     }

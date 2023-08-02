@@ -14,6 +14,9 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * This frame outputs (in String) all of the processes
+ */
 public class LoadingFrame extends JFrame {
 
         JFrame load;
@@ -23,6 +26,12 @@ public class LoadingFrame extends JFrame {
         int buffer;
         MainController controller;
 
+    /**
+     * Constructor 1 for the cancelled payment money ddispensing
+     * @param moneyHold = money inputted by user
+     * @param controller = main controller
+     * @param source = source frame (rvm/svm)
+     */
         public LoadingFrame(ArrayList<Money> moneyHold, MainController controller, int source)
         {
             init();
@@ -45,7 +54,7 @@ public class LoadingFrame extends JFrame {
                     if (index==-1){
                         strOutput.setText("Finished...");
                         timer.stop();
-                        controller.closeWindow(1, source);
+                        controller.closeWindowMH(1, source);
                     }
                     else if (buffer==1)
                     {
@@ -73,6 +82,13 @@ public class LoadingFrame extends JFrame {
 
         }
 
+    /**
+     * Constructor 2 for change money
+     * @param money = change to dispense
+     * @param controller = main controller
+     * @param source = source (rvm/svm)
+     * @param a = differentiator from other constructor
+     */
     public LoadingFrame(ArrayList<MoneySlot> money, MainController controller, int source, int a)
     {
         init();
@@ -127,6 +143,14 @@ public class LoadingFrame extends JFrame {
 
     }
 
+    /**
+     * Constructor 3 for item dispensing
+     * @param string = contains string with item dispensing description
+     * @param controller = main controller
+     * @param source = source frame (rvm/svm)
+     * @param isDone = indicates if processing is done or not
+     * @param b = constructor differentiator
+     */
     public LoadingFrame(ArrayList<String> string, MainController controller, int source, int isDone, int b)
     {
         init();
@@ -176,6 +200,9 @@ public class LoadingFrame extends JFrame {
 
     }
 
+    /**
+     * Method for the main contents of frame
+     */
         public void init()
         {
             load = new JFrame("Processing...");
@@ -193,6 +220,10 @@ public class LoadingFrame extends JFrame {
             load.setVisible(true);
         }
 
+    /**
+     * Gets this main frame
+     * @return load
+     */
     public JFrame getFrame() {
         return load;
     }

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * The RecordS class serves as a record of transactions of the SVM class
+ * The Record class serves as a record of transactions of the SVM class
  */
 
 import java.util.ArrayList;
@@ -38,6 +38,11 @@ public class Record
         }
     }
 
+    /**
+     * This method initializes the record after a restock
+     * @param newInventory = the inventory that will be used as a base for the previous stock record
+     */
+
     public void initializeRecord(ArrayList<ItemSlot> newInventory)
     {
         this.totalSale = 0;
@@ -62,6 +67,7 @@ public class Record
      * This is the method that updates the inventory and salesMade once a transaction in SVM has been performed
      * @param inventory = the arraylist of ItemSlotS which will update Record's inventory record
      * @param salesMade = the amount made after a transaction to be added to the totalSale attribute
+     * @param item = the item that will be added to the list of all items
      */
     public void update(ArrayList<ItemSlot> inventory, int salesMade, Item item)
     {

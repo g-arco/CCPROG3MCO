@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * This is the frame for money restocking
+ */
 public class MoneyMaintenanceFrame extends JFrame{
 
     MaintenanceController controller;
@@ -16,6 +19,11 @@ public class MoneyMaintenanceFrame extends JFrame{
     JFrame moneyMFrame;
 
 
+    /**
+     * Constructor method for this frame
+     * @param sourceFrame = maintenance frame
+     * @param controller = maintenance controller
+     */
     public MoneyMaintenanceFrame(MaintenanceFrame sourceFrame, MaintenanceController controller) {
 
         this.controller = controller;
@@ -336,6 +344,13 @@ public class MoneyMaintenanceFrame extends JFrame{
         moneyMFrame.setVisible(true);
     }
 
+    /**
+     * This method checks if string input is an integer valid or not and calls on controller to add the stock
+     * @param str = string input
+     * @param strToInt = int from converted string
+     * @param index = index of desired money
+     * @param name = name of desired money of choosing
+     */
     public void clickEnter(String str, int strToInt, int index, String name){
         if(str.matches(".*\\d.*")) //if string has an integer
         {
@@ -347,11 +362,19 @@ public class MoneyMaintenanceFrame extends JFrame{
             JOptionPane.showMessageDialog(moneyMFrame, "ERROR! Should be an integer input.","Integer Input Needed", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Sets frame to visible or not
+     * @param bool
+     */
     public void setFrame(boolean bool)
     {
         this.setVisible(bool);
     }
 
+    /**
+     * Getter for this frame
+     * @return moneyMFrame
+     */
     public JFrame getFrame(){
         return this.moneyMFrame;
     }

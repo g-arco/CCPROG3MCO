@@ -1,17 +1,30 @@
 package model;
 
 /**
- * This is the model.Item class and it provides the value, calories, and price of the given item to be stored in ItemSlots and sold by RVM.
+ * This is the Item class and it provides the value, calories, and price of the given item to be stored in ItemSlots and sold by RVM.
  *
  *
  */
 public class Item
 {
+    /**
+     * price = the item price
+     * calories = the item calories
+     * name = item name
+     * soldAlone = if it can be sold alone (true) or it should be bought with ice and evaporated milk in svm (false)
+     */
     protected int price;
     protected int calories;
     protected String name;
     protected boolean soldAlone;
 
+    /**
+     * Constructor method for Item
+     * @param price = the item price
+     * @param calories = the item calories
+     * @param name = item name
+     * @param soldAlone = if it can be sold alone (true) or it should be bought with ice and evaporated milk in svm (false)
+     */
     public Item (int price, int calories, String name, boolean soldAlone)
     {
         this.price = price;
@@ -20,6 +33,10 @@ public class Item
         this.soldAlone = soldAlone;
     }
 
+    /**
+     * The method called if we want to out the item preparation string
+     * @return String
+     */
     public String ItemPreparation()
     {
         System.out.println(name+" is being prepared...");
@@ -65,6 +82,10 @@ public class Item
         return this.name;
     }
 
+    /**
+     * Getter for if sold alone or not
+     * @return soldAlone
+     */
     public boolean getSoldAlone()
     {
         return this.soldAlone;

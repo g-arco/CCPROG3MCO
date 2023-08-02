@@ -2,6 +2,9 @@ package model;
 
 import model.Item;
 
+/**
+ * This is banana item
+ */
 public class Banana extends Item
 {
     public Banana(int price, int calories, String name, boolean soldAlone)
