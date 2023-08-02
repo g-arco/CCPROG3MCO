@@ -7,6 +7,7 @@ import model.Record;
 import model.SVM;
 import view.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class SVMController {
@@ -164,6 +165,7 @@ public class SVMController {
             this.loadingFrame.getFrame().dispose();
             this.loadingFrame.dispose();
             this.specialVMFrame = new SpecialVMFrame(this.itemsCurr, this.moneyCurr, this);
+            JOptionPane.showMessageDialog(null, "Order Completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
             initializeChangeList();
         }
 

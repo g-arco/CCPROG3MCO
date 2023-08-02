@@ -9,6 +9,7 @@ import view.LoadingFrame;
 import view.MoneyFrame;
 import view.RVMFrame;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class RVMController {
@@ -121,7 +122,9 @@ public class RVMController {
         else {
             this.loadingFrame.getFrame().dispose();
             this.loadingFrame.dispose();
+
             this.rvmFrame = new RVMFrame(this.itemsCurr, this.moneyCurr, this);
+            JOptionPane.showMessageDialog(null, "Order Completed!", "Success", JOptionPane.INFORMATION_MESSAGE);
             initializeChangeList();
         }
 
